@@ -5,9 +5,15 @@ import 'package:flutter_try/pages/SignUpScreen.dart';
 import 'package:flutter_try/pages/Wedding_cars.dart';
 import 'package:flutter_try/pages/Wedding_halls.dart';
 import 'package:flutter_try/pages/welcome_page.dart';
+import 'package:flutter_try/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(
+      create: (context) => UserProvider(),
+    ),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -33,7 +39,7 @@ class MyApp extends StatelessWidget {
       home: WelcomePage(),
       routes: {
         'login':(context) => LoginScreen(),
-         'signup':(context) => SignUpScreen(),
+         'signup':(context) => AuthScreen(),
           'HomePage':(context) => HomeScreen(),
           'halls':(context) => Wedding_halls(),
           'cars':(context) => Wedding_cars(),

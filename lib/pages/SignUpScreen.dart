@@ -1,354 +1,199 @@
+import 'package:flutter_try/common/widgets/custom_button.dart';
+import 'package:flutter_try/common/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_try/constants/global_variables.dart';
+import 'package:flutter_try/services/auth_service.dart';
 
 
-class SignUpScreen extends StatefulWidget {
-  @override
-  _SignUpScreenState createState() => _SignUpScreenState();
+enum Auth {
+  signin,
+  signup,
 }
-  class _SignUpScreenState extends State<SignUpScreen> {
 
-    Widget buildEmail() {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            'Email',
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold
-            ),
-          ),
-          SizedBox(height: 10),
-          Container(
-            alignment: Alignment.centerLeft,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 6,
-                      offset: Offset(0, 2)
-                  )
-                ]
-            ),
-            height: 50,
-            child: TextField(
-              keyboardType: TextInputType.emailAddress,
-              style: TextStyle(
-                  color: Colors.black87
-              ),
+class AuthScreen extends StatefulWidget {
+  static const String routeName = '/auth-screen';
+  const AuthScreen({Key? key}) : super(key: key);
+
+  @override
+  State<AuthScreen> createState() => _AuthScreenState();
+}
+
+class _AuthScreenState extends State<AuthScreen> {
+  Auth _auth = Auth.signup;
+  final _signUpFormKey = GlobalKey<FormState>();
+  final _signInFormKey = GlobalKey<FormState>();
+  final AuthService authService = AuthService();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _nameController.dispose();
+  }
+
+  void signUpUser() {
+    authService.signUpUser(
+      context: context,
+      email: _emailController.text,
+      name: _nameController.text,
+      password: _passwordController.text,
+      phone: _phoneController.text,
+    );
+  }
+
+  void signInUser() {
+    authService.signInUser(
+      context: context,
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      constraints: const BoxConstraints.expand(),
+    decoration: const BoxDecoration(
+        image: DecorationImage(
+            image: NetworkImage("https://i.pinimg.com/564x/3a/23/3c/3a233ccef2482b936d0a169d6aae8436.jpg"), fit: BoxFit.cover)),
 
 
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(top: 14),
-                  prefixIcon: Icon(
-                      Icons.email,
-                      color: Color(0xffE5CC95)
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ListTile(
+                tileColor: _auth == Auth.signup
+                    ? Colors.transparent
+                    : Colors.black12,
+                title: const Text(
+                  'Create Account',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                    color: Colors.black45,
                   ),
-                  hintText: 'Email',
-                  hintStyle: TextStyle(
-                      color: Colors.black38
-                  )
-              ),
-            ),
-
-          )
-        ],
-      );
-    }
-
-
-    Widget buildName() {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            'Name',
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold
-            ),
-          ),
-          SizedBox(height: 10),
-          Container(
-            alignment: Alignment.centerLeft,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 6,
-                      offset: Offset(0, 2)
-                  )
-                ]
-            ),
-            height: 50,
-            child: TextField(
-              keyboardType: TextInputType.name,
-              style: TextStyle(
-                  color: Colors.black87
-              ),
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(top: 14),
-                  prefixIcon: Icon(
-                      Icons.person,
-                      color: Color(0xffE5CC95)
-                  ),
-                  hintText: 'Name',
-                  hintStyle: TextStyle(
-                      color: Colors.black38
-                  )
-              ),
-            ),
-
-          )
-        ],
-      );
-    }
-
-    Widget buildPassword() {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            'Password',
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold
-            ),
-          ),
-          SizedBox(height: 10),
-          Container(
-            alignment: Alignment.centerLeft,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 6,
-                      offset: Offset(0, 2)
-                  )
-                ]
-            ),
-            height: 50,
-            child: TextField(
-              obscureText: true,
-              style: TextStyle(
-                  color: Colors.black87
-              ),
-
-
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(top: 14),
-                  prefixIcon: Icon(
-                      Icons.lock,
-                      color: Color(0xffE5CC95)
-                  ),
-                  hintText: 'Password',
-                  hintStyle: TextStyle(
-                      color: Colors.black38
-                  )
-              ),
-            ),
-
-          )
-        ],
-      );
-    }
-
-    Widget buildConfirmPassword() {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            ' Phone number',
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold
-            ),
-          ),
-          SizedBox(height: 10),
-          Container(
-            alignment: Alignment.centerLeft,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 6,
-                      offset: Offset(0, 2)
-                  )
-                ]
-            ),
-            height: 50,
-            child: TextField(
-              obscureText: true,
-              style: TextStyle(
-                  color: Colors.black87
-              ),
-
-
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(top: 14),
-                  prefixIcon: Icon(
-                      Icons.person,
-                      color: Color(0xffE5CC95)
-                  ),
-                  hintText: 'phone number',
-                  hintStyle: TextStyle(
-                      color: Colors.black38
-                  )
-              ),
-            ),
-
-          )
-        ],
-      );
-    }
-
-    Widget buildSignUpBtn() {
-      return Container(
-          child:
-          MaterialButton(
-            minWidth: double.infinity,
-            height: 50,
-
-            onPressed: () => print('SignUp Pressed'),
-            shape: RoundedRectangleBorder(
-                side: BorderSide(
-                    color: Colors.white),
-                borderRadius: BorderRadius.circular(15)
-            ),
-            color: Colors.white,
-            child: Text(
-              'SignUp',
-              style: TextStyle(
-                color: Colors.black26,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-
-
-              ),
-            ),
-          )
-
-      );
-    }
-
-    Widget buildSignInBtn() {
-      return GestureDetector(
-        onTap: () => print("Sign In Pressed"),
-        child: RichText(
-          text: TextSpan(
-              children: [
-                TextSpan(
-                    text: 'already have an Account?',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500
-                    )
                 ),
-
-                TextSpan(
-                    text: 'Sign In',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    )
-                )
-              ]
-          ),
-        ),
-      );
-    }
-
-    @override
-    Widget build(BuildContext context) {
-      return Scaffold(
-        body: AnnotatedRegion <SystemUiOverlayStyle>(
-          value: SystemUiOverlayStyle.light,
-          child: GestureDetector(
-            child: Stack(
-              children: <Widget>[
+                leading: Radio(
+                  activeColor: GlobalVariables.secondaryColor,
+                  value: Auth.signup,
+                  groupValue: _auth,
+                  onChanged: (Auth? val) {
+                    setState(() {
+                      _auth = val!;
+                    });
+                  },
+                ),
+              ),
+              SizedBox(height:20,
+                          width:150,
+                          ),
+              if (_auth == Auth.signup)
                 Container(
-                  height: double.infinity,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                    //alignment: Alignment.centerLeft,
-                    image: NetworkImage("https://i.pinimg.com/736x/d4/c4/40/d4c440f32014333cc00e5db376fb7dc9.jpg"),
-                    
-                  )
-
-
-                  ),
-
-
-                  child: SingleChildScrollView(
-                    physics: AlwaysScrollableScrollPhysics(),
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 25,
-                        vertical: 120
-                    ), // EdgeInsets.symmetric
+                  padding: const EdgeInsets.all(8),
+                  color: Colors.transparent,
+                  child: Form(
+                    key: _signUpFormKey,
                     child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'Sign Up ',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 40,
-                                fontWeight: FontWeight.bold
-
-                            ),
-                          ),
-                          Text(
-                            ' \n create an account, its free',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold
-
-                            ),
-                          ),
-                          SizedBox(height: 50),
-                          buildName(),
-                          SizedBox(height: 20),
-                          buildEmail(),
-                          SizedBox(height: 20),
-                          buildPassword(),
-                          SizedBox(height: 20),
-                          buildConfirmPassword(),
-                          SizedBox(height: 50),
-                          buildSignUpBtn(),
-                          buildSignInBtn(),
-
-
-                        ]
+                      children: [
+                        CustomTextField(
+                          controller: _nameController,
+                          hintText: 'Name',
+                        ),
+                        const SizedBox(height: 20),
+                        CustomTextField(
+                          controller: _emailController,
+                          hintText: 'Email',
+                        ),
+                        const SizedBox(height: 20),
+                        CustomTextField(
+                          controller: _passwordController,
+                          hintText: 'Password',
+                        ),
+                        const SizedBox(height: 20),
+                        CustomTextField(
+                          controller: _phoneController,
+                          hintText: 'phone',
+                        ),
+                        const SizedBox(height: 20),
+                        CustomButton(
+                          text: 'Sign Up',
+                          onTap: () {
+                            if (_signUpFormKey.currentState!.validate()) {
+                              signUpUser();
+                            }
+                          },
+                        )
+                      ],
                     ),
                   ),
-                )
-              ], //<Widget>[]
-            ),
+                ),
+              ListTile(
+                tileColor: _auth == Auth.signin
+                    ? Colors.transparent
+                    : Colors.black12,
+                title: const Text(
+                  'Sign-In.',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                leading: Radio(
+                  activeColor: GlobalVariables.secondaryColor,
+                  value: Auth.signin,
+                  groupValue: _auth,
+                  onChanged: (Auth? val) {
+                    setState(() {
+                      _auth = val!;
+                    });
+                  },
+                ),
+              ),
+              if (_auth == Auth.signin)
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  color: Colors.transparent,
+                  child: Form(
+                    key: _signInFormKey,
+                    child: Column(
+                      children: [
+                        CustomTextField(
+                          controller: _emailController,
+                          hintText: 'Email',
+                        ),
+                        const SizedBox(height: 20),
+                        CustomTextField(
+                          controller: _passwordController,
+                          hintText: 'Password',
+                        ),
+                        const SizedBox(height: 20),
+                        CustomButton(
+                          text: 'Sign In',
+                          onTap: () {
+                            if (_signInFormKey.currentState!.validate()) {
+                              signInUser();
+                            }
+                          },
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+            ],
           ),
         ),
-      );
-    }
-
-
+      ),),
+    
+      
+    );
   }
+}
