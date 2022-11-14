@@ -95,7 +95,7 @@ class _home_pageState extends State<home_page>{
                               
                               title:"wedding halls",
                               svgSrc: "https://i.pinimg.com/564x/ff/29/9b/ff299bf780591230a84feab495527e66.jpg",
-                              printt:'halls',
+                              printt:'hallsPage',
                             ),
                               Categoryard(
                               title:"Wedding Cars",
@@ -125,7 +125,7 @@ class _home_pageState extends State<home_page>{
                             Categoryard(
                               title:"wedding cake ",
                               svgSrc: "https://cdn-icons-png.flaticon.com/512/2474/2474337.png",
-                              printt:'halls',
+                              printt:'hallsPage',
                             ),
                             
 

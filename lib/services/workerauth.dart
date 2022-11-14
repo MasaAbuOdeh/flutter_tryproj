@@ -80,7 +80,7 @@ class WorkerAuthService {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           Provider.of<WorkerProvider>(context, listen: false).setWorker(res.body);
           await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
-          Navigator.of(context).pushNamed('HomePage');Colors.red[200];
+          Navigator.of(context).pushNamed('businessScreen');Colors.red[200];
 
           
         },

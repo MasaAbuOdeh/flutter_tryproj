@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_try/business/business_screen.dart';
 import 'package:flutter_try/pages/HomeScreen.dart';
 import 'package:flutter_try/pages/LoginScreen.dart';
 import 'package:flutter_try/pages/SignUpScreen.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -47,8 +49,9 @@ class MyApp extends StatelessWidget {
         'Client Buisnuiss':(context) => WorkerSignup(),
          'Client':(context) => AuthScreen(),
           'HomePage':(context) => HomeScreen(),
-          'halls':(context) => Wedding_halls(),
+          'hallsPage':(context) => hallsPage(),
           'cars':(context) => Wedding_cars(),
+          'businessScreen':(context) => business_screen()
       },
     );
   }

@@ -1,3 +1,4 @@
+
 import 'package:flutter_try/common/widgets/custom_button.dart';
 import 'package:flutter_try/common/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,7 @@ class _WorkerSignupState extends State<WorkerSignup> {
   final TextEditingController _phoneController = TextEditingController();
   late int selectedRadio;
   var Type;
+  var errortype;
 
 
   @override
@@ -67,6 +69,7 @@ class _WorkerSignupState extends State<WorkerSignup> {
    setSelectedRaio(int val){
     setState(() {
       selectedRadio=val;
+      errortype=selectedRadio;
       if(selectedRadio==1)
       Type="halls";
       else if (selectedRadio==2)
@@ -75,6 +78,8 @@ class _WorkerSignupState extends State<WorkerSignup> {
       Type="cake";
       else if (selectedRadio==4)
       Type="photography";
+      else 
+      errortype=1;
       
     });
    }
@@ -199,7 +204,8 @@ class _WorkerSignupState extends State<WorkerSignup> {
 
                           }),
                         
-                          const SizedBox(width: 10),
+                           SizedBox(width: 10,
+                          ),
                           Text("photography"),
                         ],),
                         
@@ -207,7 +213,7 @@ class _WorkerSignupState extends State<WorkerSignup> {
                         CustomButton(
                           text: 'Sign Up',
                           onTap: () {
-                            if (_signUpFormKey.currentState!.validate()) {
+                            if (_signUpFormKey.currentState!.validate()&&(errortype!=null)) {
                               signUpUser();
                             }
                           },

@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_try/pages/home_page.dart';
-import 'package:flutter_try/pages/profile.dart';
-import 'package:flutter_try/pages/recomanded.dart';
-import 'package:flutter_try/widget/Categoryard.dart';
+import 'package:flutter_try/business/business_edit.dart';
+import 'package:flutter_try/business/business_home.dart';
+import 'package:flutter_try/business/business_profile.dart';
+import 'package:flutter_try/models/worker.dart';
+import 'package:provider/provider.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({
+import '../constants/global_variables.dart';
+import '../providers/worker_provider.dart';
+
+class business_screen extends StatefulWidget { 
+  const business_screen({
     Key? key
   }) :super (key:key);
   @override
-  _HomeScreenState createState()=> _HomeScreenState();
+  _business_screenState createState()=> _business_screenState();
 }
-class _HomeScreenState extends State<HomeScreen>{
+class _business_screenState extends State<business_screen>{
   get svgPicture => null;
   int currentIndex=0;
 void onTap(int index){
@@ -25,17 +29,52 @@ void onTap(int index){
 
 List pages=[
   //home_page(),
-home_page(),
- profile(),
- recomanded()
+business_home(),
+ business_profile(),
+ business_edit()
 ];
 
 
   @override
   Widget build(BuildContext context) {
+    final worker = Provider.of<WorkerProvider>(context).worker;
     var size = MediaQuery.of(context)
         .size; //this gonna give us total height and with of our device
         return Scaffold(
+          appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(50),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+            
+             image: DecorationImage(
+            image: NetworkImage("https://i.pinimg.com/564x/ec/d4/97/ecd4974ed81d210fb5aa6ac4ad01ab7a.jpg"), fit: BoxFit.cover)
+              
+            ),
+          ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                alignment: Alignment.topLeft,
+                child: Image.network(
+                  'https://cdn5.vectorstock.com/i/1000x1000/39/44/abstract-outline-color-of-a-young-elegant-bride-vector-9743944.jpg',
+                  width: 120,
+                  height: 45,
+                  color: Colors.transparent,
+                ),
+              ),
+               Text(
+                worker.name,
+                style: TextStyle(
+                  color: Color.fromARGB(255, 117, 116, 116),
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
           body:pages[currentIndex],
           bottomNavigationBar: BottomNavigationBar(
             onTap: onTap,
@@ -80,43 +119,3 @@ home_page(),
         );
 }
 }
-  
-class bottomNavItem extends StatelessWidget{
-  final String svgScr;
-  final String title;
-  final Function press;
-  final bool isActiv;
-
-  const bottomNavItem({super.key,
-   required this.svgScr,
-    required this.title,
-     required this.press,
-      required this.isActiv});
-  
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return GestureDetector(
-      
-     onTap: press(),
-     
-     child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: <Widget>[
-        
-         new Image(image: NetworkImage(svgScr),
-        height: 20,
-        width: 20,
-        fit: BoxFit.cover,),
-        Text(title)
-      ],
-     ),
-    );
-    throw UnimplementedError();
-  }
-  
-}
-
-
-
