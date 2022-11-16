@@ -1,10 +1,12 @@
 import 'dart:io';
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_try/common/widgets/custom_button.dart';
 import 'package:flutter_try/common/widgets/custom_textfield.dart';
 import 'package:flutter_try/constants/utils.dart';
+import 'package:flutter_try/services/business_info.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/worker_provider.dart';
@@ -21,7 +23,35 @@ class _business_homeState extends State<business_home>{
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
+  
   List<File> images =[];
+  final business_info info = business_info();
+  final _addProductFormKey = GlobalKey<FormState>();
+  var trr;
+
+  void dispose() {
+    super.dispose();
+    NameController.dispose();
+    descriptionController.dispose();
+    priceController.dispose();
+    locationController.dispose();
+  }
+  
+
+
+  void sendinfo (){
+    if (_addProductFormKey.currentState!.validate() && images.isNotEmpty){
+      info.sendinfo(context: context,
+       name: NameController.text,
+        discreption: descriptionController.text, 
+        images: images,
+         price: double.parse(priceController.text), 
+         location: locationController.text);
+
+ 
+    }
+
+  }
 
   void selectImages() async {
     var res = await pickImages();
@@ -33,14 +63,36 @@ class _business_homeState extends State<business_home>{
   Widget build(BuildContext context) {
     // TODO: implement build
     final worker = Provider.of<WorkerProvider>(context).worker;
+    trr=worker;
+  
     return Scaffold(
       body: SingleChildScrollView(
         child: Form(
+          key: _addProductFormKey,
           child: Padding(
             padding:const EdgeInsets.symmetric(horizontal: 10.0),
             child: Column(
               children: [
                 const SizedBox(height: 20,),
+                images.isNotEmpty
+                    ? CarouselSlider(
+                        items: images.map(
+                          (i) {
+                            return Builder(
+                              builder: (BuildContext context) => Image.file(
+                                i,
+                                fit: BoxFit.cover,
+                                height: 200,
+                              ),
+                            );
+                          },
+                        ).toList(),
+                        options: CarouselOptions(
+                          viewportFraction: 1,
+                          height: 200,
+                        ),
+                      )
+                    :
                 GestureDetector(
                   onTap: selectImages,
                   child:DottedBorder(
@@ -92,7 +144,9 @@ class _business_homeState extends State<business_home>{
                 ),
                 const SizedBox(height: 20),
                 CustomButton(text: "Add",
-                 onTap: (){})
+                 onTap: (){
+                  sendinfo();
+                 })
               ]),
                ),
               ))

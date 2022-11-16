@@ -7,6 +7,11 @@ class Worker {
   final String password;
   final String phone;
   final String type;
+  final String discreption ;
+  final List<String> images ;
+  final double price ;
+  final String location;
+
   final String token;
 
   Worker({
@@ -16,6 +21,10 @@ class Worker {
    required this.password,
    required this.phone,
    required this.type,
+   required this.discreption,
+   required this.images,
+   required this.price,
+   required this.location,
    required this.token, 
    });
 
@@ -27,6 +36,10 @@ class Worker {
       'password': password,
       'phone': phone,
       'type' : type,
+      'discreption' : discreption,
+      'images' : images,
+      'price' : price,
+      'location' : location,
 
       'token' : token,
 
@@ -42,7 +55,13 @@ class Worker {
       password: map['password']?? '',
       phone: map['phone']?? '',
       type: map['type']?? '',
+      discreption: map['discreption']??'',
+      images: List<String>.from(map['images']),
+      price: map['price']?.toDouble() ?? 0.0,
+      location: map['location']??'',
+
       token: map['token']?? '', 
+
 
     );
    }

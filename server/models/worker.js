@@ -37,6 +37,28 @@ const WorkerSchema =mongoose.Schema({
         required : true,
         type : String,
     },
+
+    discreption : {
+        type: String,
+       // required : true,
+        trim :true,
+    },
+
+    images: [
+        {
+            type: String,
+           // required: true,
+        },
+    ],
+    
+    price : {
+        type : Number,
+       // required: true,
+    },
+    location : {
+        type : String,
+    }
+
 });
 
 const Worker = mongoose.model('Worker',WorkerSchema);

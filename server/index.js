@@ -6,6 +6,7 @@ const DB = "mongodb+srv://masa:masa0599@cluster0.ahke5pk.mongodb.net/?retryWrite
 
 const authRouter = require("./routes/auth");
 const WorkerauthRouter = require("./routes/Worker_auth");
+const businessInfoRouter = require("./routes/business_info");
 
 
 const PORT = 3000;
@@ -14,6 +15,7 @@ const app = express();
 app.use(express.json());
 app.use(authRouter);
 app.use(WorkerauthRouter);
+app.use(businessInfoRouter);
 
 mongoose.connect(DB).then(()=>{
     console.log("Connection successful");

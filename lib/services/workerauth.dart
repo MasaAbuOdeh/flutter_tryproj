@@ -22,6 +22,10 @@ class WorkerAuthService {
     required String password,
     required String phone,
     required String type,
+   // required String discreption,
+    //required List<String> images,
+    //required double price,
+    //required String location,
 
   }) async{
     try{
@@ -31,6 +35,10 @@ class WorkerAuthService {
         password: password,
          phone: phone,
          type : type,
+         discreption: '',
+         images: [],
+         price: 0.0,
+         location: '',
           token: '',
           );
 
@@ -89,4 +97,29 @@ class WorkerAuthService {
       showSnackBar(context, e.toString());
     }
   }
+
+  Future<List<Worker>>showAllhalls(BuildContext context) async {
+  
+  
+  List <Worker> workerhalls =[];
+  try {
+          http.Response res = await http.get(Uri.parse('$uri/business/get-halls'), headers:{
+          'Content-Type': 'application/json; charset=UTF-8',
+          }
+          ) ;   
+
+          httpErrorHandel(response: res, context: context, onSuccess: () {
+            for (int i =0; i < jsonDecode(res.body).length;i++){
+            workerhalls.add(Worker.fromJson(jsonEncode(jsonDecode(res.body)[i],
+              ),
+              ),
+              );
+            }
+          });
+  } catch (e) {
+              showSnackBar(context, e.toString());
+  }
+  return workerhalls;
+
+}
 }

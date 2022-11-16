@@ -58,6 +58,15 @@ WorkerauthRouter.post("/api/Workersignup", async (req, res) =>{
         }
     });
 
+    WorkerauthRouter.get("/business/get-halls", async(req, res) => {
+        try{
+        const worker = await Worker.find({type: 'halls'});
+        res.json(worker);
+        }catch (e) {
+          res.status(500).json({ error: e.message});
+        }
+      }) ;
+
 
 
 

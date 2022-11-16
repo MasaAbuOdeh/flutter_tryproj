@@ -9,6 +9,11 @@ class WorkerProvider extends ChangeNotifier {
      password: '',
       phone: '',
        type: '',
+       discreption: '',
+       images: [],
+       price: 0.0,
+       location: '',
+
         token: '');
 
   Worker get worker => _worker;

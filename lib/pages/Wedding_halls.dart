@@ -1,6 +1,13 @@
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_try/models/worker.dart';
+import 'package:flutter_try/providers/worker_provider.dart';
+import 'package:flutter_try/services/business_info.dart';
+import 'package:flutter_try/services/workerauth.dart';
+import 'package:flutter_try/widget/loader.dart';
+import 'package:flutter_try/widget/single.dart';
+import 'package:provider/provider.dart';
 class hallsPage extends StatefulWidget{
 const hallsPage({Key? key}):super(key:key);
 @override
@@ -9,12 +16,34 @@ _hallsPageState createState()=> _hallsPageState();
 
 }
 class _hallsPageState extends State<hallsPage> with TickerProviderStateMixin {
+  
+   List <Worker> ? workers ;
+  final WorkerAuthService hall = WorkerAuthService();
+  //List <Worker> ? workers ;
 
+
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    showAllhalls();
+  }
+
+  showAllhalls() async{
+  workers = await hall.showAllhalls(context);
+  setState(() {
+    
+  });
+  }
 
   @override
   Widget build(BuildContext context) {
+    
+    final worker = Provider.of<WorkerProvider>(context).worker;
     TabController _tabController = TabController(length: 2, vsync: this);
-    return Scaffold(
+    return workers == null
+        ? const Loader()
+        : Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
 
@@ -116,36 +145,24 @@ padding: const EdgeInsets.only(left: 20),
             child: TabBarView(
               controller: _tabController,
               children: [
+               
+                
                ListView.builder(
-                 itemCount:3,
+
+                
+                 itemCount:workers!.length,
                  scrollDirection: Axis.vertical,
                  itemBuilder: (BuildContext context, int index) {
+                  final workerdata =workers![index];
                   return
                     Container(
                       margin: const EdgeInsets.only(right: 15,top: 10),
 
                      width: 200,
                      height: 400,
-                     decoration: BoxDecoration(
-                       borderRadius: BorderRadius.circular(20),
-                       color: Colors.white,
-
-                       image:const DecorationImage(
-
-                         image:NetworkImage(
-                             "https://i.pinimg.com/564x/9f/bc/e4/9fbce4b187c6de0563375047b2b5fb90.jpg"
-
-                         ),
-                        fit: BoxFit.cover,
-                       ),
-
-                     ),
-
-
-
+                     child: SingleProduct(image: workerdata.images[0]),
+                  
                    //),
-
-
 
                   );
 
