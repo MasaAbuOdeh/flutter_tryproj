@@ -14,13 +14,13 @@ class WelcomePage extends StatefulWidget {
 
 class _WelcomePageState extends State<WelcomePage> {
    List images =[
-    "https://i.pinimg.com/564x/e6/96/b0/e696b03e8fa67f5c599b80ab1ec7537f.jpg",
+    "https://i.pinimg.com/564x/56/19/cd/5619cde7bd9438c230fe98999cd20d0a.jpg?fbclid=IwAR2D8DV4YWWvs-UCxTpmNXTpAPPjR4b0KzkXaDHOat7niuiq4pCPm8BpjqE",
     "https://i.pinimg.com/564x/25/ab/71/25ab7102d591d9f2fdacee5481fb1e47.jpg"
    ];
 
    List textss =[
     "Client",
-    "Client Buisnuiss",
+    "Businuess",
    ];
 
 
@@ -67,7 +67,7 @@ class _WelcomePageState extends State<WelcomePage> {
                           ResponsiveButton(
                             text:index==1? ""+textss[1]:"",
                             width:index==1? 150:0,
-                            butttext: 'Client Buisnuiss',
+                            butttext: 'Buisnuiss',
                            /* press: (){Navigator.of(context).pushNamed('login');}*/),
                            SizedBox(height: 10,),
                            Row(

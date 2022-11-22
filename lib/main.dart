@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_try/business/DetailPage.dart';
 import 'package:flutter_try/business/business_screen.dart';
+import 'package:flutter_try/business/commentPage.dart';
+import 'package:flutter_try/models/worker.dart';
 import 'package:flutter_try/pages/HomeScreen.dart';
 import 'package:flutter_try/pages/LoginScreen.dart';
 import 'package:flutter_try/pages/SignUpScreen.dart';
@@ -12,6 +15,7 @@ import 'package:flutter_try/providers/worker_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
       create: (context) => WorkerProvider(),),
@@ -46,12 +50,14 @@ class MyApp extends StatelessWidget {
       ),
       home: WelcomePage(),
       routes: {
-        'Client Buisnuiss':(context) => WorkerSignup(),
+        'Buisnuiss':(context) => WorkerSignup(),
          'Client':(context) => AuthScreen(),
           'HomePage':(context) => HomeScreen(),
           'hallsPage':(context) => hallsPage(),
           'cars':(context) => Wedding_cars(),
-          'businessScreen':(context) => business_screen()
+          'businessScreen':(context) => business_screen(),
+          '/Detail':(context) => DetailPage(),
+          'comment':(context) => commentPage()
       },
     );
   }

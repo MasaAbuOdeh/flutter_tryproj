@@ -31,7 +31,7 @@ class ResponsiveButton extends StatelessWidget{
       child: ClipRRect(
         borderRadius:BorderRadius.circular(20),
         child: ElevatedButton(
-          child:  Text(""+text,style: TextStyle(fontSize: 20,color: Colors.black),) ,
+          child:  Text(""+text,style: TextStyle(fontSize: 20,color: Colors.black54),) ,
           style: ElevatedButton.styleFrom(primary: Colors.red[100]),
         
           onPressed: (){Navigator.of(context).pushNamed(butttext);Colors.red[200];}),

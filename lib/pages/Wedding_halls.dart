@@ -10,6 +10,10 @@ import 'package:flutter_try/widget/single.dart';
 import 'package:provider/provider.dart';
 class hallsPage extends StatefulWidget{
 const hallsPage({Key? key}):super(key:key);
+
+  get workers => null;
+
+  get workerdata => null;
 @override
 _hallsPageState createState()=> _hallsPageState();
 
@@ -117,7 +121,7 @@ class _hallsPageState extends State<hallsPage> with TickerProviderStateMixin {
             ),
 
           ),
-          SizedBox(height: 30,),
+          SizedBox(height: 10,),
 
           Container(
             child: Align(
@@ -140,11 +144,12 @@ class _hallsPageState extends State<hallsPage> with TickerProviderStateMixin {
           Container(
 padding: const EdgeInsets.only(left: 20),
 
-            height: 450,
+            height: 490,
             width: double.maxFinite,
             child: TabBarView(
               controller: _tabController,
               children: [
+                
                
                 
                ListView.builder(
@@ -154,22 +159,94 @@ padding: const EdgeInsets.only(left: 20),
                  scrollDirection: Axis.vertical,
                  itemBuilder: (BuildContext context, int index) {
                   final workerdata =workers![index];
-                  return
-                    Container(
-                      margin: const EdgeInsets.only(right: 15,top: 10),
-
-                     width: 200,
-                     height: 400,
-                     child: SingleProduct(image: workerdata.images[0]),
                   
-                   //),
+                  return GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushNamed('/Detail',arguments: workerdata);Colors.red[200];
+                          print(workerdata.name+'pressed');
+                          
+                        },
+     // mainAxisSize: MainAxisSize.max,
+      //padding: const EdgeInsets.symmetric(horizontal: 5),
+      //child: Column(
 
-                  );
+        child: Column(
+          
+          
+          children: [
+          
+          
+         Container(
+          
+          
+        
+          decoration: BoxDecoration(
+    
+      color: Colors.white54,
+      borderRadius: BorderRadius.circular(15),
+      boxShadow: [
+        BoxShadow(
+          offset: Offset(0,17),
+          blurRadius: 17,
+          spreadRadius: -23,
+         // color: kElevationToShadow,
+        )
+      ]
+    ),
+          alignment: Alignment.topCenter,
+          width: double.maxFinite,
+          padding: const EdgeInsets.all(10),
+          child: Image.network(
+            workerdata.images[0],
+            fit: BoxFit.cover,
+           // width: 250,
+            
+            
+          ),
+          
+          
+          
+        ),
+      
+      
+      Container(
+        alignment: Alignment.center,
+                              padding: const EdgeInsets.only(
+                                left: 0,
+                                top: 15,
+                                right: 15,
+                                bottom:15,
+                              ),
+                              decoration: BoxDecoration(
+    
+      color: Colors.white54,
+      borderRadius: BorderRadius.circular(15),
+      boxShadow: [
+        BoxShadow(
+          offset: Offset(0,17),
+          blurRadius: 17,
+          spreadRadius: -23,
+         // color: kElevationToShadow,
+        )
+      ]
+    ),
+                              child: Text(
+                                workerdata.name,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 30),
+                              ),
+      )
+        ],
+        ),
+        
+      ) 
+    ;
 
                  },
 
                ),
-                Text(""),
+                Text("Nablus"),
               ],
             ),
 

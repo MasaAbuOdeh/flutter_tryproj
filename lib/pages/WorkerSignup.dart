@@ -90,31 +90,32 @@ class _WorkerSignupState extends State<WorkerSignup> {
       constraints: const BoxConstraints.expand(),
     decoration: const BoxDecoration(
         image: DecorationImage(
-            image: NetworkImage("https://i.pinimg.com/564x/3a/23/3c/3a233ccef2482b936d0a169d6aae8436.jpg"), fit: BoxFit.cover)),
+            image: NetworkImage("https://i.pinimg.com/originals/b0/06/b3/b006b3a7e45787ee9b21e20f8796e894.jpg"), fit: BoxFit.cover),
+),
 
 
       child: Scaffold(
         backgroundColor: Colors.transparent,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 70),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ListTile(
                 tileColor: _auth == Auth.signup
                     ? Colors.transparent
-                    : Colors.black12,
+                    : Colors.transparent,
                 title: const Text(
                   'Create Account',
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: Colors.black45,
-                  ),
+                      fontWeight: FontWeight.normal,
+                      fontSize: 30,
+                      color: Color(0xeee0aa3e),
+                    ),
                 ),
                 leading: Radio(
-                  activeColor: GlobalVariables.secondaryColor,
+                  //activeColor: GlobalVariables.secondaryColor,
                   value: Auth.signup,
                   groupValue: _auth,
                   onChanged: (Auth? val) {
@@ -124,12 +125,12 @@ class _WorkerSignupState extends State<WorkerSignup> {
                   },
                 ),
               ),
-              SizedBox(height:20,
-                          width:150,
-                          ),
+              SizedBox(height:5,
+                  width:80,
+                ),
               if (_auth == Auth.signup)
                 Container(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
                   color: Colors.transparent,
                   child: Form(
                     key: _signUpFormKey,
@@ -155,7 +156,7 @@ class _WorkerSignupState extends State<WorkerSignup> {
                           hintText: 'phone',
                         ),
 
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 0),
 
                         Row(children: [
                           Radio(value: 1,
@@ -165,10 +166,10 @@ class _WorkerSignupState extends State<WorkerSignup> {
                             setSelectedRaio(val!);
 
                           }),
-                          const SizedBox(width: 10,
+                          const SizedBox(width: 10,height: 5,
                           ),
                           Text("halls"),
-                          const SizedBox(width: 90,),
+                          const SizedBox(width: 70,),
                            Radio(value: 2,
                          groupValue: selectedRadio,
                           onChanged: (val){
@@ -184,7 +185,7 @@ class _WorkerSignupState extends State<WorkerSignup> {
                         ],
                         ),
                         Row(children: [
-                         const SizedBox(height: 10,),
+                         const SizedBox(height: 0,),
                            Radio(value: 3,
                          groupValue: selectedRadio,
                           onChanged: (val){
@@ -195,7 +196,7 @@ class _WorkerSignupState extends State<WorkerSignup> {
                         
                           const SizedBox(width: 10),
                           Text("cake"),
-                          const SizedBox(width: 90,),
+                          const SizedBox(width: 70,),
                            Radio(value: 4,
                          groupValue: selectedRadio,
                           onChanged: (val){
@@ -225,15 +226,17 @@ class _WorkerSignupState extends State<WorkerSignup> {
               ListTile(
                 tileColor: _auth == Auth.signin
                     ? Colors.transparent
-                    : Colors.black12,
+                    : Colors.transparent,
                 title: const Text(
-                  'Sign-In.',
+                  'Sign In.',
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                      fontWeight: FontWeight.normal,
+                      color: Color(0xeee0aa3e),
+                      fontSize: 30
+                    ),
                 ),
                 leading: Radio(
-                  activeColor: GlobalVariables.secondaryColor,
+                 // activeColor: GlobalVariables.secondaryColor,
                   value: Auth.signin,
                   groupValue: _auth,
                   onChanged: (Auth? val) {
@@ -245,7 +248,8 @@ class _WorkerSignupState extends State<WorkerSignup> {
               ),
               if (_auth == Auth.signin)
                 Container(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                    
                   color: Colors.transparent,
                   child: Form(
                     key: _signInFormKey,

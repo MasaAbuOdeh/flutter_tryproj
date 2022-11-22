@@ -60,31 +60,31 @@ class _AuthScreenState extends State<AuthScreen> {
       constraints: const BoxConstraints.expand(),
     decoration: const BoxDecoration(
         image: DecorationImage(
-            image: NetworkImage("https://i.pinimg.com/564x/3a/23/3c/3a233ccef2482b936d0a169d6aae8436.jpg"), fit: BoxFit.cover)),
+            image: NetworkImage("https://i.pinimg.com/564x/5c/e4/52/5ce45215d64696666d1e0b77e5989fc7.jpg"), fit: BoxFit.cover)),
 
 
       child: Scaffold(
         backgroundColor: Colors.transparent,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(horizontal:30,vertical: 70),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ListTile(
                 tileColor: _auth == Auth.signup
                     ? Colors.transparent
-                    : Colors.black12,
+                    : Colors.transparent,
                 title: const Text(
                   'Create Account',
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: Colors.black45,
-                  ),
+                      fontWeight: FontWeight.normal,
+                      fontSize: 30,
+                      color: Color(0xeee0aa3e),
+                    ),
                 ),
                 leading: Radio(
-                  activeColor: GlobalVariables.secondaryColor,
+                 // activeColor: GlobalVariables.secondaryColor,
                   value: Auth.signup,
                   groupValue: _auth,
                   onChanged: (Auth? val) {
@@ -94,12 +94,12 @@ class _AuthScreenState extends State<AuthScreen> {
                   },
                 ),
               ),
-              SizedBox(height:20,
+              SizedBox(height:0,
                           width:150,
                           ),
               if (_auth == Auth.signup)
                 Container(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 35),
                   color: Colors.transparent,
                   child: Form(
                     key: _signUpFormKey,
@@ -140,15 +140,17 @@ class _AuthScreenState extends State<AuthScreen> {
               ListTile(
                 tileColor: _auth == Auth.signin
                     ? Colors.transparent
-                    : Colors.black12,
+                    : Colors.transparent,
                 title: const Text(
                   'Sign-In.',
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                      fontWeight: FontWeight.normal,
+                      color: Color(0xeee0aa3e),
+                      fontSize: 30
+                    ),
                 ),
                 leading: Radio(
-                  activeColor: GlobalVariables.secondaryColor,
+                  //activeColor: GlobalVariables.secondaryColor,
                   value: Auth.signin,
                   groupValue: _auth,
                   onChanged: (Auth? val) {
@@ -160,7 +162,7 @@ class _AuthScreenState extends State<AuthScreen> {
               ),
               if (_auth == Auth.signin)
                 Container(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   color: Colors.transparent,
                   child: Form(
                     key: _signInFormKey,

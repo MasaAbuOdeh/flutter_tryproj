@@ -25,7 +25,7 @@ class _home_pageState extends State<home_page>{
                  // color: Colors.red[100],
                   image: DecorationImage(
                     //alignment: Alignment.centerLeft,
-                    image: NetworkImage("https://i.pinimg.com/564x/15/f6/16/15f616cd18c88a1f917ac1267a87faf8.jpg"),
+                    image: NetworkImage("https://i.pinimg.com/564x/f4/40/8f/f4408f9bb2fcde9b434f62b486fda9ab.jpg"),
                     
                   )
                 ),
