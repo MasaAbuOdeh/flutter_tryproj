@@ -1,4 +1,5 @@
 const mongoose =require('mongoose');
+const ratingSchema = require('./rating');
 
 const WorkerSchema =mongoose.Schema({
     email :{
@@ -57,7 +58,8 @@ const WorkerSchema =mongoose.Schema({
     },
     location : {
         type : String,
-    }
+    },
+    ratings:[ratingSchema]
 
 });
 

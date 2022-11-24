@@ -3,6 +3,7 @@ const Worker = require("../models/worker");
 
 const bcryptjs = require('bcryptjs');
 const jwt = require ("jsonwebtoken");
+const auth = require("../middlewares/auth");
 
 const WorkerauthRouter = express.Router();
 
@@ -66,6 +67,31 @@ WorkerauthRouter.post("/api/Workersignup", async (req, res) =>{
           res.status(500).json({ error: e.message});
         }
       }) ;
+
+      WorkerauthRouter.post("/api/rate-Worker", auth, async (req, res) => {
+        try {
+          const { id, rating } = req.body;
+          let worker = await Worker.findById(id);
+      
+          for (let i = 0; i < worker.ratings.length; i++) {
+            if (worker.ratings[i].userId == req.user) {
+              worker.ratings.splice(i, 1);
+              break;
+            }
+          }
+      
+          const ratingSchema = {
+            userId: req.user,
+            rating,
+          };
+      
+          worker.ratings.push(ratingSchema);
+          worker = await worker.save();
+          res.json(worker);
+        } catch (e) {
+          res.status(500).json({ error: e.message });
+        }
+      });
 
 
 

@@ -1,6 +1,13 @@
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_try/common/widgets/stars.dart';
+import 'package:flutter_try/constants/global_variables.dart';
 import 'package:flutter_try/models/worker.dart';
+import 'package:flutter_try/providers/user_provider.dart';
+import 'package:flutter_try/services/businessDetail_services.dart';
+import 'package:provider/provider.dart';
 
 class DetailPage extends StatefulWidget{
   static const String routeName ='halls-details';
@@ -15,9 +22,36 @@ class DetailPage extends StatefulWidget{
 }
 class _DetailPageState extends State<DetailPage>{
 int gottenStars=4;
+ final _buildFormKey = GlobalKey<FormState>();
+final businessDetail_services details = businessDetail_services();
+var business;
+double avgRating = 0;
+  double myRating = 0;
   @override
+  void initState() {
+    super.initState();
+    
+  }
   Widget build(BuildContext context){
+    
+   // Key:_buildFormKey;
     final Worker? worker =ModalRoute.of(context)!.settings.arguments as Worker?;
+      double totalRating = 0;
+    for (int i = 0; i < worker!.rating!.length; i++) {
+      totalRating += worker.rating![i].rating;
+      if (worker.rating![i].userId ==
+          Provider.of<UserProvider>(context, listen: false).user.id) {
+        myRating = worker.rating![i].rating;
+      }
+    }
+
+    if (totalRating != 0) {
+      avgRating = totalRating / worker.rating!.length;
+    }
+    
+    
+      //business=worker;
+    
 
     return Scaffold(
 
@@ -91,6 +125,19 @@ topRight: Radius.circular(50),
 child: Column(
   children: [
     Row(
+      children: [
+        Stars(rating: avgRating,),
+        SizedBox(width: 10,),
+        Text("Avareg Rating")
+      ],
+    ),
+  
+      // Stars(rating: 4.0,),
+      
+    
+    SizedBox(height: 10,),
+    
+    Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
          Text(
@@ -111,6 +158,7 @@ child: Column(
 
           ),
         ),
+         
         //AppLargeText(text:"Nadi Al-Madina",color:Colors.black),
         //AppLargeText(text:"\$ 20000"),
       ],
@@ -133,13 +181,25 @@ child: Column(
     ),
     SizedBox(height: 10,),
     Row(children: [
-      Wrap(
-        children: List.generate(5, (index){
-          return Icon(Icons.star,color:Colors.amberAccent);
-        ///  return Icon(Icons.star,color:index<gottenStars? AppColors.astarColor:AppColos.textColor2 );
-
-        }),
-      ),
+      RatingBar.builder(
+              initialRating: myRating,
+              minRating: 1,
+              direction: Axis.horizontal,
+              allowHalfRating: true,
+              itemCount: 5,
+              itemPadding: const EdgeInsets.symmetric(horizontal: 4),
+              itemBuilder: (context, _) => const Icon(
+                Icons.star,
+                color: Colors.yellow,
+              ),
+              onRatingUpdate: (rating) {
+                details.rateProduct(
+                  context: context,
+                  worker: worker,
+                  rating: rating,
+                );
+              },
+            ),
       SizedBox(width: 10,),
       const Text(
         '(4.0)',
