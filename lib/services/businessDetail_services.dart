@@ -39,4 +39,37 @@ class businessDetail_services{
       showSnackBar(context, e.toString());
     }
   }
+
+
+  void Commentbusiness({
+    required BuildContext context,
+    required Worker worker,
+    required String comment,
+    required String username,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/api/comment-Worker'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'id': worker.id!,
+          'comment': comment,
+          'username': userProvider.user.name,
+        }),
+      );
+
+      httpErrorHandel(
+        response: res,
+        context: context,
+        onSuccess: () {},
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
 }

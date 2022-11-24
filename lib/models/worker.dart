@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_try/models/comment.dart';
 import 'package:flutter_try/models/rating.dart';
 
 class Worker {
@@ -14,6 +15,7 @@ class Worker {
   final double price ;
   final String location;
   final List<Rating>?rating;
+  final List<Comment>?comment;
 
   final String token;
 
@@ -29,6 +31,7 @@ class Worker {
    required this.price,
    required this.location,
    this.rating,
+   this.comment,
    required this.token, 
    });
 
@@ -45,6 +48,7 @@ class Worker {
       'price' : price,
       'location' : location,
       'rating' : rating,
+      'comment' : comment,
 
       'token' : token,
 
@@ -71,6 +75,14 @@ class Worker {
               ),
             )
           : null,
+      comment: map['comments'] != null
+          ? List<Comment>.from(
+              map['comments']?.map(
+                (x) => Comment.fromMap(x),
+              ),
+            )
+          : null ,    
+
 
       token: map['token']?? '', 
 

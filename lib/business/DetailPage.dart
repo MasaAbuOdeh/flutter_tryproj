@@ -233,14 +233,14 @@ child: Column(
                 onPressed: () => print( 'chat btn Pressed'),
                 shape:RoundedRectangleBorder(
                     side: const BorderSide(
-                        color:Colors.red),
+                        color:Color.fromARGB(255, 255, 154, 154)),
                     borderRadius: BorderRadius.circular(15)
                 ),
                 color: Colors.white,
                 child: const Text(
                   'Chat',
                   style: TextStyle(
-                    color: Colors.red,
+                    color: Color.fromARGB(255, 255, 154, 154),
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
@@ -256,17 +256,18 @@ child: Column(
       minWidth: double.infinity,
       height: 40 ,
       onPressed: () {print( 'comment btn Pressed');
-      Navigator.of(context).pushNamed('comment');Colors.red[200];} ,
+      Navigator.of(context).pushNamed('/comment',arguments: worker);Colors.red[200];
+                          print(worker.name+'pressed') ;},
       shape:RoundedRectangleBorder(
           side: const BorderSide(
-              color:Colors.red),
+              color:Color.fromARGB(255, 255, 154, 154)),
           borderRadius: BorderRadius.circular(15)
       ),
       color: Colors.white,
       child: const Text(
         'Show comment',
         style: TextStyle(
-          color: Colors.red,
+          color: Color.fromARGB(255, 255, 154, 154),
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
@@ -284,7 +285,7 @@ child: Column(
       onPressed: () => print( 'booking btn Pressed'),
       shape:RoundedRectangleBorder(
           side: const BorderSide(
-              color:Colors.red
+              color:Color.fromARGB(255, 255, 154, 154)
             ),
           borderRadius: BorderRadius.circular(15)
       ),
@@ -292,7 +293,7 @@ child: Column(
       child: const Text(
         'Booking',
         style: TextStyle(
-          color: Colors.red,
+          color: Color.fromARGB(255, 255, 154, 154),
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),

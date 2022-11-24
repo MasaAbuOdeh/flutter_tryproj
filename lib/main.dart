@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
           'cars':(context) => Wedding_cars(),
           'businessScreen':(context) => business_screen(),
           '/Detail':(context) => DetailPage(),
-          'comment':(context) => commentPage()
+          '/comment':(context) => commentPage()
       },
     );
   }

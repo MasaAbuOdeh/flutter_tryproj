@@ -93,6 +93,32 @@ WorkerauthRouter.post("/api/Workersignup", async (req, res) =>{
         }
       });
 
+      WorkerauthRouter.post("/api/comment-Worker", auth, async (req, res) => {
+        try {
+          const { id, comment ,username } = req.body;
+          let worker = await Worker.findById(id);
+      
+          for (let i = 0; i < worker.comments.length; i++) {
+            if (worker.comments[i].userId == req.user) {
+              worker.comments.splice(i, 1);
+              break;
+            }
+          }
+      
+          const commentSchema = {
+            userId: req.user,
+            comment,
+            username: username,
+          };
+      
+          worker.comments.push(commentSchema);
+          worker = await worker.save();
+          res.json(worker);
+        } catch (e) {
+          res.status(500).json({ error: e.message });
+        }
+      });
+
 
 
 

@@ -1,5 +1,9 @@
 import 'package:comment_box/comment/comment.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_try/models/worker.dart';
+import 'package:flutter_try/providers/user_provider.dart';
+import 'package:flutter_try/services/businessDetail_services.dart';
+import 'package:provider/provider.dart';
 
 class commentPage extends StatefulWidget{
   const commentPage({Key? key}):super(key:key);
@@ -13,8 +17,10 @@ class commentPage extends StatefulWidget{
 
  class _commentPageState extends State<commentPage> {
 final formKey = GlobalKey<FormState>();
+final businessDetail_services commentdetail = businessDetail_services();
 final TextEditingController commentController = TextEditingController();
-  List filedata = [
+
+ /* List filedata = [
     {
       'name': 'Chuks Okwuenu',
       'pic': 'https://picsum.photos/300/30',
@@ -39,9 +45,9 @@ final TextEditingController commentController = TextEditingController();
       'message': 'Very cool',
       'date': '2021-01-01 12:00:00'
     },
-  ];
+  ];*/
 
-  Widget commentChild(data) {
+ /* Widget commentChild(data) {
     return ListView(
       children: [
         for (var i = 0; i < data.length; i++)
@@ -75,20 +81,54 @@ final TextEditingController commentController = TextEditingController();
           )
       ],
     );
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
+    final Worker? worker =ModalRoute.of(context)!.settings.arguments as Worker?;
+    final user = Provider.of<UserProvider>(context).user;
     return Scaffold(
       appBar: AppBar(
         title: Text("Comment Page"),
-        backgroundColor: Colors.pink,
+        backgroundColor: Colors.red[200],
       ),
       body: Container(
         child: CommentBox(
           userImage: CommentBox.commentImageParser(
               imageURLorPath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7-d5qr9WzS926jiHDPlYrCL01Eb0M8C8c4w&usqp=CAU"),
-          child: commentChild(filedata),
+          child: ListView(
+      children: [
+        for (int i = 0; i < worker!.comment!.length; i++)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(2.0, 8.0, 2.0, 0.0),
+            child: ListTile(
+              leading: GestureDetector(
+                onTap: () async {
+                  // Display the image in large form.
+                  print("Comment Clicked");
+                },
+                child: Container(
+                  height: 50.0,
+                  width: 50.0,
+                  decoration: new BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: new BorderRadius.all(Radius.circular(50))),
+                  child: CircleAvatar(
+                      radius: 50,
+                      backgroundImage: CommentBox.commentImageParser(
+                          imageURLorPath: 'https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png')),
+                ),
+              ),
+              title: Text(
+                worker.comment![i].username,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: Text(worker.comment![i].comment),
+             // trailing: Text(data[i]['date'], style: TextStyle(fontSize: 10)),
+            ),
+          )
+      ],
+    ),
           labelText: 'Write a comment...',
           errorText: 'Comment cannot be blank',
           withBorder: false,
@@ -96,14 +136,20 @@ final TextEditingController commentController = TextEditingController();
             if (formKey.currentState!.validate()) {
               print(commentController.text);
               setState(() {
-                var value = {
+                /*var value = {
                   'name': 'New User',
                   'pic':
                       'https://lh3.googleusercontent.com/a-/AOh14GjRHcaendrf6gU5fPIVd8GIl1OgblrMMvGUoCBj4g=s400',
                   'message': commentController.text,
                   'date': '2021-01-01 12:00:00'
-                };
-                filedata.insert(0, value);
+                };*/
+                commentdetail.Commentbusiness(context: context,
+                 worker: worker!,
+                  comment: commentController.text,
+                  username: user.name );
+                
+                //filedata.insert(0, value);
+
               });
               commentController.clear();
               FocusScope.of(context).unfocus();
@@ -113,7 +159,7 @@ final TextEditingController commentController = TextEditingController();
           },
           formKey: formKey,
           commentController: commentController,
-          backgroundColor: Colors.pink,
+          backgroundColor: Colors.red[200],
           textColor: Colors.white,
           sendWidget: Icon(Icons.send_sharp, size: 30, color: Colors.white),
         ),

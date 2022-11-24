@@ -1,5 +1,6 @@
 const mongoose =require('mongoose');
 const ratingSchema = require('./rating');
+const commentSchema = require('./comment')
 
 const WorkerSchema =mongoose.Schema({
     email :{
@@ -59,7 +60,9 @@ const WorkerSchema =mongoose.Schema({
     location : {
         type : String,
     },
-    ratings:[ratingSchema]
+    ratings:[ratingSchema],
+
+    comments:[commentSchema]
 
 });
 
