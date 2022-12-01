@@ -27,7 +27,7 @@ List pages=[
   //home_page(),
 home_page(),
  profile(),
- recomanded()
+ recomended()
 ];
 
 

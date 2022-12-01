@@ -119,6 +119,20 @@ WorkerauthRouter.post("/api/Workersignup", async (req, res) =>{
         }
       });
 
+    
+
+      WorkerauthRouter.get("/business/search/:name", auth, async (req, res) => {
+        try {
+          const worker = await Worker.find({
+            name: { $regex: req.params.name, $options: "i" },
+          });
+      
+          res.json(worker);
+        } catch (e) {
+          res.status(500).json({ error: e.message });
+        }
+      });
+
 
 
 

@@ -10,6 +10,11 @@ class home_page extends StatefulWidget{
   
 }
 class _home_pageState extends State<home_page>{
+
+  void navegatetosearchscreen(String query){
+    Navigator.of(context).pushNamed("/search",arguments: query );Colors.red[200];
+
+  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -64,7 +69,8 @@ class _home_pageState extends State<home_page>{
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(29.5),
                         ),
-                        child: TextField(
+                        child: TextFormField(
+                          onFieldSubmitted:navegatetosearchscreen, 
                           decoration:InputDecoration(
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(top: 14,),

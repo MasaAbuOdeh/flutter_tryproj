@@ -4,13 +4,15 @@ const Worker = require("../models/worker");
 const businessInfoRouter = express.Router();
 
 businessInfoRouter.post("/api/send-info", async (req, res) =>{
-    const {name, discreption , images , price , location}= req.body;
+    const {name, discreption , images , price , location , latitude , longitude}= req.body;
     let worker = await Worker.findOne({name})
         
          worker.discreption=discreption;
          worker.images=images;
          worker.price=price;
          worker.location=location;
+         worker.latitude=latitude;
+         worker.longitude=longitude;
          worker = await worker.save();
          res.json(worker);
 

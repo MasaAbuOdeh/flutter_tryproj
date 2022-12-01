@@ -19,6 +19,8 @@ required String discreption,
 required List<File> images,
 required double price,
 required String location,
+required double latitude,
+required double longitude,
 
 
 
@@ -46,6 +48,8 @@ required String location,
           'images':imageUrls,
           'price': price,
           'location': location,
+          'latitude' :latitude,
+          'longitude':longitude,
         }), );
         httpErrorHandel(
         response: res,

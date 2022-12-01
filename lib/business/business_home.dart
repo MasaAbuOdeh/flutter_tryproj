@@ -23,6 +23,8 @@ class _business_homeState extends State<business_home>{
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
+  final TextEditingController locationlatController = TextEditingController();
+  final TextEditingController locationlongController = TextEditingController();
   
   List<File> images =[];
   final business_info info = business_info();
@@ -35,6 +37,8 @@ class _business_homeState extends State<business_home>{
     descriptionController.dispose();
     priceController.dispose();
     locationController.dispose();
+    locationlatController.dispose();
+    locationlongController.dispose();
   }
   
 
@@ -46,7 +50,9 @@ class _business_homeState extends State<business_home>{
         discreption: descriptionController.text, 
         images: images,
          price: double.parse(priceController.text), 
-         location: locationController.text);
+         location: locationController.text,
+         latitude: double.parse(locationlatController.text),
+         longitude:double.parse(locationlongController.text) );
 
  
     }
@@ -141,6 +147,18 @@ class _business_homeState extends State<business_home>{
                 CustomTextField(
                   controller: locationController,
                   hintText: 'Location',
+                ),
+                
+                const SizedBox(height: 10),
+                CustomTextField(
+                  controller: locationlatController,
+                  hintText: 'latitude for locatin on map',
+                ),
+                
+                const SizedBox(height: 10),
+                CustomTextField(
+                  controller: locationlongController,
+                  hintText: 'longitude for location on map',
                 ),
                 const SizedBox(height: 20),
                 CustomButton(text: "Add",

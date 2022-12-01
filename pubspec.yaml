@@ -45,6 +45,10 @@ dependencies:
   cloudinary_public: ^0.13.0
   flutter_rating_bar: ^4.0.1
   comment_box: ^0.0.18
+  flutter_map: ^3.0.0
+  firebase_auth: ^4.1.4
+  firebase_core: ^2.3.0
+  cloud_firestore: ^4.1.0
 
 dev_dependencies:
   flutter_test:

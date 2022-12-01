@@ -15,13 +15,14 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
    List images =[
     "https://i.pinimg.com/564x/56/19/cd/5619cde7bd9438c230fe98999cd20d0a.jpg?fbclid=IwAR2D8DV4YWWvs-UCxTpmNXTpAPPjR4b0KzkXaDHOat7niuiq4pCPm8BpjqE",
-    "https://i.pinimg.com/564x/25/ab/71/25ab7102d591d9f2fdacee5481fb1e47.jpg"
+    "https://i.pinimg.com/564x/e0/6a/3b/e06a3b975a322aec1b9fd3c6b4ab32a7.jpg"
    ];
 
    List textss =[
     "Client",
     "Businuess",
    ];
+   
 
 
   @override

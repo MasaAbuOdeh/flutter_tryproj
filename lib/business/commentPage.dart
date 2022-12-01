@@ -88,14 +88,18 @@ final TextEditingController commentController = TextEditingController();
     final Worker? worker =ModalRoute.of(context)!.settings.arguments as Worker?;
     final user = Provider.of<UserProvider>(context).user;
     return Scaffold(
+      
       appBar: AppBar(
         title: Text("Comment Page"),
         backgroundColor: Colors.red[200],
       ),
       body: Container(
+        
         child: CommentBox(
           userImage: CommentBox.commentImageParser(
               imageURLorPath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7-d5qr9WzS926jiHDPlYrCL01Eb0M8C8c4w&usqp=CAU"),
+          
+          
           child: ListView(
       children: [
         for (int i = 0; i < worker!.comment!.length; i++)

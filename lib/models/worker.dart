@@ -16,6 +16,8 @@ class Worker {
   final String location;
   final List<Rating>?rating;
   final List<Comment>?comment;
+  final double latitude ;
+  final double longitude ;
 
   final String token;
 
@@ -32,6 +34,8 @@ class Worker {
    required this.location,
    this.rating,
    this.comment,
+   required this.latitude,
+   required this.longitude,
    required this.token, 
    });
 
@@ -49,6 +53,8 @@ class Worker {
       'location' : location,
       'rating' : rating,
       'comment' : comment,
+      'latitude' :latitude,
+      'longitude' : longitude,
 
       'token' : token,
 
@@ -81,7 +87,9 @@ class Worker {
                 (x) => Comment.fromMap(x),
               ),
             )
-          : null ,    
+          : null ,  
+          latitude: map['latitude']?.toDouble() ?? 0.0,  
+          longitude: map['longitude']?.toDouble() ?? 0.0,
 
 
       token: map['token']?? '', 

@@ -1,9 +1,12 @@
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_try/common/widgets/stars.dart';
 import 'package:flutter_try/constants/global_variables.dart';
+import 'package:flutter_try/fire/ChatRoom.dart';
 import 'package:flutter_try/models/worker.dart';
 import 'package:flutter_try/providers/user_provider.dart';
 import 'package:flutter_try/services/businessDetail_services.dart';
@@ -20,18 +23,86 @@ class DetailPage extends StatefulWidget{
 
 
 }
-class _DetailPageState extends State<DetailPage>{
+class _DetailPageState extends State<DetailPage>with WidgetsBindingObserver{
 int gottenStars=4;
  final _buildFormKey = GlobalKey<FormState>();
 final businessDetail_services details = businessDetail_services();
 var business;
 double avgRating = 0;
   double myRating = 0;
+
+  //final FirebaseAuth _auth = FirebaseAuth.instance;
+//final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+//Map<String, dynamic>? userMap;
+  //bool isLoading = false;
+
+  //final TextEditingController _search = TextEditingController();
+Map<String, dynamic>? userMap;
+  bool isLoading = false;
+  final TextEditingController _search = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance!.addObserver(this);
+    setStatus("Online");
     
   }
+
+  void setStatus(String status) async {
+    await _firestore.collection('users').doc(_auth.currentUser!.uid).update({
+      "status": status,
+    });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      // online
+      setStatus("Online");
+    } else {
+      // offline
+      setStatus("Offline");
+    }
+  }
+
+
+ String chatRoomId(String user1, String user2) {
+    if (user1[0].toLowerCase().codeUnits[0] >
+        user2.toLowerCase().codeUnits[0]) {
+      return "$user1$user2";
+    } else {
+      return "$user2$user1";
+    }
+  }
+
+  void onSearch() async {
+    FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+    setState(() {
+      isLoading = true;
+    });
+if(await _firestore
+        .collection('users')
+        .where("name", isEqualTo: _search.text)
+        .get()!=RangeError){
+await _firestore
+        .collection('users')
+        .where("name", isEqualTo: _search.text)
+        .get()
+        .then((value) {
+      setState(() {
+        userMap = value.docs[0].data();
+        isLoading = false;
+      });
+      print(userMap);
+    });
+  }
+  else {print("no user with this email");}
+
+        }
   Widget build(BuildContext context){
     
    // Key:_buildFormKey;
@@ -69,7 +140,12 @@ Positioned(
 
       width: double.maxFinite,
       height: 340,
-      child: CarouselSlider(
+
+      
+      child: Container(
+        child:Column(children: [
+           CarouselSlider(
+        
               items: worker!.images.map(
                 (i) {
                   return Builder(
@@ -86,7 +162,36 @@ Positioned(
                 viewportFraction: 1,
                 height: 300,
               ),
+              
             ),
+
+            SizedBox(height: 10,),
+                           Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: List.generate(worker!.images.length, (indexDots) {
+                          return Container(
+                           
+                            padding: const EdgeInsets.only(bottom:2,top:3,right: 2,left:0),
+                            margin: const EdgeInsets.only(bottom:2,top:8,right: 2,left:5),
+                            height: 8,
+                            width: 2==indexDots?30:20,
+                            
+                            decoration: BoxDecoration(
+                              
+                              
+                              borderRadius: BorderRadius.circular(3),
+                              color: 2==indexDots?Colors.black38:Colors.black38?.withOpacity(0.2)
+                            ),
+                          );
+                        }),
+                      )
+          
+        ],
+        ),
+       
+            
+      ),
+      
 
 
 
@@ -164,7 +269,11 @@ child: Column(
       ],
     ),
     SizedBox(height: 10,),
-    Row(
+    GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushNamed('/location',arguments: worker);Colors.red[200];},
+
+                          child: Row(
       children: [
         Icon(Icons.location_on,color: Colors.black45,),
         SizedBox(width: 5,),
@@ -177,8 +286,15 @@ child: Column(
 
           ),
         ),
+        SizedBox(width: 160,),
+        Text('  phone : ${worker.phone}'),
+
       ],
+
     ),
+                          //print(recomend![index].name+'pressed');},
+                          ),
+    
     SizedBox(height: 10,),
     Row(children: [
       RatingBar.builder(
@@ -229,18 +345,89 @@ child: Column(
          Container(child:
               MaterialButton(
                 minWidth: double.infinity,
-                height: 30 ,
-                onPressed: () => print( 'chat btn Pressed'),
+                height: 40 ,
+                onPressed: () async {print( 'chat btn Pressed');
+
+      FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+    setState(() {
+      isLoading = true;
+    });
+if(await _firestore
+        .collection('users')
+        .where("name", isEqualTo: worker!.name)
+        .get()!=RangeError){
+await _firestore
+        .collection('users')
+        .where("name", isEqualTo: worker!.name)
+        .get()
+        .then((value) {
+      setState(() {
+        userMap = value.docs[0].data();
+        isLoading = false;
+      });
+      print(userMap);
+    });
+  }
+  else {print("no user with this email");}
+
+  print(userMap);
+                          String roomId = chatRoomId(
+                              _auth.currentUser!.displayName!,
+                              userMap!['name']);
+
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => ChatRoom(
+                                chatRoomId: roomId,
+                                userMap: userMap!,
+                              ),
+                            ),
+                          );
+                          print(roomId);
+
+     /* FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+    setState(() {
+      isLoading = true;
+    });
+
+     _firestore
+        .collection('users')
+        .where("email", isEqualTo: worker.email)
+        .get()
+        .then((value) {
+      setState(() {
+        userMap = value.docs[0].data();
+        isLoading = false;
+      });
+      print(userMap);
+    }); ;
+                          String roomId = chatRoomId(
+                              _auth.currentUser!.displayName!,
+                              userMap!['name']);
+
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => ChatRoom(
+                                chatRoomId: roomId,
+                                userMap: userMap!,
+                              ),
+                            ),
+                          );*/
+
+       // Navigator.of(context).pushNamed('/searchh',);Colors.red[200];
+},
                 shape:RoundedRectangleBorder(
                     side: const BorderSide(
-                        color:Color.fromARGB(255, 255, 154, 154)),
+                        color:Colors.black),
                     borderRadius: BorderRadius.circular(15)
                 ),
                 color: Colors.white,
                 child: const Text(
                   'Chat',
                   style: TextStyle(
-                    color: Color.fromARGB(255, 255, 154, 154),
+                    color: Colors.black,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
@@ -260,14 +447,14 @@ child: Column(
                           print(worker.name+'pressed') ;},
       shape:RoundedRectangleBorder(
           side: const BorderSide(
-              color:Color.fromARGB(255, 255, 154, 154)),
+              color:Colors.black),
           borderRadius: BorderRadius.circular(15)
       ),
       color: Colors.white,
       child: const Text(
-        'Show comment',
+        'Show comments',
         style: TextStyle(
-          color: Color.fromARGB(255, 255, 154, 154),
+          color: Colors.black,
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
@@ -285,7 +472,7 @@ child: Column(
       onPressed: () => print( 'booking btn Pressed'),
       shape:RoundedRectangleBorder(
           side: const BorderSide(
-              color:Color.fromARGB(255, 255, 154, 154)
+              color:Colors.black
             ),
           borderRadius: BorderRadius.circular(15)
       ),
@@ -293,7 +480,7 @@ child: Column(
       child: const Text(
         'Booking',
         style: TextStyle(
-          color: Color.fromARGB(255, 255, 154, 154),
+          color: Colors.black,
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),

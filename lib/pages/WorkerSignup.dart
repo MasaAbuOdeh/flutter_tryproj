@@ -3,6 +3,7 @@ import 'package:flutter_try/common/widgets/custom_button.dart';
 import 'package:flutter_try/common/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_try/constants/global_variables.dart';
+import 'package:flutter_try/fire/methodss.dart';
 import 'package:flutter_try/services/auth_service.dart';
 import 'package:flutter_try/services/workerauth.dart';
 
@@ -33,6 +34,7 @@ class _WorkerSignupState extends State<WorkerSignup> {
   late int selectedRadio;
   var Type;
   var errortype;
+  fire create =fire();
 
 
   @override
@@ -96,7 +98,7 @@ class _WorkerSignupState extends State<WorkerSignup> {
 
       child: Scaffold(
         backgroundColor: Colors.transparent,
-      body: SafeArea(
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 70),
           child: Column(
@@ -216,6 +218,21 @@ class _WorkerSignupState extends State<WorkerSignup> {
                           onTap: () {
                             if (_signUpFormKey.currentState!.validate()&&(errortype!=null)) {
                               signUpUser();
+                              create.createAccount(_nameController.text, _emailController.text, _passwordController.text).then((user) {
+            if (user != null) {
+              setState(() {
+                
+              });
+              
+              print("Account Created Sucessfull");
+            } else {
+              print("Login Failed");
+              setState(() {
+                
+              });
+            }
+          });
+
                             }
                           },
                         )

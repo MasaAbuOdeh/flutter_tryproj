@@ -39,7 +39,10 @@ class WorkerAuthService {
          images: [],
          price: 0.0,
          location: '',
+         latitude: 0.0,
+         longitude: 0.0,
           token: '',
+
           );
 
           http.Response res = await http.post(
@@ -122,4 +125,31 @@ class WorkerAuthService {
   return workerhalls;
 
 }
+
+
+Future<List<Worker>>showrecomendedhalls(BuildContext context) async {
+  
+  
+  List <Worker> workerhalls =[];
+  try {
+          http.Response res = await http.get(Uri.parse('$uri/business/get-halls'), headers:{
+          'Content-Type': 'application/json; charset=UTF-8',
+          }
+          ) ;   
+
+          httpErrorHandel(response: res, context: context, onSuccess: () {
+            for (int i =0; i < jsonDecode(res.body).length;i++){
+            workerhalls.add(Worker.fromJson(jsonEncode(jsonDecode(res.body)[i],
+              ),
+              ),
+              );
+            }
+          });
+  } catch (e) {
+              showSnackBar(context, e.toString());
+  }
+  return workerhalls;
+
+}
+
 }

@@ -1,20 +1,27 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_try/business/DetailPage.dart';
 import 'package:flutter_try/business/business_screen.dart';
 import 'package:flutter_try/business/commentPage.dart';
+import 'package:flutter_try/business/maps.dart';
+import 'package:flutter_try/fire/createaccount.dart';
+import 'package:flutter_try/fire/login.dart';
+import 'package:flutter_try/fire/search.dart';
 import 'package:flutter_try/models/worker.dart';
 import 'package:flutter_try/pages/HomeScreen.dart';
-import 'package:flutter_try/pages/LoginScreen.dart';
 import 'package:flutter_try/pages/SignUpScreen.dart';
 import 'package:flutter_try/pages/Wedding_cars.dart';
 import 'package:flutter_try/pages/Wedding_halls.dart';
 import 'package:flutter_try/pages/WorkerSignup.dart';
+import 'package:flutter_try/pages/search_screen.dart';
 import 'package:flutter_try/pages/welcome_page.dart';
 import 'package:flutter_try/providers/user_provider.dart';
 import 'package:flutter_try/providers/worker_provider.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
@@ -57,7 +64,12 @@ class MyApp extends StatelessWidget {
           'cars':(context) => Wedding_cars(),
           'businessScreen':(context) => business_screen(),
           '/Detail':(context) => DetailPage(),
-          '/comment':(context) => commentPage()
+          '/comment':(context) => commentPage(),
+          '/search':(context) => search_screen(),
+          '/location':(context) => maps(),
+          '/chat':(context) => CreateAccount(),
+          '/searchh':(context) => CreateAccount(),
+          '/firelog':(context) => LoginScreen()
       },
     );
   }

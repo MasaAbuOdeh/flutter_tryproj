@@ -3,7 +3,8 @@ import 'package:flutter_try/common/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_try/constants/global_variables.dart';
 import 'package:flutter_try/services/auth_service.dart';
-
+import 'package:flutter_try/fire/methodss.dart';
+import 'package:flutter_try/widget/loader.dart';
 
 enum Auth {
   signin,
@@ -27,6 +28,9 @@ class _AuthScreenState extends State<AuthScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+  fire create =fire();
+  //fire create = fire();
+
 
   @override
   void dispose() {
@@ -45,6 +49,18 @@ class _AuthScreenState extends State<AuthScreen> {
       phone: _phoneController.text,
     );
   }
+ 
+ /*void createaccount(){
+     create.createAccount(_nameController.text, _emailController.text ,_passwordController.text).then((user){
+        if(user !=null) {
+          setState(() {
+            Loader();
+          });
+          print("created successfull");
+        }
+     }
+     );
+ }*/
 
   void signInUser() {
     authService.signInUser(
@@ -65,7 +81,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
       child: Scaffold(
         backgroundColor: Colors.transparent,
-      body: SafeArea(
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal:30,vertical: 70),
           child: Column(
@@ -130,6 +146,39 @@ class _AuthScreenState extends State<AuthScreen> {
                           onTap: () {
                             if (_signUpFormKey.currentState!.validate()) {
                               signUpUser();
+
+                              create.createAccount(_nameController.text, _emailController.text, _passwordController.text).then((user) {
+            if (user != null) {
+              setState(() {
+                
+              });
+              
+              print("Account Created Sucessfull");
+            } else {
+              print("Login Failed");
+              setState(() {
+                
+              });
+            }
+          });
+
+
+                             // createaccount();
+                          /*  final newUser=await create.createAccount(_nameController.text, _emailController.text,_passwordController.text,).then((user) {
+            if (user != null) {
+              setState(() {
+                Loader();
+              });
+              
+              print("Account Created Sucessfull");
+            } else {
+              print("Login Failed");
+              setState(() {
+                Loader();
+              });
+            }
+          });*/
+
                             }
                           },
                         )

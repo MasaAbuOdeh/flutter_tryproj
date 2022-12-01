@@ -62,7 +62,15 @@ const WorkerSchema =mongoose.Schema({
     },
     ratings:[ratingSchema],
 
-    comments:[commentSchema]
+    comments:[commentSchema],
+
+    latitude:{
+        type :Number,
+    },
+
+    longitude : {
+        type : Number,
+    }
 
 });
 

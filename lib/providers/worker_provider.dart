@@ -13,6 +13,8 @@ class WorkerProvider extends ChangeNotifier {
        images: [],
        price: 0.0,
        location: '',
+       latitude: 0.0,
+       longitude: 0.0,
 
         token: '');
 
