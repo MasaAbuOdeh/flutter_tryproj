@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_try/business/business_edit.dart';
 import 'package:flutter_try/business/business_home.dart';
 import 'package:flutter_try/business/business_profile.dart';
+import 'package:flutter_try/fire/createaccount.dart';
+import 'package:flutter_try/fire/search.dart';
 import 'package:flutter_try/models/worker.dart';
 import 'package:provider/provider.dart';
 
@@ -30,7 +32,8 @@ void onTap(int index){
 List pages=[
   //home_page(),
 business_home(),
- business_profile(),
+// CreateAccount(),
+search(),
  business_edit()
 ];
 
@@ -87,7 +90,7 @@ business_home(),
             
             items: [
               BottomNavigationBarItem(label:"Home",icon: Icon(Icons.apps)),
-              BottomNavigationBarItem(label:"Recomended",icon: Icon(Icons.bar_chart_sharp)),
+              BottomNavigationBarItem(label:"chats",icon: Icon(Icons.chat_outlined)),
               BottomNavigationBarItem(label:"Profile",icon: Icon(Icons.person)),
             ]),
           

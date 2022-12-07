@@ -26,8 +26,8 @@ void onTap(int index){
 List pages=[
   //home_page(),
 home_page(),
- profile(),
- recomended()
+ recomended(),
+  profile(),
 ];
 
 

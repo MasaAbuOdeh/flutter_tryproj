@@ -6,12 +6,15 @@ import 'package:flutter_try/constants/error_handling.dart';
 import 'package:flutter_try/constants/global_variables.dart';
 import 'package:flutter_try/constants/utils.dart';
 import 'package:flutter_try/models/user.dart';
+import 'package:flutter_try/pages/SignUpScreen.dart';
+import 'package:flutter_try/pages/welcome_page.dart';
 import 'package:flutter_try/providers/user_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
+  
 
   //signup user
   void signUpUser({
@@ -83,6 +86,62 @@ class AuthService {
       );
     } catch (e) {
       showSnackBar(context, e.toString());
+    }
+  }
+
+  // get user data
+  void getUserData(
+    BuildContext context,
+  ) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('x-auth-token');
+
+      if (token == null) {
+        prefs.setString('x-auth-token', '');
+      }
+
+      var tokenRes = await http.post(
+        Uri.parse('$uri/tokenIsValid'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': token!
+        },
+      );
+
+      var response = jsonDecode(tokenRes.body);
+
+      if (response == true) {
+        http.Response userRes = await http.get(
+          Uri.parse('$uri/'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': token
+          },
+        );
+
+        var userProvider = Provider.of<UserProvider>(context, listen: false);
+        userProvider.setUser(userRes.body);
+      }
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  void logout(BuildContext context)async{
+    try {
+      
+SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+await sharedPreferences.setString('x-auth-token', '');
+ Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => WelcomePage(),
+                            ),
+                          );
+    }
+    catch(e){
+      showSnackBar(context, e.toString());
+
     }
   }
 }

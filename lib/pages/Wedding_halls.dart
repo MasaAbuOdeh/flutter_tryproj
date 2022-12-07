@@ -367,7 +367,7 @@ padding: const EdgeInsets.only(left: 20),
               //SizedBox(height: 5,),
               Row(
                 children: [
-                  Text(workers![index].name, style: TextStyle(fontSize: 30),),
+                  Text(workers![index].name, style: TextStyle(fontSize: 20),),
                   SizedBox(width: 45,),
               Stars(rating: avgRating,),
                 ],
@@ -392,7 +392,7 @@ padding: const EdgeInsets.only(left: 20),
 ListView.builder(
 
                 
-                 itemCount:recomend!.length,
+                 itemCount:recomend!.length-4,
                  scrollDirection: Axis.vertical,
                  itemBuilder: (BuildContext context, int index) {
 
@@ -575,7 +575,7 @@ ListView.builder(
               //SizedBox(height: 5,),
               Row(
                 children: [
-                  Text(recomend![index].name, style: TextStyle(fontSize: 30),),
+                  Text(recomend![index].name, style: TextStyle(fontSize: 20),),
                   SizedBox(width: 45,),
               Stars(rating: avgRating,),
                 ],

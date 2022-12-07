@@ -17,6 +17,7 @@ import 'package:flutter_try/pages/search_screen.dart';
 import 'package:flutter_try/pages/welcome_page.dart';
 import 'package:flutter_try/providers/user_provider.dart';
 import 'package:flutter_try/providers/worker_provider.dart';
+import 'package:flutter_try/services/auth_service.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -37,6 +38,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -69,7 +71,8 @@ class MyApp extends StatelessWidget {
           '/location':(context) => maps(),
           '/chat':(context) => CreateAccount(),
           '/searchh':(context) => CreateAccount(),
-          '/firelog':(context) => LoginScreen()
+          '/firelog':(context) => LoginScreen(),
+          '/searchhh':(context) => CreateAccount()
       },
     );
   }

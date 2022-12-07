@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_try/fire/ChatRoom.dart';
+import 'package:flutter_try/fire/chat.dart';
+import 'package:flutter_try/providers/worker_provider.dart';
+import 'package:provider/provider.dart';
 
 class search extends StatefulWidget {
   @override
@@ -10,16 +13,23 @@ class search extends StatefulWidget {
 
 class _searchState extends State<search> with WidgetsBindingObserver {
   Map<String, dynamic>? userMap;
+  Map<String, dynamic>? storeMap;
   bool isLoading = false;
   final TextEditingController _search = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  var store;
+  var sizee;
+  var inn;
+
 
   @override
   void initState() {
     super.initState();
+    onSearch(1);
     WidgetsBinding.instance!.addObserver(this);
     setStatus("Online");
+   
   }
 
   void setStatus(String status) async {
@@ -48,7 +58,7 @@ class _searchState extends State<search> with WidgetsBindingObserver {
     }
   }
 
-  void onSearch() async {
+  void onSearch(int i) async {
     FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
     setState(() {
@@ -56,18 +66,19 @@ class _searchState extends State<search> with WidgetsBindingObserver {
     });
 if(await _firestore
         .collection('users')
-        .where("name", isEqualTo: _search.text)
         .get()!=RangeError){
 await _firestore
         .collection('users')
-        .where("name", isEqualTo: _search.text)
         .get()
         .then((value) {
       setState(() {
-        userMap = value.docs[0].data();
+       // store=value.docs[0].data();
+        userMap = value.docs[i].data();
+        storeMap=userMap;
         isLoading = false;
       });
       print(userMap);
+     // print(store);
     });
   }
   else {print("no user with this email");}
@@ -78,88 +89,53 @@ await _firestore
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final worker = Provider.of<WorkerProvider>(context).worker;
+   sizee= _firestore.collection('users').get().then((querySnapshot) {      
+    (querySnapshot.size); 
+}) ;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Home Screen"),
-      ),
-      body: isLoading
-          ? Center(
-              child: Container(
-                height: size.height / 20,
-                width: size.height / 20,
-                child: CircularProgressIndicator(),
-              ),
-            )
-          : Column(
-              children: [
-                SizedBox(
-                  height: size.height / 20,
-                ),
-                Container(
-                  height: size.height / 14,
-                  width: size.width,
-                  alignment: Alignment.center,
-                  child: Container(
-                    height: size.height / 14,
-                    width: size.width / 1.15,
-                    child: TextField(
-                      controller: _search,
-                      decoration: InputDecoration(
-                        hintText: "Search",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: size.height / 50,
-                ),
-                ElevatedButton(
-                  onPressed: onSearch,
-                  child: Text("Search"),
-                ),
-                SizedBox(
-                  height: size.height / 30,
-                ),
-                userMap != null
-                    ? ListTile(
-                        onTap: () {
+    return StreamBuilder<QuerySnapshot>(stream: FirebaseFirestore.instance.collection("users").snapshots(),
+    builder: (BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot){
+      if(snapshot.hasError){
+        return Center(child: Text("something went wrong"),);
+      }
+      if(snapshot.connectionState== ConnectionState.waiting){
+        return Center(child: Text("loading"),);
+      }
+      if(snapshot.hasData){
+        return CustomScrollView(
+          slivers: [       
+      SliverList(delegate: SliverChildListDelegate(
+        snapshot.data!.docs.map((DocumentSnapshot document ){
+          Map<String,dynamic>? data = document.data()! as Map<String, dynamic>?;
+          return ListTile(
+            onTap: () {
                           
-                          print(userMap);
+                          print(data);
                           String roomId = chatRoomId(
-                              _auth.currentUser!.displayName!,
-                              userMap!['name']);
+                              worker.name,
+                              data!['name']);
 
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => ChatRoom(
+                              builder: (_) => Chat(
                                 chatRoomId: roomId,
-                                userMap: userMap!,
+                                userMap: data!,
                               ),
                             ),
-                          );
-                          print(roomId);
-                         
-                        },
-                        leading: Icon(Icons.account_box, color: Colors.black),
-                        title: Text(
-                          userMap!['name'],
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        subtitle: Text(userMap!['email']),
+                          );},
+                          leading: Icon(Icons.account_box, color: Colors.black),
+            title: Text(data!['name']),
+            subtitle: Text(data!['email']),
                         trailing: Icon(Icons.chat, color: Colors.black),
-                      )
-                    : Container(),
-              ],
-            ),
-     
-    );
+          );
+        }).toList()
+      ))
+          ],
+        );
+      }
+      return Container();
+
+    },);
   }
 }

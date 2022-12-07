@@ -42,6 +42,8 @@ Map<String, dynamic>? userMap;
   final TextEditingController _search = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  
+
 
   @override
   void initState() {
@@ -108,6 +110,7 @@ await _firestore
    // Key:_buildFormKey;
     final Worker? worker =ModalRoute.of(context)!.settings.arguments as Worker?;
       double totalRating = 0;
+      final user = Provider.of<UserProvider>(context).user;
     for (int i = 0; i < worker!.rating!.length; i++) {
       totalRating += worker.rating![i].rating;
       if (worker.rating![i].userId ==
@@ -372,8 +375,9 @@ await _firestore
   else {print("no user with this email");}
 
   print(userMap);
+ // print(_auth.currentUser);
                           String roomId = chatRoomId(
-                              _auth.currentUser!.displayName!,
+                             _auth.currentUser!.displayName!,
                               userMap!['name']);
 
                           Navigator.of(context).push(
@@ -416,7 +420,8 @@ await _firestore
                             ),
                           );*/
 
-       // Navigator.of(context).pushNamed('/searchh',);Colors.red[200];
+        
+        //Navigator.of(context).pushNamed('/searchh',);Colors.red[200];
 },
                 shape:RoundedRectangleBorder(
                     side: const BorderSide(

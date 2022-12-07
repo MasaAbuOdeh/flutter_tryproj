@@ -6,11 +6,11 @@ import 'package:flutter_try/providers/worker_provider.dart';
 import 'package:flutter_try/services/auth_service.dart';
 import 'package:provider/provider.dart';
 
-class ChatRoom extends StatelessWidget {
+class Chat extends StatelessWidget {
   final Map<String, dynamic> userMap;
   final String chatRoomId;
 
-  ChatRoom({required this.chatRoomId, required this.userMap});
+  Chat({required this.chatRoomId, required this.userMap});
 
   final TextEditingController _message = TextEditingController();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -132,7 +132,7 @@ class ChatRoom extends StatelessWidget {
                         icon: Icon(Icons.send), onPressed: ()async{
                           if (_message.text.isNotEmpty) {
       Map<String, dynamic> messages = {
-        "sendby":_auth.currentUser!.displayName!,
+        "sendby": worker.name,
         "message": _message.text,
         "type": "text",
         "time": FieldValue.serverTimestamp(),
@@ -186,4 +186,3 @@ class ChatRoom extends StatelessWidget {
         
   }
 }
-
