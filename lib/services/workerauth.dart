@@ -101,12 +101,64 @@ class WorkerAuthService {
     }
   }
 
+  ////get all halls
+
   Future<List<Worker>>showAllhalls(BuildContext context) async {
   
   
   List <Worker> workerhalls =[];
   try {
           http.Response res = await http.get(Uri.parse('$uri/business/get-halls'), headers:{
+          'Content-Type': 'application/json; charset=UTF-8',
+          }
+          ) ;   
+
+          httpErrorHandel(response: res, context: context, onSuccess: () {
+            for (int i =0; i < jsonDecode(res.body).length;i++){
+            workerhalls.add(Worker.fromJson(jsonEncode(jsonDecode(res.body)[i],
+              ),
+              ),
+              );
+            }
+          });
+  } catch (e) {
+              showSnackBar(context, e.toString());
+  }
+  return workerhalls;
+
+}
+
+Future<List<Worker>>showhallsNablus(BuildContext context) async {
+  
+  
+  List <Worker> workerhalls =[];
+  try {
+          http.Response res = await http.get(Uri.parse('$uri/business/get-Nablus'), headers:{
+          'Content-Type': 'application/json; charset=UTF-8',
+          }
+          ) ;   
+
+          httpErrorHandel(response: res, context: context, onSuccess: () {
+            for (int i =0; i < jsonDecode(res.body).length;i++){
+            workerhalls.add(Worker.fromJson(jsonEncode(jsonDecode(res.body)[i],
+              ),
+              ),
+              );
+            }
+          });
+  } catch (e) {
+              showSnackBar(context, e.toString());
+  }
+  return workerhalls;
+
+}
+
+Future<List<Worker>>showhallsTulkarem(BuildContext context) async {
+  
+  
+  List <Worker> workerhalls =[];
+  try {
+          http.Response res = await http.get(Uri.parse('$uri/business/get-Tulkarem'), headers:{
           'Content-Type': 'application/json; charset=UTF-8',
           }
           ) ;   
@@ -133,6 +185,58 @@ Future<List<Worker>>showrecomendedhalls(BuildContext context) async {
   List <Worker> workerhalls =[];
   try {
           http.Response res = await http.get(Uri.parse('$uri/business/get-halls'), headers:{
+          'Content-Type': 'application/json; charset=UTF-8',
+          }
+          ) ;   
+
+          httpErrorHandel(response: res, context: context, onSuccess: () {
+            for (int i =0; i < jsonDecode(res.body).length;i++){
+            workerhalls.add(Worker.fromJson(jsonEncode(jsonDecode(res.body)[i],
+              ),
+              ),
+              );
+            }
+          });
+  } catch (e) {
+              showSnackBar(context, e.toString());
+  }
+  return workerhalls;
+
+}
+
+////get all band group
+
+  Future<List<Worker>>showAllband(BuildContext context) async {
+  
+  
+  List <Worker> workerhalls =[];
+  try {
+          http.Response res = await http.get(Uri.parse('$uri/business/get-band'), headers:{
+          'Content-Type': 'application/json; charset=UTF-8',
+          }
+          ) ;   
+
+          httpErrorHandel(response: res, context: context, onSuccess: () {
+            for (int i =0; i < jsonDecode(res.body).length;i++){
+            workerhalls.add(Worker.fromJson(jsonEncode(jsonDecode(res.body)[i],
+              ),
+              ),
+              );
+            }
+          });
+  } catch (e) {
+              showSnackBar(context, e.toString());
+  }
+  return workerhalls;
+
+}
+
+Future<List<Worker>>showrecomendedband(BuildContext context) async {
+  
+  
+  List <Worker> workerhalls =[];
+  try {
+          http.Response res = await http.get(Uri.parse('$uri/business/get-band'), headers:{
           'Content-Type': 'application/json; charset=UTF-8',
           }
           ) ;   

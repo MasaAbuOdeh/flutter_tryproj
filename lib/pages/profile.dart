@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_try/pages/UserAccount.dart';
 import 'package:flutter_try/providers/user_provider.dart';
+import 'package:flutter_try/services/auth_service.dart';
 import 'package:provider/provider.dart';
 
 class profile extends StatefulWidget{
@@ -14,6 +15,7 @@ class profile extends StatefulWidget{
 }
 class _profileState extends State<profile>{
   DateTime dateTime=DateTime(2022,22,11,0,0);
+  final AuthService closee =AuthService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -258,9 +260,14 @@ child:Row(
                       color: Colors.white,
                       child:Row(
                         children: [
-                        Icon(Icons.dangerous_outlined,color:Color(0xeeffb7c5),size: 25,),
+                        IconButton(
+                              onPressed: () {
+                                closee.logout(context);
+                              },
+                              icon: Icon(Icons.dangerous_outlined,color: Colors.red[100],),
+                            ),
                        const Text(
-                        '\t\t\tDelete Account',
+                        '\t\t\tLog Out',
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           color: Color(0xeeffb7c5),

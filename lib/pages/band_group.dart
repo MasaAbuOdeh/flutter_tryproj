@@ -1,9 +1,7 @@
-
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_try/common/widgets/stars.dart';
 import 'package:flutter_try/models/worker.dart';
-import 'package:flutter_try/pages/filtar.dart';
 import 'package:flutter_try/pages/recomanded.dart';
 import 'package:flutter_try/providers/worker_provider.dart';
 import 'package:flutter_try/services/business_info.dart';
@@ -11,19 +9,19 @@ import 'package:flutter_try/services/workerauth.dart';
 import 'package:flutter_try/widget/loader.dart';
 import 'package:flutter_try/widget/single.dart';
 import 'package:provider/provider.dart';
-class hallsPage extends StatefulWidget{
-const hallsPage({Key? key}):super(key:key);
+class bandPage extends StatefulWidget{
+const bandPage({Key? key}):super(key:key);
 
   get workers => null;
   get recomend=> null;
  // get temp =>null;
   //get workerdata => null;
 @override
-_hallsPageState createState()=> _hallsPageState();
+_bandPageState createState()=> _bandPageState();
 
 
 }
-class _hallsPageState extends State<hallsPage> with TickerProviderStateMixin {
+class _bandPageState extends State<bandPage> with TickerProviderStateMixin {
   
    List <Worker> ? workers ;
    List<Worker> ? recomend;
@@ -86,7 +84,7 @@ class _hallsPageState extends State<hallsPage> with TickerProviderStateMixin {
 showrecomend() async{
   //workers = await hall.showAllhalls(context);
   //recomend=workers;
-  recomend = await hall.showrecomendedhalls(context);
+  recomend = await hall.showrecomendedband(context);
 
   double tri=0;
 double trj=0;
@@ -127,7 +125,7 @@ double aj=0;
 
   showallhalls() async{
     
-    workers = await hall.showAllhalls(context);
+    workers = await hall.showAllband(context);
     setState(() {
       
     });
@@ -176,17 +174,7 @@ double aj=0;
             padding: const EdgeInsets.only(top: 40, left: 20),
             child: Row(
               children: [
-                IconButton(
-                              onPressed: () {
-                                Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (_) => NavDrawer()
-                            ),
-                          );
-                               
-                              },
-                              icon: Icon(Icons.menu,color: Colors.black,),
-                            ),
+                Icon(Icons.menu, size: 30, color: Colors.black,),
                 /* Container(
                   width: 50,
                   height: 50,
@@ -403,7 +391,7 @@ padding: const EdgeInsets.only(left: 20),
 ListView.builder(
 
                 
-                 itemCount:recomend!.length-4,
+                 itemCount:recomend!.length,
                  scrollDirection: Axis.vertical,
                  itemBuilder: (BuildContext context, int index) {
 

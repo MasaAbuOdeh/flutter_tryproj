@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_try/business/business_edit.dart';
 import 'package:flutter_try/business/business_home.dart';
 import 'package:flutter_try/business/business_profile.dart';
+import 'package:flutter_try/business/calendar.dart';
+import 'package:flutter_try/business/notification.dart';
 import 'package:flutter_try/fire/createaccount.dart';
 import 'package:flutter_try/fire/search.dart';
 import 'package:flutter_try/models/worker.dart';
@@ -34,7 +36,7 @@ List pages=[
 business_home(),
 // CreateAccount(),
 search(),
- business_edit()
+ BookingCalendarDemoApp()
 ];
 
 

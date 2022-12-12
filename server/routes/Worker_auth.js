@@ -58,7 +58,7 @@ WorkerauthRouter.post("/api/Workersignup", async (req, res) =>{
             res.status(500).json({ error: e.message});
         }
     });
-
+///get all halls
     WorkerauthRouter.get("/business/get-halls", async(req, res) => {
         try{
         const worker = await Worker.find({type: 'halls'});
@@ -67,6 +67,37 @@ WorkerauthRouter.post("/api/Workersignup", async (req, res) =>{
           res.status(500).json({ error: e.message});
         }
       }) ;
+
+      ///get halls by the nablus 
+    WorkerauthRouter.get("/business/get-Nablus", async(req, res) => {
+      try{
+      const worker = await Worker.find({type: 'halls',location:'Nablus'});
+      res.json(worker);
+      }catch (e) {
+        res.status(500).json({ error: e.message});
+      }
+    }) ;
+
+    ///get halls by the nablus 
+    WorkerauthRouter.get("/business/get-Tulkarem", async(req, res) => {
+      try{
+      const worker = await Worker.find({type: 'halls',location:'Tulkarem'});
+      res.json(worker);
+      }catch (e) {
+        res.status(500).json({ error: e.message});
+      }
+    }) ;
+
+
+      ///get all band group
+    WorkerauthRouter.get("/business/get-band", async(req, res) => {
+      try{
+      const worker = await Worker.find({type: 'Band group'});
+      res.json(worker);
+      }catch (e) {
+        res.status(500).json({ error: e.message});
+      }
+    }) ;
 
       WorkerauthRouter.post("/api/rate-Worker", auth, async (req, res) => {
         try {
@@ -124,7 +155,7 @@ WorkerauthRouter.post("/api/Workersignup", async (req, res) =>{
       WorkerauthRouter.get("/business/search/:name", auth, async (req, res) => {
         try {
           const worker = await Worker.find({
-            name: { $regex: req.params.name, $options: "i" },
+            name: req.params.name,
           });
       
           res.json(worker);

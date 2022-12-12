@@ -1,9 +1,11 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_try/pages/search_screen.dart';
 import 'package:flutter_try/widget/Categoryard.dart';
 
 class home_page extends StatefulWidget{
-  const home_page({super.key});
+  const home_page({super.key,
+  });
   
   @override
   _home_pageState createState() =>_home_pageState(); 
@@ -12,7 +14,14 @@ class home_page extends StatefulWidget{
 class _home_pageState extends State<home_page>{
 
   void navegatetosearchscreen(String query){
-    Navigator.of(context).pushNamed("/search",arguments: query );Colors.red[200];
+   // Navigator.of(context).pushNamed("/search",arguments: query );Colors.red[200];
+    Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => search_screen(
+                                SearchQuery: query,
+                              ),
+                            ),
+                          );
 
   }
   @override
@@ -54,7 +63,7 @@ class _home_pageState extends State<home_page>{
 
                           ),
                           child: 
-                                Image.network("https://cdn-icons-png.flaticon.com/128/130/130918.png"),
+                                IconButton(onPressed: (){}, icon:Icon(Icons.menu), color:Colors.black )
                         ),
                       ),
                       Text(
@@ -104,37 +113,23 @@ class _home_pageState extends State<home_page>{
                               printt:'hallsPage',
                             ),
                               Categoryard(
-                              title:"Wedding Cars",
-                              svgSrc: "https://i.pinimg.com/564x/27/4d/b4/274db4b11ff4292b1147da1f2e0febb6.jpg",
-                              printt:'cars',
+                              title:"Band group",
+                              svgSrc: "https://i.pinimg.com/564x/e1/8d/eb/e18deb2b7ceec7de1de1c3adf3e4fcbf.jpg",
+                              printt:'Band',
                             ),
                             
                             Categoryard(
                               title:"photography",
                               svgSrc: "https://www.hockwoldhallnorfolk.com/wp-content/uploads/2017/02/wedding-photographer.jpg",
-                              printt:'halls',
+                              printt:'photography',
                             ),
                             
                             Categoryard(
-                              title:"wedding cake ",
-                              svgSrc: "https://i.pinimg.com/564x/da/1d/ae/da1dae0c3599794df32921fdb039d821.jpg",
-                              printt:'halls',
+                              title:"Decorate",
+                              svgSrc: "https://i.pinimg.com/564x/34/ee/53/34ee53b2686e0014b2438e295eb6b05d.jpg",
+                              printt:'Decorate',
                             ),
                             
-                            
-                            Categoryard(
-                              title:"wedding cake ",
-                              svgSrc: "https://cdn-icons-png.flaticon.com/512/2474/2474337.png",
-                              printt:'halls',
-                            ),
-                            
-                            Categoryard(
-                              title:"wedding cake ",
-                              svgSrc: "https://cdn-icons-png.flaticon.com/512/2474/2474337.png",
-                              printt:'hallsPage',
-                            ),
-                            
-
 
                           ], ) ,
                       )

@@ -75,9 +75,9 @@ class _WorkerSignupState extends State<WorkerSignup> {
       if(selectedRadio==1)
       Type="halls";
       else if (selectedRadio==2)
-      Type="cars";
+      Type="Band group";
       else if (selectedRadio==3)
-      Type="cake";
+      Type="Decorate";
       else if (selectedRadio==4)
       Type="photography";
       else 
@@ -181,7 +181,7 @@ class _WorkerSignupState extends State<WorkerSignup> {
                           }),
                         
                           const SizedBox(width: 10),
-                          Text("cars"),
+                          Text("Band group"),
                           
 
                         ],
@@ -197,8 +197,8 @@ class _WorkerSignupState extends State<WorkerSignup> {
                           }),
                         
                           const SizedBox(width: 10),
-                          Text("cake"),
-                          const SizedBox(width: 70,),
+                          Text("Decorate"),
+                          const SizedBox(width: 40,),
                            Radio(value: 4,
                          groupValue: selectedRadio,
                           onChanged: (val){

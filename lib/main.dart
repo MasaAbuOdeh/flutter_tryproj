@@ -13,14 +13,18 @@ import 'package:flutter_try/pages/SignUpScreen.dart';
 import 'package:flutter_try/pages/Wedding_cars.dart';
 import 'package:flutter_try/pages/Wedding_halls.dart';
 import 'package:flutter_try/pages/WorkerSignup.dart';
+import 'package:flutter_try/pages/band_group.dart';
 import 'package:flutter_try/pages/search_screen.dart';
 import 'package:flutter_try/pages/welcome_page.dart';
 import 'package:flutter_try/providers/user_provider.dart';
 import 'package:flutter_try/providers/worker_provider.dart';
 import 'package:flutter_try/services/auth_service.dart';
 import 'package:provider/provider.dart';
+import 'package:booking_calendar/booking_calendar.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
+  initializeDateFormatting();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   
@@ -67,12 +71,13 @@ class MyApp extends StatelessWidget {
           'businessScreen':(context) => business_screen(),
           '/Detail':(context) => DetailPage(),
           '/comment':(context) => commentPage(),
-          '/search':(context) => search_screen(),
+         // '/search':(context) => search_screen(),
           '/location':(context) => maps(),
           '/chat':(context) => CreateAccount(),
           '/searchh':(context) => CreateAccount(),
           '/firelog':(context) => LoginScreen(),
-          '/searchhh':(context) => CreateAccount()
+          '/searchhh':(context) => CreateAccount(),
+          'Band':(context) => bandPage()
       },
     );
   }
