@@ -256,4 +256,64 @@ Future<List<Worker>>showrecomendedband(BuildContext context) async {
 
 }
 
+void deleteProduct({
+    required BuildContext context,
+    required Worker worker,
+    required VoidCallback onSuccess,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/admin/delete-product'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'id': worker.id,
+        }),
+      );
+
+      httpErrorHandel(
+        response: res,
+        context: context,
+        onSuccess: () {
+          onSuccess();
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  ////get all workers
+
+  Future<List<Worker>>allworkers(BuildContext context) async {
+  
+  
+  List <Worker> workerhalls =[];
+  try {
+          http.Response res = await http.get(Uri.parse('$uri/business/all'), headers:{
+          'Content-Type': 'application/json; charset=UTF-8',
+          }
+          ) ;   
+
+          httpErrorHandel(response: res, context: context, onSuccess: () {
+            for (int i =0; i < jsonDecode(res.body).length;i++){
+            workerhalls.add(Worker.fromJson(jsonEncode(jsonDecode(res.body)[i],
+              ),
+              ),
+              );
+            }
+          });
+  } catch (e) {
+              showSnackBar(context, e.toString());
+  }
+  return workerhalls;
+
+}
+
+  
+
 }

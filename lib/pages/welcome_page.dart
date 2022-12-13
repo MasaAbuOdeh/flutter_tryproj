@@ -41,36 +41,19 @@ class _WelcomePageState extends State<WelcomePage> {
                   ""+images[index]
                 ), fit:BoxFit.cover)),
                 child: Container(
-                  margin: const EdgeInsets.only(top: 600, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 500, left: 20, right: 20),
                   child: Row(
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
+                          SizedBox(height: 10,),
                           AppLargeText(text:index==0? "Dream Wedding":""),
                           //AppText(text:index==0? "":""),
                           AppText(text:index==0? "    Wedding planning made\n    Joyful and easy":"", size:20),
                           
                          // AppText(text:index==0? "Joyful and easy":"", size:20),
-                          SizedBox(height: 0,
-                          width:150,
-                          ),
-                          
-                          /*Container(
-                            width: 250,
-                            child: AppText(
-                              text:"We help you save time and effort by collecting all the details you need for your wedding in one place" ),
-                              color: Colors.red[300],
-                            
-                          )*/
-                          
-                          
-                          ResponsiveButton(
-                            text:index==1? ""+textss[1]:"",
-                            width:index==1? 150:0,
-                            butttext: 'Buisnuiss',
-                           /* press: (){Navigator.of(context).pushNamed('login');}*/),
-                           SizedBox(height: 10,),
+                          SizedBox(height: 100,),
                            Row(
                                
                         
@@ -101,7 +84,39 @@ class _WelcomePageState extends State<WelcomePage> {
                         
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                           SizedBox(height: 54,
+                          SizedBox(height: 5,
+                          width:100,
+                          ),
+                          
+                          
+                            
+                               ResponsiveButton(
+                            text: index==1? "Admin":"",
+                            width:index==1? 150:0,
+                            butttext: 'Admin',
+                           /* press: (){Navigator.of(context).pushNamed('login');}*/),
+                          
+SizedBox(height: 30,
+                          
+                          ),
+                          
+                          
+                          /*Container(
+                            width: 250,
+                            child: AppText(
+                              text:"We help you save time and effort by collecting all the details you need for your wedding in one place" ),
+                              color: Colors.red[300],
+                            
+                          )*/
+                          
+                          
+                          ResponsiveButton(
+                            text:index==1?'Buisnuiss':"",
+                            width:index==1? 150:0,
+                            butttext: 'Buisnuiss',
+                           /* press: (){Navigator.of(context).pushNamed('login');}*/),
+                           SizedBox(height: 0,),
+                           SizedBox(height: 30,
                           width:50,
                           ),
                           Container(

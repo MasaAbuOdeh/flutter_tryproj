@@ -164,6 +164,27 @@ WorkerauthRouter.post("/api/Workersignup", async (req, res) =>{
         }
       });
 
+      // Delete the product
+      WorkerauthRouter.post("/admin/delete-product", async (req, res) => {
+  try {
+    const { id } = req.body;
+    let worker = await Worker.findByIdAndDelete(id);
+    res.json(worker);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+///get all workers
+WorkerauthRouter.get("/business/all", async(req, res) => {
+  try{
+  const worker = await Worker.find({});
+  res.json(worker);
+  }catch (e) {
+    res.status(500).json({ error: e.message});
+  }
+}) ;
+
 
 
 

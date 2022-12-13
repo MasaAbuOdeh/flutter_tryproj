@@ -1,5 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_try/AdminPages/HomeScreen.dart';
+import 'package:flutter_try/AdminPages/businessA.dart';
+import 'package:flutter_try/AdminPages/clientA.dart';
+import 'package:flutter_try/AdminPages/halls.dart';
+import 'package:flutter_try/admin/admin_control_page.dart';
 import 'package:flutter_try/business/DetailPage.dart';
 import 'package:flutter_try/business/business_screen.dart';
 import 'package:flutter_try/business/commentPage.dart';
@@ -77,7 +82,11 @@ class MyApp extends StatelessWidget {
           '/searchh':(context) => CreateAccount(),
           '/firelog':(context) => LoginScreen(),
           '/searchhh':(context) => CreateAccount(),
-          'Band':(context) => bandPage()
+          'Band':(context) => bandPage(),
+          'Admin':(context) => Admin_Screen(),
+          'halls':(context) => halls(),
+          'clientA':(context) => clientA(),
+          'businessA':(context) => businessA()
       },
     );
   }

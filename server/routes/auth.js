@@ -79,6 +79,15 @@ authRouter.get("/", auth, async (req, res) => {
     res.json({ ...user._doc, token: req.token });
   });
 
+  authRouter.get("/user/all", async(req, res) => {
+    try{
+    const user = await User.find({});
+    res.json(user);
+    }catch (e) {
+      res.status(500).json({ error: e.message});
+    }
+  }) ;
+
 
 
 

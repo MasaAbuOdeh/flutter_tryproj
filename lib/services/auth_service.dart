@@ -144,4 +144,30 @@ await sharedPreferences.setString('x-auth-token', '');
 
     }
   }
+
+  //get all users
+  Future<List<User>>showAlluser(BuildContext context) async {
+  
+  
+  List <User> allusers =[];
+  try {
+          http.Response res = await http.get(Uri.parse('$uri/user/all'), headers:{
+          'Content-Type': 'application/json; charset=UTF-8',
+          }
+          ) ;   
+
+          httpErrorHandel(response: res, context: context, onSuccess: () {
+            for (int i =0; i < jsonDecode(res.body).length;i++){
+            allusers.add(User.fromJson(jsonEncode(jsonDecode(res.body)[i],
+              ),
+              ),
+              );
+            }
+          });
+  } catch (e) {
+              showSnackBar(context, e.toString());
+  }
+  return allusers;
+
+}
 }
