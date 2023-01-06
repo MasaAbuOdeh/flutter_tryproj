@@ -1,5 +1,6 @@
 const express = require("express");
 const Worker = require("../models/worker");
+const Comment= require("../models/comment");
 
 const bcryptjs = require('bcryptjs');
 const jwt = require ("jsonwebtoken");
@@ -157,7 +158,21 @@ WorkerauthRouter.post("/api/Workersignup", async (req, res) =>{
           const worker = await Worker.find({
             name: req.params.name,
           });
-      
+         
+          res.json(worker);
+        } catch (e) {
+          res.status(500).json({ error: e.message });
+        }
+      });
+
+      /////show all comments
+
+      WorkerauthRouter.get("/business/searchh/:name", async (req, res) => {
+         try {
+          const worker = await Worker.find({
+            name: req.params.name,
+          });
+        
           res.json(worker);
         } catch (e) {
           res.status(500).json({ error: e.message });
@@ -178,7 +193,7 @@ WorkerauthRouter.post("/api/Workersignup", async (req, res) =>{
 ///get all workers
 WorkerauthRouter.get("/business/all", async(req, res) => {
   try{
-  const worker = await Worker.find({});
+  const worker = await Worker.find({statu:'not_activate'});
   res.json(worker);
   }catch (e) {
     res.status(500).json({ error: e.message});

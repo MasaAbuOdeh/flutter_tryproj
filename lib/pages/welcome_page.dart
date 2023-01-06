@@ -15,7 +15,7 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
    List images =[
     "https://i.pinimg.com/564x/56/19/cd/5619cde7bd9438c230fe98999cd20d0a.jpg?fbclid=IwAR2D8DV4YWWvs-UCxTpmNXTpAPPjR4b0KzkXaDHOat7niuiq4pCPm8BpjqE",
-    "https://i.pinimg.com/564x/e0/6a/3b/e06a3b975a322aec1b9fd3c6b4ab32a7.jpg"
+    "https://i.pinimg.com/564x/17/ea/6c/17ea6c1fdb68b68afbaa8c7b7528fa85.jpg"
    ];
 
    List textss =[
@@ -53,7 +53,7 @@ class _WelcomePageState extends State<WelcomePage> {
                           AppText(text:index==0? "    Wedding planning made\n    Joyful and easy":"", size:20),
                           
                          // AppText(text:index==0? "Joyful and easy":"", size:20),
-                          SizedBox(height: 100,),
+                          SizedBox(height: 160,),
                            Row(
                                
                         

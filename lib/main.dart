@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_try/AdminPages/HomeScreen.dart';
+import 'package:flutter_try/AdminPages/admin_signin.dart';
 import 'package:flutter_try/AdminPages/businessA.dart';
 import 'package:flutter_try/AdminPages/clientA.dart';
 import 'package:flutter_try/AdminPages/halls.dart';
@@ -18,6 +19,8 @@ import 'package:flutter_try/pages/SignUpScreen.dart';
 import 'package:flutter_try/pages/Wedding_cars.dart';
 import 'package:flutter_try/pages/Wedding_halls.dart';
 import 'package:flutter_try/pages/WorkerSignup.dart';
+import 'package:flutter_try/pages/aftersigninuser.dart';
+import 'package:flutter_try/pages/afterworkersignin.dart';
 import 'package:flutter_try/pages/band_group.dart';
 import 'package:flutter_try/pages/search_screen.dart';
 import 'package:flutter_try/pages/welcome_page.dart';
@@ -27,6 +30,8 @@ import 'package:flutter_try/services/auth_service.dart';
 import 'package:provider/provider.dart';
 import 'package:booking_calendar/booking_calendar.dart';
 import 'package:intl/date_symbol_data_local.dart';
+
+
 
 void main() async {
   initializeDateFormatting();
@@ -70,10 +75,10 @@ class MyApp extends StatelessWidget {
       routes: {
         'Buisnuiss':(context) => WorkerSignup(),
          'Client':(context) => AuthScreen(),
-          'HomePage':(context) => HomeScreen(),
+          'HomePage':(context) => after_signin_usr(),
           'hallsPage':(context) => hallsPage(),
           'cars':(context) => Wedding_cars(),
-          'businessScreen':(context) => business_screen(),
+          'businessScreen':(context) => after_signin_wrkr(),
           '/Detail':(context) => DetailPage(),
           '/comment':(context) => commentPage(),
          // '/search':(context) => search_screen(),
@@ -86,7 +91,10 @@ class MyApp extends StatelessWidget {
           'Admin':(context) => Admin_Screen(),
           'halls':(context) => halls(),
           'clientA':(context) => clientA(),
-          'businessA':(context) => businessA()
+          'businessA':(context) => businessA(),
+          'started':(context) =>HomeScreen(), 
+          'LoginAdmin':(context) =>LoginAdmin(),
+          'letgo':(context) => business_screen()
       },
     );
   }

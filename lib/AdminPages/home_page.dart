@@ -66,7 +66,12 @@ class _home_adminState extends State<home_admin>{
                                 IconButton(onPressed: (){}, icon:Icon(Icons.menu), color:Colors.black )
                         ),
                       ),
-                      SizedBox(height: 60,),
+                      Text(
+                        "     Admin side ",
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.displaySmall?.copyWith(fontWeight: FontWeight.w400,fontSize: 45,),
+                      ),
+                      SizedBox(height: 15,),
                       Container(
                         margin: EdgeInsets.symmetric(vertical: 30),
                         padding: EdgeInsets.symmetric(horizontal: 30,vertical: 5),

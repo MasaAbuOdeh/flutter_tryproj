@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_try/models/user.dart';
 import 'package:flutter_try/models/worker.dart';
 import 'package:flutter_try/services/auth_service.dart';
+import 'package:flutter_try/services/business_info.dart';
 import 'package:flutter_try/widget/loader.dart';
 import 'package:get/get.dart';
 
@@ -21,6 +22,7 @@ _clientAState createState()=> _clientAState();
 class _clientAState extends State<clientA> with TickerProviderStateMixin {
   List <User> ? users ;
   final AuthService hall = AuthService();
+  final business_info activatee =business_info();
   //late Worker temp;
   //late Worker workersdata;
 
@@ -85,7 +87,7 @@ class _clientAState extends State<clientA> with TickerProviderStateMixin {
       ),
       body: Container(
         height: MediaQuery.of(context).size.height*0.75,
-        child: ListView.builder(itemBuilder: (context, index) {
+        child: ListView.builder(itemCount: users!.length,itemBuilder: (context, index) {
           return Card(
             margin: EdgeInsets.all(4),
             elevation: 8,
@@ -94,10 +96,12 @@ class _clientAState extends State<clientA> with TickerProviderStateMixin {
               subtitle: Text(users![index].email,style: TextStyle(fontSize: 18),),
               trailing:  IconButton(
                               onPressed: () {
+                                activatee.useractivate(context: context, name: users![index].name, statu: 'activate');
+
                                // closee.logout(context);
                               },
                               icon: Icon(Icons.done_outline_sharp,color: Colors.red[100],),
-                            ),
+                            ), 
             ),
           );
         }),

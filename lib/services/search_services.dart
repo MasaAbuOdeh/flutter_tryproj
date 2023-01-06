@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_try/constants/error_handling.dart';
 import 'package:flutter_try/constants/global_variables.dart';
 import 'package:flutter_try/constants/utils.dart';
+import 'package:flutter_try/models/comment.dart';
 import 'package:flutter_try/models/worker.dart';
 import 'package:flutter_try/providers/user_provider.dart';
+import 'package:flutter_try/providers/worker_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
@@ -35,6 +37,35 @@ Future<List<Worker>>search(BuildContext context,
               showSnackBar(context, e.toString());
   }
   return workerhalls;
+
+}
+
+Future<List<Comment>>showallcomments( BuildContext context,
+     String workername) async {
+
+      final workerProvider = Provider.of<WorkerProvider>(context, listen: false);
+      
+  
+  List <Comment> allcomments =[];
+  try {
+          http.Response res = await http.get(Uri.parse('$uri/business/get-comments/$workername'), headers:{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': workerProvider.worker.token,
+          }
+          ) ;   
+
+          httpErrorHandel(response: res, context: context, onSuccess: () {
+            for (int i =0; i < jsonDecode(res.body).length;i++){
+            allcomments.add(Comment.fromJson(jsonEncode(jsonDecode(res.body)[i],
+              ),
+              ),
+              );
+            }
+          });
+  } catch (e) {
+              showSnackBar(context, e.toString());
+  }
+  return allcomments;
 
 }
 

@@ -1,9 +1,11 @@
 const express = require("express");
 const User = require("../models/user");
+const Admin = require("../models/Admin");
 
 const bcryptjs = require('bcryptjs');
 const jwt = require ("jsonwebtoken");
 const auth = require("../middlewares/auth");
+
 
 const authRouter = express.Router();
 
@@ -58,6 +60,32 @@ authRouter.post("/api/signup", async (req, res) =>{
         }
     });
 
+
+    authRouter.post("/Admin/signin", async (req, res) => {
+      try{
+          const{email , password } = req.body;
+
+          const admin = await Admin.findOne({ email });
+
+          if(!Admin){
+              return res.status(400).json({msg : "Admin with this email does not exit !"});
+          }
+
+          const isMatch = await bcryptjs.compare(password, admin.password);
+
+          if(!isMatch){
+              return res.status(400).json({msg : "Incorrect password!"});
+          }
+
+          const token = jwt.sign({id: admin._id}, "passwordKey");
+
+          res.json({token, ...admin._doc})
+
+      } catch(e) {
+          res.status(500).json({ error: e.message});
+      }
+  });
+
     authRouter.post("/tokenIsValid", async (req, res) => {
         try {
           const token = req.header("x-auth-token");
@@ -81,7 +109,7 @@ authRouter.get("/", auth, async (req, res) => {
 
   authRouter.get("/user/all", async(req, res) => {
     try{
-    const user = await User.find({});
+    const user = await User.find({statu:'not_activate'});
     res.json(user);
     }catch (e) {
       res.status(500).json({ error: e.message});

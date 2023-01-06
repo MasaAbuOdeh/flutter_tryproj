@@ -15,6 +15,7 @@ class WorkerProvider extends ChangeNotifier {
        location: '',
        latitude: 0.0,
        longitude: 0.0,
+       statu: '',
 
         token: '');
 

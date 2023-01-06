@@ -12,6 +12,11 @@ class home_page extends StatefulWidget{
   
 }
 class _home_pageState extends State<home_page>{
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   void navegatetosearchscreen(String query){
    // Navigator.of(context).pushNamed("/search",arguments: query );Colors.red[200];
@@ -24,6 +29,7 @@ class _home_pageState extends State<home_page>{
                           );
 
   }
+  
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

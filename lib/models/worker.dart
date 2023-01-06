@@ -18,6 +18,7 @@ class Worker {
   final List<Comment>?comment;
   final double latitude ;
   final double longitude ;
+  final String statu;
 
   final String token;
 
@@ -36,6 +37,7 @@ class Worker {
    this.comment,
    required this.latitude,
    required this.longitude,
+   required this.statu,
    required this.token, 
    });
 
@@ -55,6 +57,7 @@ class Worker {
       'comment' : comment,
       'latitude' :latitude,
       'longitude' : longitude,
+      'statu' :statu,
 
       'token' : token,
 
@@ -90,7 +93,7 @@ class Worker {
           : null ,  
           latitude: map['latitude']?.toDouble() ?? 0.0,  
           longitude: map['longitude']?.toDouble() ?? 0.0,
-
+          statu:map['statu']?? '', 
 
       token: map['token']?? '', 
 

@@ -62,6 +62,7 @@ dependencies:
   date_picker_timeline: ^1.2.3
   firebase_messaging: ^14.1.4
   uuid: ^3.0.7
+  firebase_helpers: ^0.6.0
 
 dev_dependencies:
   flutter_test:

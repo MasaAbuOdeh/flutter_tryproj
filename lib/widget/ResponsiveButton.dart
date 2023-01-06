@@ -32,7 +32,7 @@ class ResponsiveButton extends StatelessWidget{
         borderRadius:BorderRadius.circular(20),
         child: ElevatedButton(
           child:  Text(""+text,style: TextStyle(fontSize: 20,color: Colors.black54),) ,
-          style: ElevatedButton.styleFrom(primary: Colors.red[100]),
+          style: ElevatedButton.styleFrom(primary: Colors.white),
         
           onPressed: (){Navigator.of(context).pushNamed(butttext);Colors.red[200];}),
            ),

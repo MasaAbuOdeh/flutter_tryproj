@@ -6,6 +6,7 @@ import 'package:flutter_try/constants/error_handling.dart';
 import 'package:flutter_try/constants/global_variables.dart';
 import 'package:flutter_try/constants/utils.dart';
 import 'package:flutter_try/models/worker.dart';
+import 'package:flutter_try/providers/user_provider.dart';
 import 'package:flutter_try/providers/worker_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -69,6 +70,90 @@ required double longitude,
   }
 
 }
+
+void useractivate({
+required BuildContext context,
+required String name,
+required String statu,
+
+
+
+
+}) async {
+  final userProvider = Provider.of<UserProvider>(context, listen: false);
+  try {
+       
+       http.Response res = await http.post(
+        Uri.parse('$uri/api/activate_user'),
+        
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+         // 'x-auth-token': WorkerProvider.worker.token,
+        },
+        body: jsonEncode({
+          'name': name,
+          'statu': statu,
+        }), );
+        httpErrorHandel(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(context, 'user activated now',);
+         // Navigator.pop(context);
+        },
+      );
+   
+
+  }catch(e){
+    showSnackBar(context, e.toString());
+  }
+
+  
+
+}
+
+void workeractivate({
+required BuildContext context,
+required String name,
+required String statu,
+
+
+
+
+}) async {
+  final workerProvider = Provider.of<WorkerProvider>(context, listen: false);
+  try {
+       
+       http.Response res = await http.post(
+        Uri.parse('$uri/api/activate_worker'),
+        
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+         // 'x-auth-token': WorkerProvider.worker.token,
+        },
+        body: jsonEncode({
+          'name': name,
+          'statu': statu,
+        }), );
+        httpErrorHandel(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(context, 'worker activated now',);
+         // Navigator.pop(context);
+        },
+      );
+   
+
+  }catch(e){
+    showSnackBar(context, e.toString());
+  }
+
+  
+
+}
+
+
 
 
 

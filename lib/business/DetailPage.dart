@@ -1,16 +1,24 @@
 
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_try/business/calendar_nofire/calendar.dart';
+import 'package:flutter_try/business/calendar_nofire/calendar_client.dart';
 import 'package:flutter_try/common/widgets/stars.dart';
 import 'package:flutter_try/constants/global_variables.dart';
+import 'package:flutter_try/constants/utils.dart';
 import 'package:flutter_try/fire/ChatRoom.dart';
 import 'package:flutter_try/models/worker.dart';
+import 'package:flutter_try/pages/Wedding_halls.dart';
 import 'package:flutter_try/providers/user_provider.dart';
+import 'package:flutter_try/providers/worker_provider.dart';
 import 'package:flutter_try/services/businessDetail_services.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 class DetailPage extends StatefulWidget{
   static const String routeName ='halls-details';
@@ -105,35 +113,91 @@ await _firestore
   else {print("no user with this email");}
 
         }
+
+Future refresh()async{
+  final workerProvider = Provider.of<WorkerProvider>(context, listen: false);
+ Worker? worker =ModalRoute.of(context)!.settings.arguments as Worker?;
+ final wo = Provider.of<WorkerProvider>(context).worker;
+ //return worker!.comment;
+ String name=worker!.name;
+ final userProvider = Provider.of<UserProvider>(context, listen: false);
+  List <Worker> workerhallss =[];
+  try {
+          http.Response res = await http.get(Uri.parse('$uri/business/searchh/$name'), headers:{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+          }
+          ) ;   
+                      var resposebody=jsonDecode(res.body);
+                    // print(resposebody);
+                     return resposebody;
+                      
+                      
+          
+  } catch (e) {
+              showSnackBar(context, e.toString());
+  }
+
+}
+
   Widget build(BuildContext context){
     
    // Key:_buildFormKey;
     final Worker? worker =ModalRoute.of(context)!.settings.arguments as Worker?;
       double totalRating = 0;
       final user = Provider.of<UserProvider>(context).user;
-    for (int i = 0; i < worker!.rating!.length; i++) {
+    /*for (int i = 0; i < worker!.rating!.length; i++) {
       totalRating += worker.rating![i].rating;
       if (worker.rating![i].userId ==
+          Provider.of<UserProvider>(context, listen: false).user.id) {
+        myRating = worker.rating![i].rating;
+      }
+    }*/
+
+   /* if (totalRating != 0) {
+      avgRating = totalRating / worker.rating!.length;
+    }*/
+    
+    
+      //business=worker;
+    
+    
+    return Scaffold(
+       appBar: AppBar(
+        title: Text("Detail Page"),
+        backgroundColor: Color.fromARGB(235, 216, 171, 82),
+      ),
+       
+
+      body:FutureBuilder(future: refresh(),builder: (context, snapshot) {
+      if(snapshot.hasData){
+        print(snapshot.data[0]['ratings'][0]['rating']);
+
+        
+
+        for (int i = 0; i < snapshot.data[0]['ratings'].length; i++) {
+      totalRating += snapshot.data[0]['ratings']![i]['rating'];
+      /*if (snapshot.data[0]['ratings']![i]['userId'] ==
+          Provider.of<UserProvider>(context, listen: false).user.id) {
+            print(snapshot.data[0]['ratings'][i]['rating']);
+            print(snapshot.data[0]['ratings'][i]['userId']);
+       // myRating =double.parse( snapshot.data[0]['ratings'][i]['rating']);
+      }*/
+      if (worker!.rating![i].userId ==
           Provider.of<UserProvider>(context, listen: false).user.id) {
         myRating = worker.rating![i].rating;
       }
     }
 
     if (totalRating != 0) {
-      avgRating = totalRating / worker.rating!.length;
+      avgRating = totalRating / snapshot.data[0]['ratings'].length;
     }
-    
-    
-      //business=worker;
-    
 
-    return Scaffold(
-
-      body:Container(
+        return Container(
         width: double.maxFinite,
         height: double.maxFinite,
-
-        child: Stack(
+child :RefreshIndicator(child: Stack(
+          
 children: [
 Positioned(
     left:0,
@@ -204,7 +268,7 @@ Positioned(
       ),
     ),
 ///////////////////////////////////////////////
-
+  
   Positioned(
       left:10,
       top:30,
@@ -299,8 +363,14 @@ child: Column(
                           ),
     
     SizedBox(height: 10,),
+    
     Row(children: [
-      RatingBar.builder(
+      GestureDetector(onTap: () {
+      Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => DetailPage()));
+    },
+    child: RatingBar.builder(
               initialRating: myRating,
               minRating: 1,
               direction: Axis.horizontal,
@@ -319,16 +389,37 @@ child: Column(
                 );
               },
             ),
-      SizedBox(width: 10,),
-      const Text(
-        '(4.0)',
+    
+    ),
+    SizedBox(width: 10,),
+      GestureDetector(
+      child: MaterialButton(
+      minWidth: 35,
+      height: 35 ,
+      onPressed: () {print( 'rate Pressed');
+      Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => hallsPage()));},
+      shape:RoundedRectangleBorder(
+          side: const BorderSide(
+              color:Colors.black),
+          borderRadius: BorderRadius.circular(10)
+      ),
+      color: Colors.white,
+      child: const Text(
+        'save rate',
         style: TextStyle(
-            color: Colors.black45,
-            fontSize: 15,
-            fontWeight: FontWeight.normal
-
+          color: Colors.black,
+          fontSize: 10,
+          fontWeight: FontWeight.bold,
         ),
       ),
+    ),
+      onTap: () {
+         
+      },
+      ),
+     
     ],),
     SizedBox(height: 15,),
 
@@ -474,7 +565,15 @@ await _firestore
     MaterialButton(
       minWidth: double.infinity,
       height: 40 ,
-      onPressed: () => print( 'booking btn Pressed'),
+      onPressed: () {
+        print( 'booking btn Pressed');
+        Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => Calendar_client()
+                            ),
+                          );
+
+      } ,
       shape:RoundedRectangleBorder(
           side: const BorderSide(
               color:Colors.black
@@ -506,9 +605,13 @@ await _firestore
   )
   ),
 ],
-        ),
+        ), onRefresh: refresh)
+         
 
-      )
+      );
+      }
+      return CircularProgressIndicator();
+      },)
     );
   }
 }

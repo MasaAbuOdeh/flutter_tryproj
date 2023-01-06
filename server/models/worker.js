@@ -70,6 +70,11 @@ const WorkerSchema =mongoose.Schema({
 
     longitude : {
         type : Number,
+    },
+
+    statu:{
+        type:String,
+        default:'not_activate',
     }
 
 });

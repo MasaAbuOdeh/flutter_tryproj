@@ -30,7 +30,7 @@ class _hallsPageState extends State<hallsPage> with TickerProviderStateMixin {
    List <int> ? tryy;
    double minimum=0;
    int j =0;
-   
+   late int length_valid=0;
    //late  Worker temp  ;
   final WorkerAuthService hall = WorkerAuthService();
  
@@ -125,12 +125,22 @@ double aj=0;
   }
  
 
-  showallhalls() async{
+  Future showallhalls() async{
     
     workers = await hall.showAllhalls(context);
-    setState(() {
-      
-    });
+    for(int i=0;i<workers!.length;i++){
+      if(workers![i].images[0].isNotEmpty){
+        length_valid++;
+        
+      }
+
+    }
+
+    if (this.mounted) {
+  setState(() {
+    // Your state change code goes here
+  });
+}
   
   } 
        
@@ -167,13 +177,17 @@ double aj=0;
     return recomend == null
         ? const Loader()
         : Scaffold(
+          appBar: AppBar(
+        title: Text("Detail Page"),
+        backgroundColor: Color.fromARGB(235, 216, 171, 82),
+      ),
           
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
 
         children: [
           Container(
-            padding: const EdgeInsets.only(top: 40, left: 20),
+            padding: const EdgeInsets.only(top: 10, left: 10),
             child: Row(
               children: [
                 IconButton(
@@ -186,7 +200,10 @@ double aj=0;
                                
                               },
                               icon: Icon(Icons.menu,color: Colors.black,),
+                              
                             ),
+                            SizedBox(width: 0,),
+                            Text('Filter',style: TextStyle(fontSize: 20,color:Color.fromARGB(235, 216, 171, 82), ),)
                 /* Container(
                   width: 50,
                   height: 50,
@@ -199,11 +216,11 @@ double aj=0;
             ),
           ),
 
-          SizedBox(height: 40,),
+          SizedBox(height: 10,),
 
 
           const Text(
-            ' Find Your Dream Hall',
+            '   Find Your Dream Hall',
 
             style: TextStyle(
 
@@ -219,7 +236,7 @@ double aj=0;
             alignment: Alignment.centerLeft,
             decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(29),
+                borderRadius: BorderRadius.circular(32),
                 boxShadow: [
                   const BoxShadow(
                       color: Colors.black26,
@@ -281,8 +298,8 @@ padding: const EdgeInsets.only(left: 20),
               children: [
 
                 
-               
-               ListView.builder(
+               FutureBuilder(future :showallhalls(),builder: ((context, snapshot) {
+                return ListView.builder(
 
                 
                  itemCount:workers!.length,
@@ -368,7 +385,7 @@ padding: const EdgeInsets.only(left: 20),
       ],
                   image: DecorationImage(
                     fit : BoxFit.cover,
-                    image: NetworkImage(workers![index].images[0]==null? "https://www.generationsforpeace.org/wp-content/uploads/2018/07/empty.jpg":workers![index].images[0])
+                    image: NetworkImage(workers![index].images[0].isEmpty? "https://www.generationsforpeace.org/wp-content/uploads/2018/07/empty.jpg":workers![index].images[0])
                      )
                 ) ,
               ),
@@ -398,7 +415,10 @@ padding: const EdgeInsets.only(left: 20),
 
                  },
 
-               ),
+               );
+                 
+               })),
+               
 
 ListView.builder(
 

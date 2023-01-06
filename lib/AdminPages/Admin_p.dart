@@ -13,20 +13,9 @@ class Admi_p extends StatelessWidget {
           body: Stack(
             children:<Widget> [
 
-              Container(
-                height: size.height*0.40,
-                width:double.maxFinite,
-                decoration: BoxDecoration(
-                 // color: Colors.red[100],
-                  image: DecorationImage(
-                    //alignment: Alignment.centerLeft,
-                    image: NetworkImage("https://i.pinimg.com/564x/2b/9a/a2/2b9aa2832b5d11a17c0b704d8dd19e16.jpg"),
-                    
-                  )
-                ),
-              ),
+              
 
-              SizedBox(height:70,),
+             // SizedBox(height:70,),
 
               SafeArea(
                 child: Padding(
@@ -36,54 +25,15 @@ class Admi_p extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      SizedBox(height: 100,),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: Container(
-                          alignment: Alignment.center,
-                          height: 48,
-                          width: 48,
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 231, 175, 181).withOpacity(0.2),
-                            shape: BoxShape.circle,
-
-                          ),
-                          child: 
-                                IconButton(onPressed: (){}, icon:Icon(Icons.menu), color:Colors.black )
-                        ),
-                      ),
+                     // SizedBox(height: 100,),
+                     
                     
-                     SizedBox(height: 60,),
-                      Container(
-                        margin: EdgeInsets.symmetric(vertical: 30),
-                        padding: EdgeInsets.symmetric(horizontal: 30,vertical: 5),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(29.5),
-                        ),
-                        child: TextField(
-                          //onFieldSubmitted:navegatetosearchscreen, 
-                          decoration:InputDecoration(
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.only(top: 14,),
-                prefixIcon: Icon(
-                    Icons. search,
-                    color: Colors.black38,
-                    size: 35,
-                ),
-                hintText: 'Search',
-                hintStyle: TextStyle(
-                    color: Colors.black38,
-                    
-
-                )
-            ),
-                        ),
-                      ),
+                     //SizedBox(height: 60,),
+                      
                       Expanded(
                         child: GridView.count(
-                          crossAxisCount:2,
-                          childAspectRatio: 0.88,
+                          crossAxisCount:1,
+                          childAspectRatio: 1.3,
                           crossAxisSpacing: 20,
                           mainAxisSpacing: 20,
                           

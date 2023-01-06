@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_try/constants/error_handling.dart';
 import 'package:flutter_try/constants/global_variables.dart';
 import 'package:flutter_try/constants/utils.dart';
+import 'package:flutter_try/models/comment.dart';
 import 'package:flutter_try/models/worker.dart';
 import 'package:flutter_try/providers/user_provider.dart';
+import 'package:flutter_try/providers/worker_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
@@ -41,7 +43,7 @@ class businessDetail_services{
   }
 
 
-  void Commentbusiness({
+  Future <void> Commentbusiness ({
     required BuildContext context,
     required Worker worker,
     required String comment,
@@ -72,4 +74,10 @@ class businessDetail_services{
       showSnackBar(context, e.toString());
     }
   }
+
+
+  
+ 
+ 
+
 }

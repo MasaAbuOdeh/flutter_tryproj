@@ -3,10 +3,13 @@ import 'package:flutter_try/business/business_edit.dart';
 import 'package:flutter_try/business/business_home.dart';
 import 'package:flutter_try/business/business_profile.dart';
 import 'package:flutter_try/business/calendar.dart';
+import 'package:flutter_try/business/calendar_nofire/calendar.dart';
 import 'package:flutter_try/business/notification.dart';
 import 'package:flutter_try/fire/createaccount.dart';
 import 'package:flutter_try/fire/search.dart';
 import 'package:flutter_try/models/worker.dart';
+import 'package:flutter_try/ucan/layout/todo_layout.dart';
+import 'package:flutter_try/ucan/layout/todo_layoutcontroller.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/global_variables.dart';
@@ -36,7 +39,7 @@ List pages=[
 business_home(),
 // CreateAccount(),
 search(),
- BookingCalendarDemoApp()
+ profile()
 ];
 
 
@@ -53,7 +56,7 @@ search(),
             decoration: const BoxDecoration(
             
              image: DecorationImage(
-            image: NetworkImage("https://i.pinimg.com/564x/ec/d4/97/ecd4974ed81d210fb5aa6ac4ad01ab7a.jpg"), fit: BoxFit.cover)
+            image: NetworkImage("https://i.pinimg.com/564x/d4/ae/04/d4ae040aa4ba26ceed0f93accf9430fb.jpg"), fit: BoxFit.cover)
               
             ),
           ),

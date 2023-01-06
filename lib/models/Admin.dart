@@ -1,22 +1,16 @@
 import 'dart:convert';
 
-class User {
+class Admin {
   final String id;
   final String email;
-  final String name;
   final String password;
-  final String phone;
-  final String statu;
   final String token;
   
 
-  User({
+  Admin({
    required this.id,
    required this.email,
-   required this.name, 
    required this.password,
-   required this.phone,
-   required this.statu,
    required this.token, 
    });
 
@@ -24,23 +18,17 @@ class User {
     return {
       'id': id,
       'email': email,
-      'name': name,
       'password': password,
-      'phone': phone,
-      'statu':statu,
       'token' : token,
     };
 
    }
 
-   factory User.fromMap(Map<String, dynamic> map){
-    return User(
+   factory Admin.fromMap(Map<String, dynamic> map){
+    return Admin(
       id: map['_id']?? '',
       email: map['email']?? '',
-      name: map['name']?? '',
       password: map['password']?? '',
-      phone: map['phone']?? '',
-      statu: map['statu']?? '',
       token: map['token']?? '',
 
     );
@@ -48,7 +36,7 @@ class User {
 
    String toJson() => json.encode(toMap());
 
-   factory User.fromJson(String source) => User.fromMap(json.decode(source));
+   factory Admin.fromJson(String source) => Admin.fromMap(json.decode(source));
   
 
 }

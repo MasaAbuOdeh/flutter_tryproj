@@ -6,16 +6,20 @@ import 'package:flutter_try/pages/Tulkaremhalls.dart';
 class NavDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Filter Page"),
+        backgroundColor: Color.fromARGB(235, 216, 171, 82),
+      ),
+      body :Drawer(
+      
+      
       child: ListView(
 
 
         padding: EdgeInsets.zero,
         children: <Widget>[
           SizedBox(height: 20,),
-
-ListTile(title: Text('filter',style: TextStyle(fontSize: 25,color: Colors.red[200]),),),
     const Divider(color: Colors.black,height: 10,),
           ListTile(
 
@@ -104,6 +108,7 @@ ListTile(title: Text('filter',style: TextStyle(fontSize: 25,color: Colors.red[20
           const Divider(color: Colors.black,),
         ],
       ),
+    )
     );
   }
 }

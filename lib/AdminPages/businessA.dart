@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_try/models/user.dart';
 import 'package:flutter_try/models/worker.dart';
 import 'package:flutter_try/services/auth_service.dart';
+import 'package:flutter_try/services/business_info.dart';
+import 'package:flutter_try/services/notification_api.dart';
 import 'package:flutter_try/services/workerauth.dart';
 import 'package:flutter_try/widget/loader.dart';
 
@@ -23,8 +26,11 @@ class _businessAState extends State<businessA> with TickerProviderStateMixin {
   List <User> ? users ;
   List <Worker> ?workers;
   final WorkerAuthService allworkers=WorkerAuthService();
+  final business_info activatee =business_info();
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin=FlutterLocalNotificationsPlugin();
   //late Worker temp;
   //late Worker workersdata;
+  final NotificationApi not = NotificationApi();
 
   showallworkers() async{
     
@@ -45,6 +51,7 @@ class _businessAState extends State<businessA> with TickerProviderStateMixin {
     // TODO: implement initState
     super.initState();
     showallworkers();
+    NotificationApi.initialize(flutterLocalNotificationsPlugin);
      
     
   
@@ -87,7 +94,7 @@ class _businessAState extends State<businessA> with TickerProviderStateMixin {
       ),
       body: Container(
         height: MediaQuery.of(context).size.height*0.75,
-        child: ListView.builder(itemBuilder: (context, index) {
+        child: ListView.builder(itemCount: workers!.length,itemBuilder: (context, index) {
           return Card(
             margin: EdgeInsets.all(4),
             elevation: 8,
@@ -97,6 +104,11 @@ class _businessAState extends State<businessA> with TickerProviderStateMixin {
               trailing:  IconButton(
                               onPressed: () {
                                // closee.logout(context);
+                               activatee.workeractivate(context: context, name: workers![index].name, statu: 'activate');
+                               NotificationApi.showBigTextNotification(title: 'hello '+workers![index].name,
+                              body: 'you can login noow',
+                              fln: flutterLocalNotificationsPlugin);
+                              print("object");
                               },
                               icon: Icon(Icons.done_outline_sharp,color: Colors.red[100],),
                             ),
