@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter_try/models/comment.dart';
+import 'package:flutter_try/models/order.dart';
+//import 'package:flutter_try/models/order.dart';
 import 'package:flutter_try/models/rating.dart';
 
 class Worker {
@@ -19,7 +21,7 @@ class Worker {
   final double latitude ;
   final double longitude ;
   final String statu;
-
+  final List<Order>?order;
   final String token;
 
   Worker({
@@ -38,6 +40,7 @@ class Worker {
    required this.latitude,
    required this.longitude,
    required this.statu,
+   this.order,
    required this.token, 
    });
 
@@ -58,7 +61,7 @@ class Worker {
       'latitude' :latitude,
       'longitude' : longitude,
       'statu' :statu,
-
+      'order' :order,
       'token' : token,
 
     };
@@ -94,7 +97,13 @@ class Worker {
           latitude: map['latitude']?.toDouble() ?? 0.0,  
           longitude: map['longitude']?.toDouble() ?? 0.0,
           statu:map['statu']?? '', 
-
+          order:map['orders'] != null
+          ? List<Order>.from(
+              map['orders']?.map(
+                (x) => Order.fromMap(x),
+              ),
+            )
+          : null , 
       token: map['token']?? '', 
 
 

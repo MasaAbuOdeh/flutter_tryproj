@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_try/business/calendar_nofire/booking_req.dart';
 import 'package:flutter_try/business/calendar_nofire/event.dart';
+import 'package:flutter_try/models/worker.dart';
 import 'package:flutter_try/providers/user_provider.dart';
 import 'package:flutter_try/providers/worker_provider.dart';
 import 'package:provider/provider.dart';
@@ -66,8 +68,9 @@ class _Calendar_clientState extends State<Calendar_client> {
 
   @override
   Widget build(BuildContext context) {
+    Worker? worker =ModalRoute.of(context)!.settings.arguments as Worker?;
    
-   final worker = Provider.of<WorkerProvider>(context).worker;
+   final workerr = Provider.of<WorkerProvider>(context).worker;
    final user = Provider.of<UserProvider>(context).user;
 
     return Scaffold(
@@ -76,7 +79,8 @@ class _Calendar_clientState extends State<Calendar_client> {
         title: Text("Bookings Calendar"),
         centerTitle: true,
       ),
-      body: Column(
+      body:Container(
+        child: Column(
         children: [
           TableCalendar(
             focusedDay: selectedDay,
@@ -148,9 +152,9 @@ class _Calendar_clientState extends State<Calendar_client> {
               ),
             ),
           ),
-          SizedBox(height: 15,),
-          MaterialButton (
-
+         // SizedBox(height: 15,),
+         /* MaterialButton (
+                      
                       minWidth:30,
                       height: 25,
 
@@ -188,12 +192,27 @@ class _Calendar_clientState extends State<Calendar_client> {
 
                         ]
                     )
-                ),
+                ),*/
         ],
 
         
         
       ),
+
+      
+      
+      ),
+      floatingActionButton:FloatingActionButton.extended(
+        splashColor: Colors.red[200],
+        backgroundColor:Colors.red[200],
+        onPressed: () {
+          Navigator.of(context).pushNamed('/request',arguments: worker);Colors.red[200];
+                          print(worker!.name+'pressed') ;
+        },
+        label: Text("Add a booking request"),
+        icon: Icon(Icons.add),
+      )
+      
       
     );
   }

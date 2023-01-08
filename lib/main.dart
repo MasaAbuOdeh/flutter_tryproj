@@ -8,6 +8,8 @@ import 'package:flutter_try/AdminPages/halls.dart';
 import 'package:flutter_try/admin/admin_control_page.dart';
 import 'package:flutter_try/business/DetailPage.dart';
 import 'package:flutter_try/business/business_screen.dart';
+import 'package:flutter_try/business/calendar_nofire/booking_req.dart';
+import 'package:flutter_try/business/calendar_nofire/calendar_client.dart';
 import 'package:flutter_try/business/commentPage.dart';
 import 'package:flutter_try/business/maps.dart';
 import 'package:flutter_try/fire/createaccount.dart';
@@ -94,7 +96,9 @@ class MyApp extends StatelessWidget {
           'businessA':(context) => businessA(),
           'started':(context) =>HomeScreen(), 
           'LoginAdmin':(context) =>LoginAdmin(),
-          'letgo':(context) => business_screen()
+          'letgo':(context) => business_screen(),
+          '/booking':(context) => Calendar_client(),
+          '/request':(context) => AddEventScreen()
       },
     );
   }

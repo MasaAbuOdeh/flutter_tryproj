@@ -151,6 +151,36 @@ WorkerauthRouter.post("/api/Workersignup", async (req, res) =>{
         }
       });
 
+      WorkerauthRouter.post("/api/order-Worker", auth, async (req, res) => {
+        try {
+          const { id, date ,from,to,username,userphone,status } = req.body;
+          let worker = await Worker.findById(id);
+      
+          for (let i = 0; i < worker.orders.length; i++) {
+            if (worker.orders[i].userId == req.user) {
+              worker.orders.splice(i, 1);
+              break;
+            }
+          }
+      
+          const orderSchema = {
+            userId: req.user,
+            date,
+            from,
+            to,
+            username: username,
+            userphone:userphone,
+            status
+          };
+      
+          worker.orders.push(orderSchema);
+          worker = await worker.save();
+          res.json(worker);
+        } catch (e) {
+          res.status(500).json({ error: e.message });
+        }
+      });
+
     
 
       WorkerauthRouter.get("/business/search/:name", auth, async (req, res) => {

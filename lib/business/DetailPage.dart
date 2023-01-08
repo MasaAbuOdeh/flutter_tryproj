@@ -146,17 +146,17 @@ Future refresh()async{
     final Worker? worker =ModalRoute.of(context)!.settings.arguments as Worker?;
       double totalRating = 0;
       final user = Provider.of<UserProvider>(context).user;
-    /*for (int i = 0; i < worker!.rating!.length; i++) {
+    for (int i = 0; i < worker!.rating!.length; i++) {
       totalRating += worker.rating![i].rating;
       if (worker.rating![i].userId ==
           Provider.of<UserProvider>(context, listen: false).user.id) {
         myRating = worker.rating![i].rating;
       }
-    }*/
+    }
 
-   /* if (totalRating != 0) {
+    if (totalRating != 0) {
       avgRating = totalRating / worker.rating!.length;
-    }*/
+    }
     
     
       //business=worker;
@@ -169,14 +169,14 @@ Future refresh()async{
       ),
        
 
-      body:FutureBuilder(future: refresh(),builder: (context, snapshot) {
+      body:worker!.rating!.isNotEmpty? FutureBuilder(future: refresh(),builder: (context, snapshot) {
       if(snapshot.hasData){
         print(snapshot.data[0]['ratings'][0]['rating']);
 
         
 
         for (int i = 0; i < snapshot.data[0]['ratings'].length; i++) {
-      totalRating += snapshot.data[0]['ratings']![i]['rating'];
+    //  totalRating += snapshot.data[0]['ratings']![i]['rating'];
       /*if (snapshot.data[0]['ratings']![i]['userId'] ==
           Provider.of<UserProvider>(context, listen: false).user.id) {
             print(snapshot.data[0]['ratings'][i]['rating']);
@@ -189,14 +189,435 @@ Future refresh()async{
       }
     }
 
-    if (totalRating != 0) {
-      avgRating = totalRating / snapshot.data[0]['ratings'].length;
-    }
+   // if (totalRating != 0) {
+    //  avgRating = totalRating / worker.rating!.length;
+    //}
 
         return Container(
         width: double.maxFinite,
         height: double.maxFinite,
 child :RefreshIndicator(child: Stack(
+          
+children: [
+Positioned(
+    left:0,
+    right:0,
+
+    child: Container(
+
+      width: double.maxFinite,
+      height: 340,
+
+      
+      child: Container(
+        child:Column(children: [
+           CarouselSlider(
+        
+              items: worker!.images.map(
+                (i) {
+                  return Builder(
+                    builder: (BuildContext context) => Image.network(
+                      i,
+                      fit: BoxFit.cover,
+                      width:double.maxFinite,
+                      height: 150,
+                    ),
+                  );
+                },
+              ).toList(),
+              options: CarouselOptions(
+                viewportFraction: 1,
+                height: 300,
+              ),
+              
+            ),
+
+            SizedBox(height: 10,),
+                           Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: List.generate(worker!.images.length, (indexDots) {
+                          return Container(
+                           
+                            padding: const EdgeInsets.only(bottom:2,top:3,right: 2,left:0),
+                            margin: const EdgeInsets.only(bottom:2,top:8,right: 2,left:5),
+                            height: 8,
+                            width: 2==indexDots?30:20,
+                            
+                            decoration: BoxDecoration(
+                              
+                              
+                              borderRadius: BorderRadius.circular(3),
+                              color: 2==indexDots?Colors.black38:Colors.black38?.withOpacity(0.2)
+                            ),
+                          );
+                        }),
+                      )
+          
+        ],
+        ),
+       
+            
+      ),
+      
+
+
+
+
+
+
+      ),
+    ),
+///////////////////////////////////////////////
+  
+  Positioned(
+      left:10,
+      top:30,
+      child: Row(
+        children: [
+          IconButton(onPressed: (){}, icon:Icon(Icons.menu), color:Colors.white
+
+
+
+          )
+        ],
+      )),
+  Positioned(
+      top:340,
+      child: Container(
+padding: const EdgeInsets.only(left: 20,right: 20,top: 30) ,
+    width: MediaQuery.of(context).size.width,
+        height: 500,
+decoration: BoxDecoration(
+    color:Colors.white,
+  borderRadius: BorderRadius.only(
+    topLeft: Radius.circular(50),
+topRight: Radius.circular(50),
+  )
+),
+child: Column(
+  children: [
+    Row(
+      children: [
+        Stars(rating: avgRating,),
+        SizedBox(width: 10,),
+        Text("Avareg Rating")
+      ],
+    ),
+  
+      // Stars(rating: 4.0,),
+      
+    
+    SizedBox(height: 10,),
+    
+    Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+         Text(
+          worker!.name,
+          style: TextStyle(
+              color: Colors.black,
+              fontSize: 35,
+              fontWeight: FontWeight.normal
+
+          ),
+        ),
+        Text(
+          '\$${worker.price}',
+          style: TextStyle(
+              color: Colors.black26,
+              fontSize: 25,
+              fontWeight: FontWeight.bold
+
+          ),
+        ),
+         
+        //AppLargeText(text:"Nadi Al-Madina",color:Colors.black),
+        //AppLargeText(text:"\$ 20000"),
+      ],
+    ),
+    SizedBox(height: 10,),
+    GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushNamed('/location',arguments: worker);Colors.red[200];},
+
+                          child: Row(
+      children: [
+        Icon(Icons.location_on,color: Colors.black45,),
+        SizedBox(width: 5,),
+         Text(
+         worker!.location ,
+          style: TextStyle(
+              color: Colors.black45,
+              fontSize: 20,
+              fontWeight: FontWeight.normal
+
+          ),
+        ),
+        SizedBox(width: 160,),
+        Text('  phone : ${worker.phone}'),
+
+      ],
+
+    ),
+                          //print(recomend![index].name+'pressed');},
+                          ),
+    
+    SizedBox(height: 10,),
+    
+    Row(children: [
+      GestureDetector(onTap: () {
+      Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => DetailPage()));
+    },
+    child: RatingBar.builder(
+              initialRating: myRating,
+              minRating: 1,
+              direction: Axis.horizontal,
+              allowHalfRating: true,
+              itemCount: 5,
+              itemPadding: const EdgeInsets.symmetric(horizontal: 4),
+              itemBuilder: (context, _) => const Icon(
+                Icons.star,
+                color: Colors.yellow,
+              ),
+              onRatingUpdate: (rating) {
+                details.rateProduct(
+                  context: context,
+                  worker: worker,
+                  rating: rating,
+                );
+              },
+            ),
+    
+    ),
+    SizedBox(width: 10,),
+      GestureDetector(
+      child: MaterialButton(
+      minWidth: 35,
+      height: 35 ,
+      onPressed: () {print( 'rate Pressed');
+      Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => hallsPage()));},
+      shape:RoundedRectangleBorder(
+          side: const BorderSide(
+              color:Colors.black),
+          borderRadius: BorderRadius.circular(10)
+      ),
+      color: Colors.white,
+      child: const Text(
+        'save rate',
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 10,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ),
+      onTap: () {
+         
+      },
+      ),
+     
+    ],),
+    SizedBox(height: 10,),
+
+     Text(
+      worker.discreption,
+      style: TextStyle(
+
+          color: Colors.black87,
+          fontSize: 18,
+          fontWeight: FontWeight.normal
+
+      ),
+    ),
+
+        SizedBox(height: 10,),
+
+         Container(child:
+              MaterialButton(
+                minWidth: double.infinity,
+                height: 40 ,
+                onPressed: () async {print( 'chat btn Pressed');
+
+      FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+    setState(() {
+      isLoading = true;
+    });
+if(await _firestore
+        .collection('users')
+        .where("name", isEqualTo: worker!.name)
+        .get()!=RangeError){
+await _firestore
+        .collection('users')
+        .where("name", isEqualTo: worker!.name)
+        .get()
+        .then((value) {
+      setState(() {
+        userMap = value.docs[0].data();
+        isLoading = false;
+      });
+      print(userMap);
+    });
+  }
+  else {print("no user with this email");}
+
+  print(userMap);
+ // print(_auth.currentUser);
+                          String roomId = chatRoomId(
+                             _auth.currentUser!.displayName!,
+                              userMap!['name']);
+
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => ChatRoom(
+                                chatRoomId: roomId,
+                                userMap: userMap!,
+                              ),
+                            ),
+                          );
+                          print(roomId);
+
+     /* FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+    setState(() {
+      isLoading = true;
+    });
+
+     _firestore
+        .collection('users')
+        .where("email", isEqualTo: worker.email)
+        .get()
+        .then((value) {
+      setState(() {
+        userMap = value.docs[0].data();
+        isLoading = false;
+      });
+      print(userMap);
+    }); ;
+                          String roomId = chatRoomId(
+                              _auth.currentUser!.displayName!,
+                              userMap!['name']);
+
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => ChatRoom(
+                                chatRoomId: roomId,
+                                userMap: userMap!,
+                              ),
+                            ),
+                          );*/
+
+        
+        //Navigator.of(context).pushNamed('/searchh',);Colors.red[200];
+},
+                shape:RoundedRectangleBorder(
+                    side: const BorderSide(
+                        color:Colors.black),
+                    borderRadius: BorderRadius.circular(15)
+                ),
+                color: Colors.white,
+                child: const Text(
+                  'Chat',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              )
+
+  ),
+
+    SizedBox(height: 5,),
+
+    Container(child:
+    MaterialButton(
+      minWidth: double.infinity,
+      height: 40 ,
+      onPressed: () {print( 'comment btn Pressed');
+      Navigator.of(context).pushNamed('/comment',arguments: worker);Colors.red[200];
+                          print(worker.name+'pressed') ;},
+      shape:RoundedRectangleBorder(
+          side: const BorderSide(
+              color:Colors.black),
+          borderRadius: BorderRadius.circular(15)
+      ),
+      color: Colors.white,
+      child: const Text(
+        'Show comments',
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    )
+
+    ),
+
+    SizedBox(height: 5,),
+
+    Container(child:
+    MaterialButton(
+      minWidth: double.infinity,
+      height: 40 ,
+      onPressed: () {
+        Navigator.of(context).pushNamed('/booking',arguments: worker);Colors.red[200];
+                          print(worker.name+'pressed') ;
+        print( 'booking btn Pressed');
+       /* Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => Calendar_client(),
+                            ),
+                            
+                          );*/
+
+      } ,
+      shape:RoundedRectangleBorder(
+          side: const BorderSide(
+              color:Colors.black
+            ),
+          borderRadius: BorderRadius.circular(15)
+      ),
+      color: Colors.white,
+      child: const Text(
+        'Booking',
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    )
+
+    ),
+
+
+
+
+
+
+
+
+    ]
+      )
+  )
+  ),
+],
+        ), onRefresh: refresh)
+         
+
+      );
+      }
+      return CircularProgressIndicator();
+      },):Container(
+         width: double.maxFinite,
+        height: double.maxFinite,
+        child: Stack(
           
 children: [
 Positioned(
@@ -566,12 +987,15 @@ await _firestore
       minWidth: double.infinity,
       height: 40 ,
       onPressed: () {
+        Navigator.of(context).pushNamed('/booking',arguments: worker);Colors.red[200];
+                          print(worker.name+'pressed') ;
         print( 'booking btn Pressed');
-        Navigator.of(context).push(
+       /* Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => Calendar_client()
+                              builder: (_) => Calendar_client(),
                             ),
-                          );
+                            
+                          );*/
 
       } ,
       shape:RoundedRectangleBorder(
@@ -605,13 +1029,8 @@ await _firestore
   )
   ),
 ],
-        ), onRefresh: refresh)
-         
-
-      );
-      }
-      return CircularProgressIndicator();
-      },)
+        ),
+      )
     );
   }
 }

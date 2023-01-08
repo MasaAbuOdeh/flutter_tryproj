@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_try/business/calendar_nofire/booking_request_bus.dart';
 import 'package:flutter_try/business/calendar_nofire/calendar.dart';
 import 'package:flutter_try/business/notification.dart';
 import 'package:flutter_try/fire/search.dart';
@@ -42,7 +43,11 @@ class _profileState extends State<profile>{
 
                   onPressed: () {
                     print('info btn Pressed');
-                    
+                    Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => business_bookreq()
+                            ),
+                          );
                   } ,
                   shape: RoundedRectangleBorder(
                       side: const BorderSide(

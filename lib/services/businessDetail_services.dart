@@ -75,6 +75,46 @@ class businessDetail_services{
     }
   }
 
+  Future <void> orderbusiness ({
+    required BuildContext context,
+    required Worker worker,
+    required String date,
+    required String from,
+    required String to,
+    required String username,
+    required String userphone,
+    required String status,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/api/order-Worker'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'id': worker.id!,
+          'date': date,
+          'from': from,
+          'to': to,
+          'username': userProvider.user.name,
+          'userphone' : userProvider.user.phone,
+          'status': status,
+        }),
+      );
+
+      httpErrorHandel(
+        response: res,
+        context: context,
+        onSuccess: () {},
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
 
   
  

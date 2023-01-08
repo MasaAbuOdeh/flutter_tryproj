@@ -1,6 +1,7 @@
 const mongoose =require('mongoose');
 const ratingSchema = require('./rating');
-const commentSchema = require('./comment')
+const commentSchema = require('./comment');
+const orderSchema =require('./order');
 
 const WorkerSchema =mongoose.Schema({
     email :{
@@ -75,7 +76,8 @@ const WorkerSchema =mongoose.Schema({
     statu:{
         type:String,
         default:'not_activate',
-    }
+    },
+    orders:[orderSchema]
 
 });
 
