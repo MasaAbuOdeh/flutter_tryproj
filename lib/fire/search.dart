@@ -28,7 +28,7 @@ class _searchState extends State<search> with WidgetsBindingObserver {
     super.initState();
     onSearch(1);
     WidgetsBinding.instance!.addObserver(this);
-    setStatus("Online");
+    setStatus("offline");
    
   }
 
@@ -42,7 +42,7 @@ class _searchState extends State<search> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       // online
-      setStatus("Online");
+      setStatus("offline");
     } else {
       // offline
       setStatus("Offline");
@@ -127,7 +127,7 @@ await _firestore
                           leading: Icon(Icons.account_box, color: Colors.black),
             title: Text(data!['name']),
             subtitle: Text(data!['email']),
-                        trailing: Icon(Icons.chat, color: Colors.black),
+                        trailing: data!['name']=='hanaa'? Icon(Icons.call_received_outlined, color: Colors.green):Icon(Icons.account_box, color: Colors.black),
           );
         }).toList()
       ))

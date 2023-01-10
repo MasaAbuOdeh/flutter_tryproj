@@ -7,7 +7,7 @@ class Order {
   final String to;
   final String username;
   final String userphone;
-  final double status;
+  final String status;
   
   Order({
     required this.userId,
@@ -39,7 +39,7 @@ class Order {
       to: map['to']?? '',
       username: map['username']??'',
       userphone: map['userphone']  ?? '',
-      status: map['rating']?.toDouble() ?? 0.0,
+      status: map['status']??'',
     );
   }
 

@@ -4,6 +4,7 @@ import 'package:flutter_try/models/order.dart';
 import 'package:flutter_try/models/worker.dart';
 import 'package:flutter_try/providers/user_provider.dart';
 import 'package:flutter_try/services/businessDetail_services.dart';
+import 'package:flutter_try/services/workerauth.dart';
 import 'package:flutter_try/ucan/shared/componets/componets.dart';
 //import 'package:flutter_try/ucan/shared/styles/thems.dart';
 //import 'package:get/get.dart';
@@ -29,9 +30,15 @@ class AddEventScreen extends StatefulWidget{
   var endtimecontroller = TextEditingController();
   var remindcontroller = TextEditingController();
   final businessDetail_services orderdetail = businessDetail_services();
+  List<Worker> ? workers;
   List<int> remindList = [5, 10, 15, 20];
+  final WorkerAuthService hall = WorkerAuthService();
+  
 
  // TodoLayoutController todocontroller = Get.find<TodoLayoutController>();
+ Future showallhalls() async{
+    
+    workers = await hall.showAllhalls(context);}
 
   @override
   Widget build(BuildContext context) {
@@ -231,7 +238,7 @@ class AddEventScreen extends StatefulWidget{
              to: endtimecontroller.text,
               username: user.name,
                userphone: user.phone,
-                status: '0');
+                status: 'sent');
 
 
             }
@@ -291,7 +298,7 @@ child: Card(
               subtitle: Text(myorder.userId),
               leading: Text('My order',
               style:TextStyle(color:Color.fromARGB(235, 216, 171, 82),)),
-              trailing: Text(myorder.status==0?'sent':'INProgress'),
+              trailing: Text(myorder.status),
             )),
     ):Text(''),
 

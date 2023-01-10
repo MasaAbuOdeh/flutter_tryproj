@@ -60,6 +60,31 @@ authRouter.post("/api/signup", async (req, res) =>{
         }
     });
 
+    authRouter.post("/Admin/signup", async (req, res) =>{
+        const {email, name , password , phone }= req.body;
+        try{
+            const existingUser = await Admin.findOne({email});
+    
+            if(existingUser){
+                return res.status(400).json({ msg:"User with same email already exists"});
+            }
+    
+            const hashedPassword = await bcryptjs.hash(password, 8);
+    
+            let admin = new Admin({
+                email,
+                 password : hashedPassword,
+                
+            })
+            admin= await admin.save();
+            res.json(admin);
+        } catch(e) {
+            res.status(500).json({error: e.message});
+        }
+    
+        
+        });
+
 
     authRouter.post("/Admin/signin", async (req, res) => {
       try{
@@ -109,7 +134,7 @@ authRouter.get("/", auth, async (req, res) => {
 
   authRouter.get("/user/all", async(req, res) => {
     try{
-    const user = await User.find({statu:'not_activate'});
+    const user = await User.find({statu:'activate'});
     res.json(user);
     }catch (e) {
       res.status(500).json({ error: e.message});

@@ -111,7 +111,7 @@ SizedBox(height: 30,
                           
                           
                           ResponsiveButton(
-                            text:index==1?'Buisnuiss':"",
+                            text:index==1?'Business':"",
                             width:index==1? 150:0,
                             butttext: 'Buisnuiss',
                            /* press: (){Navigator.of(context).pushNamed('login');}*/),

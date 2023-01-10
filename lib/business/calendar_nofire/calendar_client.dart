@@ -207,7 +207,7 @@ class _Calendar_clientState extends State<Calendar_client> {
         backgroundColor:Colors.red[200],
         onPressed: () {
           Navigator.of(context).pushNamed('/request',arguments: worker);Colors.red[200];
-                          print(worker!.name+'pressed') ;
+                         // print(worker!.name+'pressed') ;
         },
         label: Text("Add a booking request"),
         icon: Icon(Icons.add),

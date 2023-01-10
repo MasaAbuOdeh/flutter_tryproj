@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_try/constants/error_handling.dart';
 import 'package:flutter_try/constants/global_variables.dart';
 import 'package:flutter_try/constants/utils.dart';
+import 'package:flutter_try/models/Admin.dart';
 import 'package:flutter_try/models/user.dart';
 import 'package:flutter_try/pages/SignUpScreen.dart';
 import 'package:flutter_try/pages/welcome_page.dart';
@@ -91,6 +92,42 @@ class AuthService {
     }
   }
 
+  //sign up admin 
+   //signup user
+  void signUpAdmin({
+    required BuildContext context,
+    required String email,
+    required String password,
+  }) async{
+    try{
+      Admin user = Admin(id: '', 
+      email: email,
+        password: password,
+          token: '',
+          );
+
+          http.Response res = await http.post(
+            Uri.parse('$uri/Admin/signup'),
+            body: user.toJson(),
+            headers: <String, String>{
+            'content-Type': 'application/json; charest=UTF-8',
+            },
+            );
+            httpErrorHandel(response: res,
+             context: context,
+              onSuccess: (){
+                showSnackBar(context, 'Account created ! Login with the same created',);
+              },
+              );
+
+
+    } catch(e) {
+      showSnackBar(context, e.toString());
+
+    }
+
+  }
+
   // sign in user
   void signInAdmin({
     required BuildContext context,
@@ -115,7 +152,7 @@ class AuthService {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           Provider.of<AdminProvider>(context, listen: false).setUser(res.body);
           await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
-          Navigator.of(context).pushNamed('Admin');Colors.red[200];
+          Navigator.of(context).pushNamed('Adminside');Colors.red[200];
 
           
         },
@@ -206,4 +243,36 @@ await sharedPreferences.setString('x-auth-token', '');
   return allusers;
 
 }
+//delete user
+void deleteuser({
+    required BuildContext context,
+    required User user,
+    required VoidCallback onSuccess,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/admin/delete-user'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'id': user.id,
+        }),
+      );
+
+      httpErrorHandel(
+        response: res,
+        context: context,
+        onSuccess: () {
+          onSuccess();
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
 }

@@ -6,6 +6,7 @@ import 'package:flutter_try/constants/global_variables.dart';
 import 'package:flutter_try/constants/utils.dart';
 import 'package:flutter_try/models/comment.dart';
 import 'package:flutter_try/models/worker.dart';
+import 'package:flutter_try/providers/Admin_provider.dart';
 import 'package:flutter_try/providers/user_provider.dart';
 import 'package:flutter_try/providers/worker_provider.dart';
 import 'package:http/http.dart' as http;
@@ -22,6 +23,33 @@ Future<List<Worker>>search(BuildContext context,
           http.Response res = await http.get(Uri.parse('$uri/business/search/$searchQuery'), headers:{
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
+          }
+          ) ;   
+
+          httpErrorHandel(response: res, context: context, onSuccess: () {
+            for (int i =0; i < jsonDecode(res.body).length;i++){
+            workerhalls.add(Worker.fromJson(jsonEncode(jsonDecode(res.body)[i],
+              ),
+              ),
+              );
+            }
+          });
+  } catch (e) {
+              showSnackBar(context, e.toString());
+  }
+  return workerhalls;
+
+}
+
+Future<List<Worker>>searchAdmin(BuildContext context,
+ String searchQuery) async {
+  
+  final adminProvider = Provider.of<AdminProvider>(context, listen: false);
+  List <Worker> workerhalls =[];
+  try {
+          http.Response res = await http.get(Uri.parse('$uri/business/adminsearch/$searchQuery'), headers:{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': adminProvider.user.token,
           }
           ) ;   
 

@@ -29,7 +29,7 @@ class _search_screenState extends State<search_screen>{
     
   }
   searchset() async{
-       workerssearch= await searchq.search(context, widget.SearchQuery) ;
+       workerssearch= await searchq.searchAdmin(context, widget.SearchQuery) ;
 
        setState(() {
       

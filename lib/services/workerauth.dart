@@ -102,6 +102,33 @@ class WorkerAuthService {
     }
   }
 
+  //get all business
+
+  Future<List<Worker>>showAll(BuildContext context) async {
+  
+  
+  List <Worker> alls =[];
+  try {
+          http.Response res = await http.get(Uri.parse('$uri/business/get-all'), headers:{
+          'Content-Type': 'application/json; charset=UTF-8',
+          }
+          ) ;   
+
+          httpErrorHandel(response: res, context: context, onSuccess: () {
+            for (int i =0; i < jsonDecode(res.body).length;i++){
+            alls.add(Worker.fromJson(jsonEncode(jsonDecode(res.body)[i],
+              ),
+              ),
+              );
+            }
+          });
+  } catch (e) {
+              showSnackBar(context, e.toString());
+  }
+  return alls;
+
+}
+
   ////get all halls
 
   Future<List<Worker>>showAllhalls(BuildContext context) async {

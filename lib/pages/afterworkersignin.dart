@@ -62,7 +62,7 @@ class _after_signin_wrkrState extends State<after_signin_wrkr> {
             SizedBox(height: 10,),
             
         ElevatedButton(
-          child:  Text('Go Back',style: TextStyle(fontSize: 25,color: Colors.white),) ,
+          child:  Text('exit',style: TextStyle(fontSize: 25,color: Colors.white),) ,
           style: ElevatedButton.styleFrom(primary: Colors.black87),
           
         

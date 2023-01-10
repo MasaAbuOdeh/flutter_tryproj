@@ -61,16 +61,17 @@ class _LoginAdminState extends State<LoginAdmin>{
                     key: _signInFormKey,
                     child: Column(
                       children: [
+                        SizedBox(height: 50,),
                         CustomTextField(
                           controller: _emailController,
                           hintText: 'Email',
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 50),
                         CustomTextField(
                           controller: _passwordController,
                           hintText: 'Password',
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 50),
                         CustomButton(
                           text: 'Sign In',
                           onTap: () {

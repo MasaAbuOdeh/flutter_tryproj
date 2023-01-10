@@ -92,7 +92,7 @@ class _WorkerSignupState extends State<WorkerSignup> {
       constraints: const BoxConstraints.expand(),
     decoration: const BoxDecoration(
         image: DecorationImage(
-            image: NetworkImage("https://i.pinimg.com/originals/b0/06/b3/b006b3a7e45787ee9b21e20f8796e894.jpg"), fit: BoxFit.cover),
+            image: NetworkImage("https://i.pinimg.com/564x/5c/e4/52/5ce45215d64696666d1e0b77e5989fc7.jpg"), fit: BoxFit.cover),
 ),
 
 

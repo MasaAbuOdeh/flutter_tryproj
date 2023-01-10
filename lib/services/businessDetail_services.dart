@@ -108,7 +108,9 @@ class businessDetail_services{
       httpErrorHandel(
         response: res,
         context: context,
-        onSuccess: () {},
+        onSuccess: () {
+          showSnackBar(context, 'done',);
+        },
       );
     } catch (e) {
       showSnackBar(context, e.toString());

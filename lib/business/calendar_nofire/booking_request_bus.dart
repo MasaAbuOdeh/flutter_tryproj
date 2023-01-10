@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_try/models/worker.dart';
 import 'package:flutter_try/providers/user_provider.dart';
 import 'package:flutter_try/providers/worker_provider.dart';
+import 'package:flutter_try/services/businessDetail_services.dart';
 import 'package:provider/provider.dart';
 
 class business_bookreq extends StatefulWidget{
@@ -17,6 +19,11 @@ _business_bookreqState createState()=> _business_bookreqState();
 
 }
 class _business_bookreqState extends State<business_bookreq> with TickerProviderStateMixin {
+  final businessDetail_services orderdetail = businessDetail_services();
+  List<Worker>?workers;
+  Future refresh()async{
+    
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -56,7 +63,7 @@ class _business_bookreqState extends State<business_bookreq> with TickerProvider
       //padding: const EdgeInsets.symmetric(horizontal: 5),
       //child: Column(
 
-        return Container(
+        return worker.order![index].status=='reject'?Text(''): Container(
           width:double.maxFinite,
           height: 260,
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -104,7 +111,7 @@ class _business_bookreqState extends State<business_bookreq> with TickerProvider
               SizedBox(height: 15,),
               Row(
                 children: [
-                  Text(worker.order![index].status==0?'status :sent':'status :InProgress', style: TextStyle(fontSize: 20),),
+                  Text('status: ${worker.order![index].status}', style: TextStyle(fontSize: 20),),
 
                 ],
               ),
@@ -116,6 +123,15 @@ class _business_bookreqState extends State<business_bookreq> with TickerProvider
       minWidth: 35,
       height: 35 ,
       onPressed: () {print( 'accept Pressed');
+      orderdetail.orderbusiness(context: context,
+       worker: worker,
+        date: worker.order![index].date,
+        from:  worker.order![index].from,
+         to:  worker.order![index].to,
+          username:  worker.order![index].username,
+           userphone:  worker.order![index].userphone,
+            status: 'accept');
+
       },
       shape:RoundedRectangleBorder(
           side: const BorderSide(
@@ -137,6 +153,14 @@ class _business_bookreqState extends State<business_bookreq> with TickerProvider
       minWidth: 35,
       height: 35 ,
       onPressed: () {print( 'reject Pressed');
+      orderdetail.orderbusiness(context: context,
+       worker: worker,
+        date: worker.order![index].date,
+        from:  worker.order![index].from,
+         to:  worker.order![index].to,
+          username:  worker.order![index].username,
+           userphone:  worker.order![index].userphone,
+            status: 'reject');
       },
       shape:RoundedRectangleBorder(
           side: const BorderSide(
@@ -158,6 +182,15 @@ class _business_bookreqState extends State<business_bookreq> with TickerProvider
       minWidth: 35,
       height: 35 ,
       onPressed: () {print( 'accept Pressed');
+
+      orderdetail.orderbusiness(context: context,
+       worker: worker,
+        date: worker.order![index].date,
+        from:  worker.order![index].from,
+         to:  worker.order![index].to,
+          username:  worker.order![index].username,
+           userphone:  worker.order![index].userphone,
+            status: 'InProgress');
       },
       shape:RoundedRectangleBorder(
           side: const BorderSide(

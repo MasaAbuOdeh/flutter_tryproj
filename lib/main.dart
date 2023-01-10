@@ -26,6 +26,7 @@ import 'package:flutter_try/pages/afterworkersignin.dart';
 import 'package:flutter_try/pages/band_group.dart';
 import 'package:flutter_try/pages/search_screen.dart';
 import 'package:flutter_try/pages/welcome_page.dart';
+import 'package:flutter_try/providers/Admin_provider.dart';
 import 'package:flutter_try/providers/user_provider.dart';
 import 'package:flutter_try/providers/worker_provider.dart';
 import 'package:flutter_try/services/auth_service.dart';
@@ -46,8 +47,11 @@ void main() async {
      
     ChangeNotifierProvider(
       create: (context) => UserProvider(),
+      
        
     ),
+    ChangeNotifierProvider(
+      create: (context) => AdminProvider(),),
   ], child: const MyApp()));
 }
 
@@ -90,7 +94,7 @@ class MyApp extends StatelessWidget {
           '/firelog':(context) => LoginScreen(),
           '/searchhh':(context) => CreateAccount(),
           'Band':(context) => bandPage(),
-          'Admin':(context) => Admin_Screen(),
+          'Admin':(context) => LoginAdmin(),
           'halls':(context) => halls(),
           'clientA':(context) => clientA(),
           'businessA':(context) => businessA(),
@@ -98,7 +102,8 @@ class MyApp extends StatelessWidget {
           'LoginAdmin':(context) =>LoginAdmin(),
           'letgo':(context) => business_screen(),
           '/booking':(context) => Calendar_client(),
-          '/request':(context) => AddEventScreen()
+          '/request':(context) => AddEventScreen(),
+          'Adminside':(context) => Admin_Screen()
       },
     );
   }

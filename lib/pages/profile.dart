@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_try/business/calendar_nofire/allclientbooking.dart';
 import 'package:flutter_try/pages/UserAccount.dart';
 import 'package:flutter_try/providers/user_provider.dart';
 import 'package:flutter_try/services/auth_service.dart';
@@ -41,14 +42,14 @@ class _profileState extends State<profile>{
                         children: [
                           IconButton(onPressed: () {},
                               icon: Icon(Icons.arrow_back),
-                              color: Color(0xeeffb7c5)
+                              color: Color.fromARGB(235, 216, 171, 82),
 
 
                           ),
                           SizedBox(width: 20),
                           Text("My Account",
                             style: TextStyle(
-                              color: Color(0xeeffb7c5),
+                              color: Color.fromARGB(235, 216, 171, 82),
                               fontSize: 25,
                               fontWeight: FontWeight.normal,
                               fontFamily: 'Schyler-Regular',
@@ -70,7 +71,7 @@ class _profileState extends State<profile>{
                     width: double.maxFinite,
                     height: 300,
                     decoration: BoxDecoration(
-                      border: Border.all(width: 3,color: Color(0xeeffb7c5)),
+                      border: Border.all(width: 3,color: Color.fromARGB(235, 216, 171, 82),),
                       borderRadius: BorderRadius.circular(25),
 
 
@@ -106,19 +107,19 @@ class _profileState extends State<profile>{
                   } ,
                   shape: RoundedRectangleBorder(
                       side: const BorderSide(
-                          color: Color(0xeeffb7c5),
+                          color: Color.fromARGB(235, 216, 171, 82),
                       width: 3),
                       borderRadius: BorderRadius.circular(50)
                   ),
                   color: Colors.white,
 child:Row(
     children: [
-      Icon(Icons.account_circle_outlined,color:Color(0xeeffb7c5),size: 25,),
+      Icon(Icons.account_circle_outlined,color:Color.fromARGB(235, 216, 171, 82),size: 25,),
                   const Text(
                     '\t\t\tAccount',
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                      color: Color(0xeeffb7c5),
+                      color: Color.fromARGB(235, 216, 171, 82),
                       fontSize: 25,
                       fontWeight: FontWeight.normal,
 
@@ -141,23 +142,28 @@ child:Row(
 
                       minWidth: double.infinity,
                       height: 60,
-                      onPressed: () => print('info btn Pressed'),
+                      onPressed: (){
+                        print('info btn Pressed');
+                        Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => allbooking()));
+                      } ,
                       shape: RoundedRectangleBorder(
                           side: const BorderSide(
-                              color: Color(0xeeffb7c5),
+                              color: Color.fromARGB(235, 216, 171, 82),
                           width: 3),
                           borderRadius: BorderRadius.circular(50)
                       ),
                       color: Colors.white,
                       child:Row(
                         children: [
-                        Icon(Icons.girl,color:Color(0xeeffb7c5),size: 25,),
+                        Icon(Icons.girl,color:Color.fromARGB(235, 216, 171, 82),),
                        const Text(
 
                         '\t\t\tWedding Date',
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                          color: Color(0xeeffb7c5),
+                          color: Color.fromARGB(235, 216, 171, 82),
                           fontSize: 25,
                           fontWeight: FontWeight.normal,
 
@@ -179,19 +185,19 @@ child:Row(
                       onPressed: () => print('info btn Pressed'),
                       shape: RoundedRectangleBorder(
                           side: const BorderSide(
-                              color: Color(0xeeffb7c5),
+                              color: Color.fromARGB(235, 216, 171, 82),
                           width: 3),
                           borderRadius: BorderRadius.circular(50)
                       ),
                       color: Colors.white,
                       child:Row(
                         children: [
-                        Icon(Icons.notifications_outlined,color:Color(0xeeffb7c5),size: 25,),
+                        Icon(Icons.notifications_outlined,color:Color.fromARGB(235, 216, 171, 82),size: 25,),
                        const Text(
                         '\t\t\tNotification',
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                          color: Color(0xeeffb7c5),
+                          color: Color.fromARGB(235, 216, 171, 82),
                           fontSize: 25,
                           fontWeight: FontWeight.normal,
 
@@ -215,20 +221,20 @@ child:Row(
                       onPressed: () => print('info btn Pressed'),
                       shape: RoundedRectangleBorder(
                           side: const BorderSide(
-                              color: Color(0xeeffb7c5),
+                              color: Color.fromARGB(235, 216, 171, 82),
                           width: 3),
                           borderRadius: BorderRadius.circular(50)
                       ),
                       color: Colors.white,
                         child:Row(
                             children: [
-                              Icon(Icons.favorite_border,color:Color(0xeeffb7c5),size: 25,),
+                              Icon(Icons.favorite_border,color:Color.fromARGB(235, 216, 171, 82),size: 25,),
 
                         const Text(
                          '\t\t\t My favorites',
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                            color: Color(0xeeffb7c5),
+                            color: Color.fromARGB(235, 216, 171, 82),
                             fontSize: 25,
                             fontWeight: FontWeight.normal,
                             fontFamily: 'Schyler-Regular',
@@ -252,7 +258,7 @@ child:Row(
 
                       shape: RoundedRectangleBorder(
                           side: const BorderSide(
-                              color: Color(0xeeffb7c5),
+                              color: Color.fromARGB(235, 216, 171, 82),
                             width: 3
                          ),
                           borderRadius: BorderRadius.circular(50)
@@ -264,13 +270,13 @@ child:Row(
                               onPressed: () {
                                 closee.logout(context);
                               },
-                              icon: Icon(Icons.dangerous_outlined,color: Colors.red[100],),
+                              icon: Icon(Icons.dangerous_outlined,color: Color.fromARGB(235, 216, 171, 82),),
                             ),
                        const Text(
                         '\t\t\tLog Out',
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                          color: Color(0xeeffb7c5),
+                          color: Color.fromARGB(235, 216, 171, 82),
                           fontSize: 25,
                           fontWeight: FontWeight.normal,
 
@@ -291,19 +297,19 @@ child:Row(
                       onPressed: () => print('info btn Pressed'),
                       shape: RoundedRectangleBorder(
                           side: const BorderSide(
-                              color: Color(0xeeffb7c5),
+                              color: Color.fromARGB(235, 216, 171, 82),
                           width: 3),
                           borderRadius: BorderRadius.circular(50)
                       ),
                       color: Colors.white,
                       child:Row(
                         children: [
-                        Icon(Icons.phone_iphone_outlined,color:Color(0xeeffb7c5),size: 25,),
+                        Icon(Icons.phone_iphone_outlined,color:Color.fromARGB(235, 216, 171, 82),size: 25,),
                     const Text(
                         '\t\t\tAbout us',
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                          color: Color(0xeeffb7c5),
+                          color: Color.fromARGB(235, 216, 171, 82),
                           fontSize: 25,
                           fontWeight: FontWeight.normal,
 

@@ -49,7 +49,7 @@ home_admin(),
             
             items: [
               BottomNavigationBarItem(label:"Home",icon: Icon(Icons.apps)),
-              BottomNavigationBarItem(label:"Profile",icon: Icon(Icons.person)),
+              BottomNavigationBarItem(label:"Settings",icon: Icon(Icons.settings)),
             ]),
           
          /* bottomNavigationBar: Container(

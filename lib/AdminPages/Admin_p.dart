@@ -39,10 +39,11 @@ class Admi_p extends StatelessWidget {
                           
                           
                           children: <Widget>[
+                            
                             Categoryard(
                               
                               title:"Client",
-                              svgSrc: "https://i.pinimg.com/564x/ff/29/9b/ff299bf780591230a84feab495527e66.jpg",
+                              svgSrc: "https://i.pinimg.com/564x/b2/eb/9b/b2eb9b687383fddb6fba5dce063a6f03.jpg",
                               printt:'clientA',
                             ),
                               Categoryard(

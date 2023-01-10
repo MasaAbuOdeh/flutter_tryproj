@@ -26,8 +26,8 @@ const orderSchema = mongoose.Schema({
     required :true,
   },
   status:{
-    type: Number,
-    default: 0,
+    type: String,
+    default: 'sent',
   }
 });
 

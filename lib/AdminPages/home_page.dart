@@ -1,6 +1,8 @@
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_try/pages/search_screen.dart';
+import 'package:flutter_try/AdminPages/Admin_search.dart';
+import 'package:flutter_try/services/auth_service.dart';
 import 'package:flutter_try/widget/Categoryard.dart';
 
 class home_admin extends StatefulWidget{
@@ -12,6 +14,7 @@ class home_admin extends StatefulWidget{
   
 }
 class _home_adminState extends State<home_admin>{
+  final AuthService closee =AuthService();
 
   void navegatetosearchscreen(String query){
    // Navigator.of(context).pushNamed("/search",arguments: query );Colors.red[200];
@@ -63,7 +66,30 @@ class _home_adminState extends State<home_admin>{
 
                           ),
                           child: 
-                                IconButton(onPressed: (){}, icon:Icon(Icons.menu), color:Colors.black )
+                                IconButton(onPressed: (){
+                                  showDialog(context: context, builder:(context){
+                                     return CupertinoAlertDialog(
+                                      title: Text('logout',
+                                      style: TextStyle(fontSize: 25,
+                                      color:Color.fromARGB(235, 216, 171, 82),),),
+                                      actions:[
+                                           MaterialButton(onPressed: () {
+                                             closee.logout(context);
+                                        
+                                      },
+                                      child: Text('ok'),),
+                                      MaterialButton(onPressed: () {
+                                            Navigator.pop(context);
+                                        
+                                      },
+                                      child: Text('Cancel'),)
+                                      ]
+                                      
+
+                                     );
+                                  });
+
+                                }, icon:Icon(Icons.menu), color:Colors.black )
                         ),
                       ),
                       Text(

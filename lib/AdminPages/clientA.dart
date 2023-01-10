@@ -58,33 +58,7 @@ class _clientAState extends State<clientA> with TickerProviderStateMixin {
     return users == null
         ? const Loader()
         : Scaffold(
-          appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(50),
-        child: AppBar(
-          flexibleSpace: Container(
-            decoration: const BoxDecoration(
-            
-             image: DecorationImage(
-            image: NetworkImage("https://i.pinimg.com/564x/ec/d4/97/ecd4974ed81d210fb5aa6ac4ad01ab7a.jpg"), fit: BoxFit.cover)
-              
-            ),
-          ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                alignment: Alignment.topLeft,
-                child: Image.network(
-                  'https://cdn5.vectorstock.com/i/1000x1000/39/44/abstract-outline-color-of-a-young-elegant-bride-vector-9743944.jpg',
-                  width: 120,
-                  height: 45,
-                  color: Colors.transparent,
-                ),
-              ), 
-            ],
-          ),
-        ),
-      ),
+          appBar: AppBar(title: Text('All clients'),backgroundColor:Color.fromARGB(235, 216, 171, 82) ,),
       body: Container(
         height: MediaQuery.of(context).size.height*0.75,
         child: ListView.builder(itemCount: users!.length,itemBuilder: (context, index) {
@@ -100,7 +74,7 @@ class _clientAState extends State<clientA> with TickerProviderStateMixin {
 
                                // closee.logout(context);
                               },
-                              icon: Icon(Icons.done_outline_sharp,color: Colors.red[100],),
+                              icon: Icon(Icons.delete_forever_rounded,color: Color.fromARGB(235, 216, 171, 82),),
                             ), 
             ),
           );

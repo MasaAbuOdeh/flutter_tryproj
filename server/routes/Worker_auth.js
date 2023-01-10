@@ -5,6 +5,7 @@ const Comment= require("../models/comment");
 const bcryptjs = require('bcryptjs');
 const jwt = require ("jsonwebtoken");
 const auth = require("../middlewares/auth");
+const User = require("../models/user");
 
 const WorkerauthRouter = express.Router();
 
@@ -59,6 +60,17 @@ WorkerauthRouter.post("/api/Workersignup", async (req, res) =>{
             res.status(500).json({ error: e.message});
         }
     });
+
+    //get all business
+    WorkerauthRouter.get("/business/get-all", async(req, res) => {
+      try{
+      const worker = await Worker.find();
+      res.json(worker);
+      }catch (e) {
+        res.status(500).json({ error: e.message});
+      }
+    }) ;
+    
 ///get all halls
     WorkerauthRouter.get("/business/get-halls", async(req, res) => {
         try{
@@ -68,6 +80,7 @@ WorkerauthRouter.post("/api/Workersignup", async (req, res) =>{
           res.status(500).json({ error: e.message});
         }
       }) ;
+      
 
       ///get halls by the nablus 
     WorkerauthRouter.get("/business/get-Nablus", async(req, res) => {
@@ -78,6 +91,7 @@ WorkerauthRouter.post("/api/Workersignup", async (req, res) =>{
         res.status(500).json({ error: e.message});
       }
     }) ;
+    
 
     ///get halls by the nablus 
     WorkerauthRouter.get("/business/get-Tulkarem", async(req, res) => {
@@ -181,12 +195,25 @@ WorkerauthRouter.post("/api/Workersignup", async (req, res) =>{
         }
       });
 
-    
+      
 
       WorkerauthRouter.get("/business/search/:name", auth, async (req, res) => {
         try {
           const worker = await Worker.find({
             name: req.params.name,
+          });
+         
+          res.json(worker);
+        } catch (e) {
+          res.status(500).json({ error: e.message });
+        }
+      });
+
+      //adminsearch
+      WorkerauthRouter.get("/business/adminsearch/:name", auth, async (req, res) => {
+        try {
+          const worker = await Worker.find({
+            name: { $regex: req.params.name, $options:"i"},
           });
          
           res.json(worker);
@@ -215,6 +242,16 @@ WorkerauthRouter.post("/api/Workersignup", async (req, res) =>{
     const { id } = req.body;
     let worker = await Worker.findByIdAndDelete(id);
     res.json(worker);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+//Delete users 
+WorkerauthRouter.post("/admin/delete-user", async (req, res) => {
+  try {
+    const { id } = req.body;
+    let user = await User.findByIdAndDelete(id);
+    res.json(user);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
