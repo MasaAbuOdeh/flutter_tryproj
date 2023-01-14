@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_try/models/order.dart';
 import 'package:flutter_try/models/worker.dart';
@@ -11,17 +10,17 @@ import 'package:flutter_try/ucan/shared/componets/componets.dart';
 import 'package:provider/provider.dart';
 //import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 
-class AddEventScreen extends StatefulWidget{
-  const AddEventScreen({Key? key}):super(key:key);
+class notibookingreq extends StatefulWidget{
+  const notibookingreq({Key? key,final String?payload}):super(key:key);
 
   @override
-  _AddEventScreenState createState()=> _AddEventScreenState();
+  _notibookingreqState createState()=> _notibookingreqState();
 
 
 }
 
 
- class _AddEventScreenState extends State<AddEventScreen> {
+ class _notibookingreqState extends State<notibookingreq> {
   GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
   var titlecontroller = TextEditingController();
@@ -234,7 +233,7 @@ class AddEventScreen extends StatefulWidget{
            orderdetail.orderbusiness(context: context, 
           worker: worker!,
            date: datecontroller.text,
-           eventname: titlecontroller.text,
+            eventname:titlecontroller.text,
             from: starttimecontroller.text,
              to: endtimecontroller.text,
               username: user.name,
@@ -373,4 +372,3 @@ _buildlistorder(BuildContext context){
 
 
   }
-

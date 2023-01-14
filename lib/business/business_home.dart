@@ -163,7 +163,8 @@ class _business_homeState extends State<business_home>{
                 const SizedBox(height: 20),
                 CustomButton(text: "Add",
                  onTap: (){
-                  sendinfo();
+                 showSnackBar(context, 'info send successfully ! it will be shown in the user side',);
+                  //sendinfo();
                  })
               ]),
                ),

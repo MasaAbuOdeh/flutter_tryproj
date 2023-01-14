@@ -1,9 +1,11 @@
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_try/common/widgets/custom_button.dart';
 import 'package:flutter_try/common/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_try/constants/global_variables.dart';
 import 'package:flutter_try/services/auth_service.dart';
 import 'package:flutter_try/fire/methodss.dart';
+import 'package:flutter_try/services/notification_api.dart';
 import 'package:flutter_try/widget/loader.dart';
 
 enum Auth {
@@ -20,6 +22,7 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+   
   Auth _auth = Auth.signup;
   final _signUpFormKey = GlobalKey<FormState>();
   final _signInFormKey = GlobalKey<FormState>();
@@ -69,6 +72,9 @@ class _AuthScreenState extends State<AuthScreen> {
       password: _passwordController.text,
     );
   }
+
+  
+
 
   @override
   Widget build(BuildContext context) {
@@ -232,6 +238,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           onTap: () {
                             if (_signInFormKey.currentState!.validate()) {
                               signInUser();
+                              
                             }
                           },
                         )

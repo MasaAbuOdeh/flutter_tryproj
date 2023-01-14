@@ -6,26 +6,56 @@ import 'package:flutter_try/services/workerauth.dart';
 import 'package:flutter_try/widget/loader.dart';
 import 'package:provider/provider.dart';
 
-class Tulkaremhalls extends StatefulWidget{
-const Tulkaremhalls({Key? key}):super(key:key);
+class hallsmallrate extends StatefulWidget{
+const hallsmallrate({Key? key}):super(key:key);
 
   get workers => null;
   get recomend=> null;
  // get temp =>null;
   //get workerdata => null;
 @override
-_TulkaremhallsState createState()=> _TulkaremhallsState();
+_hallsmallrateState createState()=> _hallsmallrateState();
 
 
 }
-class _TulkaremhallsState extends State<Tulkaremhalls> with TickerProviderStateMixin {
+class _hallsmallrateState extends State<hallsmallrate> with TickerProviderStateMixin {
   List <Worker> ? workers ;
   final WorkerAuthService hall = WorkerAuthService();
   late Worker temp;
 
   showallhalls() async{
     
-    workers = await hall.showhallsTulkarem(context);
+    workers = await hall.showAllhalls(context);
+    for(int i=0;i<workers!.length;i++){
+
+          for(int j=i+1;j<workers!.length;j++){
+           /* if(recomend![i].rating![i].rating<recomend![j].rating![j].rating){
+              temp=recomend![i];
+              recomend![i]=recomend![j];
+              recomend![j]=temp;
+            }*/
+             double tri=0;
+double trj=0;
+double ai=0;
+double aj=0;
+            for(int m=0;m<workers![j].rating!.length;m++){
+              trj+=workers![j].rating![m].rating;
+            }
+            aj=trj/workers![j].rating!.length;
+            for(int k=0;k<workers![i].rating!.length;k++){
+            tri+=workers![i].rating![k].rating;
+          }
+          ai=tri/workers![i].rating!.length;
+
+
+            if(ai>aj){
+              temp=workers![i];
+              workers![i]=workers![j];
+              workers![j]=temp;
+            }
+
+          }
+         }
     setState(() {
       
     });
@@ -57,7 +87,7 @@ class _TulkaremhallsState extends State<Tulkaremhalls> with TickerProviderStateM
         ? const Loader()
         : Scaffold(
           appBar: AppBar(
-            title: Text("From Tulkarm"),
+            title: Text("Rating from low to high"),
             backgroundColor:Color.fromARGB(235, 216, 171, 82) ,
           ),
       body: Column(
@@ -65,7 +95,8 @@ class _TulkaremhallsState extends State<Tulkaremhalls> with TickerProviderStateM
 
         children: [
           SizedBox(height: 40,),
-        
+          
+         // SizedBox(height: 10,),
 
           Container(
             child: Align(

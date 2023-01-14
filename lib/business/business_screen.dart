@@ -49,40 +49,10 @@ search(),
     var size = MediaQuery.of(context)
         .size; //this gonna give us total height and with of our device
         return Scaffold(
-          appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(50),
-        child: AppBar(
-          flexibleSpace: Container(
-            decoration: const BoxDecoration(
-            
-             image: DecorationImage(
-            image: NetworkImage("https://i.pinimg.com/564x/d4/ae/04/d4ae040aa4ba26ceed0f93accf9430fb.jpg"), fit: BoxFit.cover)
-              
-            ),
+          appBar: AppBar(
+            title: Text(worker.name),
+            backgroundColor: Color.fromARGB(236, 216, 169, 74),
           ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                alignment: Alignment.topLeft,
-                child: Image.network(
-                  'https://cdn5.vectorstock.com/i/1000x1000/39/44/abstract-outline-color-of-a-young-elegant-bride-vector-9743944.jpg',
-                  width: 120,
-                  height: 45,
-                  color: Colors.transparent,
-                ),
-              ),
-               Text(
-                worker.name,
-                style: TextStyle(
-                  color: Color.fromARGB(255, 117, 116, 116),
-                  fontWeight: FontWeight.bold,
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
           body:pages[currentIndex],
           bottomNavigationBar: BottomNavigationBar(
             onTap: onTap,

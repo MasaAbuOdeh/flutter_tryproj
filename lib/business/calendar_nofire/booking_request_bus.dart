@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_try/models/worker.dart';
 import 'package:flutter_try/providers/user_provider.dart';
 import 'package:flutter_try/providers/worker_provider.dart';
+import 'package:flutter_try/services/auth_service.dart';
 import 'package:flutter_try/services/businessDetail_services.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +21,7 @@ _business_bookreqState createState()=> _business_bookreqState();
 }
 class _business_bookreqState extends State<business_bookreq> with TickerProviderStateMixin {
   final businessDetail_services orderdetail = businessDetail_services();
+  final AuthService notinfo =AuthService();
   List<Worker>?workers;
   Future refresh()async{
     
@@ -90,8 +92,10 @@ class _business_bookreqState extends State<business_bookreq> with TickerProvider
               //SizedBox(height: 5,),
               Row(
                 children: [
-                  Text('Client:${worker.order![index].username}', style: TextStyle(fontSize: 20),),
-                  SizedBox(width: 15,),
+                  Text('Event:${worker.order![index].eventname}', style: TextStyle(fontSize: 20),),
+                   SizedBox(width: 15,),
+                  Text('Client:${worker.order![index].username}', style: TextStyle(fontSize: 15),),
+                  SizedBox(width: 10,),
                   Text(worker.order![index].userId, style: TextStyle(fontSize: 10),),
 
                 ],
@@ -126,11 +130,16 @@ class _business_bookreqState extends State<business_bookreq> with TickerProvider
       orderdetail.orderbusiness(context: context,
        worker: worker,
         date: worker.order![index].date,
+        eventname:worker.order![index].eventname ,
         from:  worker.order![index].from,
          to:  worker.order![index].to,
           username:  worker.order![index].username,
            userphone:  worker.order![index].userphone,
             status: 'accept');
+            notinfo.sendNoti(context: context, name: worker.order![index].username,
+             Notititle: worker.name,
+              Notibody: 'Your booking request accepted');
+            
 
       },
       shape:RoundedRectangleBorder(
@@ -156,6 +165,7 @@ class _business_bookreqState extends State<business_bookreq> with TickerProvider
       orderdetail.orderbusiness(context: context,
        worker: worker,
         date: worker.order![index].date,
+        eventname: worker.order![index].eventname,
         from:  worker.order![index].from,
          to:  worker.order![index].to,
           username:  worker.order![index].username,
@@ -186,6 +196,7 @@ class _business_bookreqState extends State<business_bookreq> with TickerProvider
       orderdetail.orderbusiness(context: context,
        worker: worker,
         date: worker.order![index].date,
+        eventname: worker.order![index].eventname,
         from:  worker.order![index].from,
          to:  worker.order![index].to,
           username:  worker.order![index].username,

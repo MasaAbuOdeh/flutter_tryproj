@@ -103,6 +103,49 @@ WorkerauthRouter.post("/api/Workersignup", async (req, res) =>{
       }
     }) ;
 
+    ///get halls by the Ramallah
+
+    WorkerauthRouter.get("/business/get-Ramallah", async(req, res) => {
+      try{
+      const worker = await Worker.find({type: 'halls',location:'Ramallah'});
+      res.json(worker);
+      }catch (e) {
+        res.status(500).json({ error: e.message});
+      }
+    }) ;
+
+    ///get halls by the nablus 
+    WorkerauthRouter.get("/business/get-Nablusband", async(req, res) => {
+      try{
+      const worker = await Worker.find({type: 'Band group',location:'Nablus'});
+      res.json(worker);
+      }catch (e) {
+        res.status(500).json({ error: e.message});
+      }
+    }) ;
+    
+
+    ///get band by the nablus 
+    WorkerauthRouter.get("/business/get-Tulkaremband", async(req, res) => {
+      try{
+      const worker = await Worker.find({type: 'Band group',location:'Tulkarem'});
+      res.json(worker);
+      }catch (e) {
+        res.status(500).json({ error: e.message});
+      }
+    }) ;
+
+    ///get halls by the Ramallah
+
+    WorkerauthRouter.get("/business/get-Ramallahband", async(req, res) => {
+      try{
+      const worker = await Worker.find({type: 'Band group',location:'Ramallah'});
+      res.json(worker);
+      }catch (e) {
+        res.status(500).json({ error: e.message});
+      }
+    }) ;
+
 
       ///get all band group
     WorkerauthRouter.get("/business/get-band", async(req, res) => {
@@ -113,6 +156,37 @@ WorkerauthRouter.post("/api/Workersignup", async (req, res) =>{
         res.status(500).json({ error: e.message});
       }
     }) ;
+    /// get all photography 
+    WorkerauthRouter.get("/business/get-photography", async(req, res) => {
+      try{
+      const worker = await Worker.find({type: 'photography'});
+      res.json(worker);
+      }catch (e) {
+        res.status(500).json({ error: e.message});
+      }
+    }) ;
+
+    //get all decorate
+
+    WorkerauthRouter.get("/business/get-decorate", async(req, res) => {
+      try{
+      const worker = await Worker.find({type: 'Decorate'});
+      res.json(worker);
+      }catch (e) {
+        res.status(500).json({ error: e.message});
+      }
+    }) ;
+    /// get all photography 
+    WorkerauthRouter.get("/business/get-photography", async(req, res) => {
+      try{
+      const worker = await Worker.find({type: 'photography'});
+      res.json(worker);
+      }catch (e) {
+        res.status(500).json({ error: e.message});
+      }
+    }) ;
+
+
 
       WorkerauthRouter.post("/api/rate-Worker", auth, async (req, res) => {
         try {
@@ -167,7 +241,7 @@ WorkerauthRouter.post("/api/Workersignup", async (req, res) =>{
 
       WorkerauthRouter.post("/api/order-Worker", auth, async (req, res) => {
         try {
-          const { id, date ,from,to,username,userphone,status } = req.body;
+          const { eventname,id, date ,from,to,username,userphone,status } = req.body;
           let worker = await Worker.findById(id);
       
           for (let i = 0; i < worker.orders.length; i++) {
@@ -179,6 +253,7 @@ WorkerauthRouter.post("/api/Workersignup", async (req, res) =>{
       
           const orderSchema = {
             userId: req.user,
+            eventname,
             date,
             from,
             to,
@@ -200,7 +275,7 @@ WorkerauthRouter.post("/api/Workersignup", async (req, res) =>{
       WorkerauthRouter.get("/business/search/:name", auth, async (req, res) => {
         try {
           const worker = await Worker.find({
-            name: req.params.name,
+            name: { $regex: req.params.name, $options:"i"},
           });
          
           res.json(worker);
@@ -266,6 +341,24 @@ WorkerauthRouter.get("/business/all", async(req, res) => {
     res.status(500).json({ error: e.message});
   }
 }) ;
+
+//update worker info
+WorkerauthRouter.post("/api/update-info", async (req, res) =>{
+  const { id ,name , email , phone}= req.body;
+  let worker = await Worker.findOne({id})
+      
+      worker.name=name;
+      worker.email=email;
+      worker.phone=phone;
+       worker = await worker.save();
+       res.json(worker);
+
+  try{
+
+  }catch(e) {
+      res.status(500).json({ error: e.message });
+    }
+});
 
 
 

@@ -3,6 +3,7 @@ import 'dart:convert';
 class Order {
   final String userId;
   final String date;
+  final String eventname;
   final String from;
   final String to;
   final String username;
@@ -12,6 +13,7 @@ class Order {
   Order({
     required this.userId,
      required this.date,
+     required this.eventname,
       required this.from,
        required this.to,
     required this.username,
@@ -23,6 +25,7 @@ class Order {
     return {
       'userId': userId,
       'date' :date,
+      'eventname':eventname,
       'from' :from,
       'to' :to,
       'username':username,
@@ -35,6 +38,7 @@ class Order {
     return Order(
       userId: map['userId'] ?? '',
       date: map['date']  ?? '',
+      eventname: map['eventname']  ?? '',
       from: map['from']  ?? '',
       to: map['to']?? '',
       username: map['username']??'',

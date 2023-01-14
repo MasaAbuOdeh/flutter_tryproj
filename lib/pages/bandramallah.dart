@@ -6,26 +6,26 @@ import 'package:flutter_try/services/workerauth.dart';
 import 'package:flutter_try/widget/loader.dart';
 import 'package:provider/provider.dart';
 
-class Tulkaremhalls extends StatefulWidget{
-const Tulkaremhalls({Key? key}):super(key:key);
+class Ramband extends StatefulWidget{
+const Ramband({Key? key}):super(key:key);
 
   get workers => null;
   get recomend=> null;
  // get temp =>null;
   //get workerdata => null;
 @override
-_TulkaremhallsState createState()=> _TulkaremhallsState();
+_RambandState createState()=> _RambandState();
 
 
 }
-class _TulkaremhallsState extends State<Tulkaremhalls> with TickerProviderStateMixin {
+class _RambandState extends State<Ramband> with TickerProviderStateMixin {
   List <Worker> ? workers ;
   final WorkerAuthService hall = WorkerAuthService();
   late Worker temp;
 
   showallhalls() async{
     
-    workers = await hall.showhallsTulkarem(context);
+    workers = await hall.showbandRamallah(context);
     setState(() {
       
     });
@@ -57,7 +57,7 @@ class _TulkaremhallsState extends State<Tulkaremhalls> with TickerProviderStateM
         ? const Loader()
         : Scaffold(
           appBar: AppBar(
-            title: Text("From Tulkarm"),
+            title: Text("From Nablus"),
             backgroundColor:Color.fromARGB(235, 216, 171, 82) ,
           ),
       body: Column(

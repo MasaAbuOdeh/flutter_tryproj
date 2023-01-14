@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:carousel_slider/carousel_slider.dart';
@@ -14,24 +13,26 @@ import 'package:flutter_try/constants/utils.dart';
 import 'package:flutter_try/fire/ChatRoom.dart';
 import 'package:flutter_try/models/worker.dart';
 import 'package:flutter_try/pages/Wedding_halls.dart';
+import 'package:flutter_try/pages/allphotography.dart';
+import 'package:flutter_try/pages/band_group.dart';
 import 'package:flutter_try/providers/user_provider.dart';
 import 'package:flutter_try/providers/worker_provider.dart';
 import 'package:flutter_try/services/businessDetail_services.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
-class DetailPage extends StatefulWidget{
+class banddetail extends StatefulWidget{
   static const String routeName ='halls-details';
   //final String worker;
-  const DetailPage({
+  const banddetail({
     Key? key,
     }):super(key:key);
 @override
-  _DetailPageState createState()=> _DetailPageState();
+  _banddetailState createState()=> _banddetailState();
 
 
 }
-class _DetailPageState extends State<DetailPage>with WidgetsBindingObserver{
+class _banddetailState extends State<banddetail>with WidgetsBindingObserver{
 int gottenStars=4;
  final _buildFormKey = GlobalKey<FormState>();
 final businessDetail_services details = businessDetail_services();
@@ -243,7 +244,7 @@ Positioned(
 ///////////////////////////////////////////////
   
   Positioned(
-      top:300,
+      top:340,
       child: Container(
 padding: const EdgeInsets.only(left: 20,right: 20,top: 30) ,
     width: MediaQuery.of(context).size.width,
@@ -314,8 +315,8 @@ child: Column(
 
           ),
         ),
-        SizedBox(width: 140,),
-        Text('phone : ${worker.phone}'),
+        SizedBox(width: 160,),
+        Text('  phone : ${worker.phone}'),
 
       ],
 
@@ -329,7 +330,7 @@ child: Column(
       GestureDetector(onTap: () {
       Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => DetailPage()));
+                              builder: (_) => banddetail()));
     },
     child: RatingBar.builder(
               initialRating: myRating,
@@ -360,7 +361,7 @@ child: Column(
       onPressed: () {print( 'rate Pressed');
       Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => hallsPage()));},
+                              builder: (_) => bandPage()));},
       shape:RoundedRectangleBorder(
           side: const BorderSide(
               color:Colors.black),

@@ -77,7 +77,7 @@ class _profileState extends State<profile>{
 
                       image: DecorationImage(
 
-                        image: NetworkImage("https://images.unsplash.com/photo-1617785258979-b50ebd43871e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YnJpZGUlMjBhbmQlMjBncm9vbXxlbnwwfHwwfHw%3D&w=1000&q=80"),
+                        image: NetworkImage("https://i.pinimg.com/564x/82/e1/e1/82e1e19d04bafb69b9251ca5419d2e59.jpg"),
                         fit: BoxFit.cover,
 
 

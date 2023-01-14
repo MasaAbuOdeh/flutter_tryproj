@@ -5,7 +5,13 @@ const orderSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+
   date: {
+    type: String,
+    required: true,
+  },
+
+  eventname:{
     type: String,
     required: true,
   },

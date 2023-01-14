@@ -79,6 +79,7 @@ class businessDetail_services{
     required BuildContext context,
     required Worker worker,
     required String date,
+    required String eventname,
     required String from,
     required String to,
     required String username,
@@ -97,6 +98,7 @@ class businessDetail_services{
         body: jsonEncode({
           'id': worker.id!,
           'date': date,
+          'eventname':eventname,
           'from': from,
           'to': to,
           'username': userProvider.user.name,

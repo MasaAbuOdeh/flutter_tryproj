@@ -2,7 +2,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_try/common/widgets/stars.dart';
 import 'package:flutter_try/models/worker.dart';
+import 'package:flutter_try/pages/filtar.dart';
+import 'package:flutter_try/pages/filterband.dart';
 import 'package:flutter_try/pages/recomanded.dart';
+import 'package:flutter_try/pages/search_screen.dart';
 import 'package:flutter_try/providers/worker_provider.dart';
 import 'package:flutter_try/services/business_info.dart';
 import 'package:flutter_try/services/workerauth.dart';
@@ -28,7 +31,7 @@ class _bandPageState extends State<bandPage> with TickerProviderStateMixin {
    List <int> ? tryy;
    double minimum=0;
    int j =0;
-   
+   late int length_valid=0;
    //late  Worker temp  ;
   final WorkerAuthService hall = WorkerAuthService();
  
@@ -53,6 +56,18 @@ class _bandPageState extends State<bandPage> with TickerProviderStateMixin {
    
     
   //List <Worker> ? workers ;
+  void navegatetosearchscreen(String query){
+   // Navigator.of(context).pushNamed("/search",arguments: query );Colors.red[200];
+    Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => search_screen(
+                                SearchQuery: query,
+                              ),
+                            ),
+                          );
+
+  }
+
 
 
 @override
@@ -84,7 +99,7 @@ class _bandPageState extends State<bandPage> with TickerProviderStateMixin {
 showrecomend() async{
   //workers = await hall.showAllhalls(context);
   //recomend=workers;
-  recomend = await hall.showrecomendedband(context);
+  recomend = await hall.showrecomendedhalls(context);
 
   double tri=0;
 double trj=0;
@@ -123,12 +138,22 @@ double aj=0;
   }
  
 
-  showallhalls() async{
+  Future showallhalls() async{
     
     workers = await hall.showAllband(context);
-    setState(() {
-      
-    });
+    for(int i=0;i<workers!.length;i++){
+      if(workers![i].images[0].isNotEmpty){
+        length_valid++;
+        
+      }
+
+    }
+
+    if (this.mounted) {
+  setState(() {
+    // Your state change code goes here
+  });
+}
   
   } 
        
@@ -165,16 +190,34 @@ double aj=0;
     return recomend == null
         ? const Loader()
         : Scaffold(
+          appBar: AppBar(
+        title: Text("Band group Page"),
+        backgroundColor: Color.fromARGB(235, 216, 171, 82),
+      ),
           
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
 
         children: [
           Container(
-            padding: const EdgeInsets.only(top: 40, left: 20),
+            padding: const EdgeInsets.only(top: 10, left: 10),
             child: Row(
               children: [
-                Icon(Icons.menu, size: 30, color: Colors.black,),
+                IconButton(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => NavDrawerband()
+                            ),
+                          );
+                               
+                              },
+                              icon: Icon(Icons.menu,color: Colors.black,),
+                              
+                            ),
+                            SizedBox(width: 0,),
+                            Text('Filter',style: TextStyle(fontSize: 20,color:Color.fromARGB(235, 216, 171, 82), ),)
                 /* Container(
                   width: 50,
                   height: 50,
@@ -187,11 +230,11 @@ double aj=0;
             ),
           ),
 
-          SizedBox(height: 40,),
+          SizedBox(height: 10,),
 
 
           const Text(
-            ' Find Your Dream Hall',
+            '   Find Your Dream Hall',
 
             style: TextStyle(
 
@@ -207,7 +250,7 @@ double aj=0;
             alignment: Alignment.centerLeft,
             decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(29),
+                borderRadius: BorderRadius.circular(32),
                 boxShadow: [
                   const BoxShadow(
                       color: Colors.black26,
@@ -217,8 +260,8 @@ double aj=0;
                 ]
             ),
             height: 60,
-            child: const TextField(
-              keyboardType: TextInputType.name,
+            child: TextFormField(
+              onFieldSubmitted: navegatetosearchscreen,
               style: TextStyle(
                   color: Colors.black87
               ),
@@ -269,8 +312,8 @@ padding: const EdgeInsets.only(left: 20),
               children: [
 
                 
-               
-               ListView.builder(
+               FutureBuilder(future :showallhalls(),builder: ((context, snapshot) {
+                return ListView.builder(
 
                 
                  itemCount:workers!.length,
@@ -313,7 +356,7 @@ padding: const EdgeInsets.only(left: 20),
                   
                   return GestureDetector(
                         onTap: () {
-                          Navigator.of(context).pushNamed('/Detail',arguments: workers![index]);Colors.red[200];
+                          Navigator.of(context).pushNamed('/Detailband',arguments: workers![index]);Colors.red[200];
                           print(workers![index].name+'pressed');
                           
                         },
@@ -356,7 +399,7 @@ padding: const EdgeInsets.only(left: 20),
       ],
                   image: DecorationImage(
                     fit : BoxFit.cover,
-                    image: NetworkImage(workers![index].images[0]==null? "https://www.generationsforpeace.org/wp-content/uploads/2018/07/empty.jpg":workers![index].images[0])
+                    image: NetworkImage(workers![index].images[0].isEmpty? "https://www.generationsforpeace.org/wp-content/uploads/2018/07/empty.jpg":workers![index].images[0])
                      )
                 ) ,
               ),
@@ -386,12 +429,15 @@ padding: const EdgeInsets.only(left: 20),
 
                  },
 
-               ),
+               );
+                 
+               })),
+               
 
 ListView.builder(
 
                 
-                 itemCount:recomend!.length,
+                 itemCount:recomend!.length-4,
                  scrollDirection: Axis.vertical,
                  itemBuilder: (BuildContext context, int index) {
 
@@ -605,6 +651,8 @@ ListView.builder(
           ),
 
         ],
+        ),
+        
       ),
     );
   }

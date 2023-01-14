@@ -4,14 +4,19 @@ import 'package:flutter_try/AdminPages/HomeScreen.dart';
 import 'package:flutter_try/AdminPages/admin_signin.dart';
 import 'package:flutter_try/AdminPages/businessA.dart';
 import 'package:flutter_try/AdminPages/clientA.dart';
+import 'package:flutter_try/AdminPages/dabkeh.dart';
+import 'package:flutter_try/AdminPages/events.dart';
 import 'package:flutter_try/AdminPages/halls.dart';
+import 'package:flutter_try/AdminPages/photography.dart';
 import 'package:flutter_try/admin/admin_control_page.dart';
 import 'package:flutter_try/business/DetailPage.dart';
+import 'package:flutter_try/business/banddetail.dart';
 import 'package:flutter_try/business/business_screen.dart';
 import 'package:flutter_try/business/calendar_nofire/booking_req.dart';
 import 'package:flutter_try/business/calendar_nofire/calendar_client.dart';
 import 'package:flutter_try/business/commentPage.dart';
 import 'package:flutter_try/business/maps.dart';
+import 'package:flutter_try/business/photodetail.dart';
 import 'package:flutter_try/fire/createaccount.dart';
 import 'package:flutter_try/fire/login.dart';
 import 'package:flutter_try/fire/search.dart';
@@ -23,6 +28,8 @@ import 'package:flutter_try/pages/Wedding_halls.dart';
 import 'package:flutter_try/pages/WorkerSignup.dart';
 import 'package:flutter_try/pages/aftersigninuser.dart';
 import 'package:flutter_try/pages/afterworkersignin.dart';
+import 'package:flutter_try/pages/alldecorate.dart';
+import 'package:flutter_try/pages/allphotography.dart';
 import 'package:flutter_try/pages/band_group.dart';
 import 'package:flutter_try/pages/search_screen.dart';
 import 'package:flutter_try/pages/welcome_page.dart';
@@ -103,7 +110,14 @@ class MyApp extends StatelessWidget {
           'letgo':(context) => business_screen(),
           '/booking':(context) => Calendar_client(),
           '/request':(context) => AddEventScreen(),
-          'Adminside':(context) => Admin_Screen()
+          'Adminside':(context) => Admin_Screen(),
+          'photography':(context) =>allphotography(),
+          '/Detailband':(context) => banddetail(),
+          '/Detailphoto':(context) => photodetail(),
+          'Decorate':(context) => decoratePage(),
+          'Dabkeh':(context) => dabkeh(),
+          'photograph':(context) => photography(),
+          'Decor':(context) => decor()
       },
     );
   }

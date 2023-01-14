@@ -55,10 +55,7 @@ class ChatRoom extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(userMap['name']),
-                    Text(
-                      snapshot.data!['status'],
-                      style: TextStyle(fontSize: 14),
-                    ),
+                  
                   ],
                 ),
               );

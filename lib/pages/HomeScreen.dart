@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_try/business/calendar_nofire/calendar_client.dart';
+import 'package:flutter_try/business/notiboocingreq.dart';
 import 'package:flutter_try/pages/home_page.dart';
 import 'package:flutter_try/pages/profile.dart';
 import 'package:flutter_try/pages/recomanded.dart';
+import 'package:flutter_try/providers/user_provider.dart';
+import 'package:flutter_try/services/auth_service.dart';
+import 'package:flutter_try/services/notification_api.dart';
 import 'package:flutter_try/widget/Categoryard.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -12,6 +19,10 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState()=> _HomeScreenState();
 }
 class _HomeScreenState extends State<HomeScreen>{
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin=FlutterLocalNotificationsPlugin();
+   final NotificationApi not = NotificationApi();
+   final AuthService notinfo =AuthService();
+   
   get svgPicture => null;
   int currentIndex=0;
 void onTap(int index){
@@ -21,20 +32,49 @@ void onTap(int index){
  
   
 }
+void initState() {
+    super.initState();
+    NotificationApi.initialize(flutterLocalNotificationsPlugin);
+    ListenNotification();
+    
+  } 
+  void ListenNotification()=>
+  NotificationApi.onNotifications.stream.listen(onClickNotification);
+   void onClickNotification(String? payload)=>
+   Navigator.of(context).push(MaterialPageRoute(
+    builder: (context) => Calendar_client(payload: payload,),
+
+   ));
 
 
 List pages=[
   //home_page(),
 home_page(),
- recomended(),
+ //recomended(),
   profile(),
 ];
 
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context)
-        .size; //this gonna give us total height and with of our device
+    var size = MediaQuery.of(context).size; //this gonna give us total height and with of our device
+    final user = Provider.of<UserProvider>(context).user;
+    if(user.Notibody!.compareTo("Your booking request accepted")==0){
+       notinfo.sendNoti(context: context,
+                                name: user.name, Notititle: '',
+                                 Notibody: '');
+      NotificationApi.showBigTextNotification(title: user!.Notititle!,
+                              body: user!.Notibody!,
+                              fln: flutterLocalNotificationsPlugin);
+                              print("object");
+                              
+                               
+
+    }
+   /* NotificationApi.showBigTextNotification(title: _nameController.text,
+                              body: _emailController.text,
+                              fln: flutterLocalNotificationsPlugin);
+                              print("object");*/
         return Scaffold(
           body:pages[currentIndex],
           bottomNavigationBar: BottomNavigationBar(
@@ -48,7 +88,7 @@ home_page(),
             
             items: [
               BottomNavigationBarItem(label:"Home",icon: Icon(Icons.apps)),
-              BottomNavigationBarItem(label:"Recomended",icon: Icon(Icons.bar_chart_sharp)),
+              //BottomNavigationBarItem(label:"Recomended",icon: Icon(Icons.bar_chart_sharp)),
               BottomNavigationBarItem(label:"Profile",icon: Icon(Icons.person)),
             ]),
           

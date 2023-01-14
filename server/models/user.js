@@ -35,7 +35,18 @@ const userSchema =mongoose.Schema({
     statu:{
         type:String,
         default:'activate',
+    },
+    Notititle:{
+          type:String,
+          default:''
+
+    },
+    Notibody:{
+        type:String,
+        default:''
     }
+
+
 });
 
 const User = mongoose.model('User',userSchema);

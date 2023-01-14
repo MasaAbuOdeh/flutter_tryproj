@@ -3,6 +3,7 @@ import 'package:flutter_try/business/calendar_nofire/booking_request_bus.dart';
 import 'package:flutter_try/business/calendar_nofire/calendar.dart';
 import 'package:flutter_try/business/notification.dart';
 import 'package:flutter_try/fire/search.dart';
+import 'package:flutter_try/pages/UserAccount.dart';
 import 'package:flutter_try/providers/worker_provider.dart';
 import 'package:flutter_try/services/auth_service.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +46,7 @@ class _profileState extends State<profile>{
                     print('info btn Pressed');
                     Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => business_bookreq()
+                              builder: (_) => UserAccount()
                             ),
                           );
                   } ,
@@ -146,10 +147,53 @@ child:Row(
                       color: Colors.white,
                         child:Row(
                             children: [
-                              Icon(Icons.bookmark_add_outlined,color:Color.fromARGB(236, 216, 169, 74),size: 25,),
+                              Icon(Icons.book_rounded,color:Color.fromARGB(236, 216, 169, 74),size: 25,),
 
                         const Text(
                          '\t\t\t Bookings',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            color: Color.fromARGB(236, 216, 169, 74),
+                            fontSize: 25,
+                            fontWeight: FontWeight.normal,
+                            fontFamily: 'Schyler-Regular',
+
+
+                          ),
+                        ),
+
+                        ]
+                    )
+                ),),
+                SizedBox(height: 20,),
+
+                Container(
+                    margin: EdgeInsets.symmetric(horizontal: 50/2),
+
+                    child: MaterialButton(
+
+                      minWidth:double.minPositive,
+                      height: 60,
+
+                      onPressed: () { print('info btn Pressed');
+                      Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => business_bookreq()
+                            ),
+                          );},
+                      shape: RoundedRectangleBorder(
+                          side: const BorderSide(
+                              color: Color.fromARGB(236, 216, 169, 74),
+                          width: 3),
+                          borderRadius: BorderRadius.circular(50)
+                      ),
+                      color: Colors.white,
+                        child:Row(
+                            children: [
+                              Icon(Icons.bookmark_add_outlined,color:Color.fromARGB(236, 216, 169, 74),size: 25,),
+
+                        const Text(
+                         '\t\t\t Bookings Requests',
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             color: Color.fromARGB(236, 216, 169, 74),

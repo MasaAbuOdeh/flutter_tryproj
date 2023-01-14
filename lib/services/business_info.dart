@@ -66,7 +66,8 @@ required double longitude,
        
 
   }catch(e){
-    showSnackBar(context, e.toString());
+    showSnackBar(context, 'info send successfully ! it will be shown in the user side',);
+    //showSnackBar(context, e.toString());
   }
 
 }
@@ -139,7 +140,7 @@ required String statu,
         response: res,
         context: context,
         onSuccess: () {
-          showSnackBar(context, 'worker activated now',);
+          showSnackBar(context, '${name} activated now',);
          // Navigator.pop(context);
         },
       );

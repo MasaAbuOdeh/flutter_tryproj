@@ -79,9 +79,9 @@ class _businessAState extends State<businessA> with TickerProviderStateMixin {
                               onPressed: () {
                                // closee.logout(context);
                                activatee.workeractivate(context: context, name: workers![index].name, statu: 'activate');
-                               NotificationApi.showBigTextNotification(title: 'hello '+workers![index].name,
+                              /* NotificationApi.showBigTextNotification(title: 'hello '+workers![index].name,
                               body: 'you can login noow',
-                              fln: flutterLocalNotificationsPlugin);
+                              fln: flutterLocalNotificationsPlugin);*/
                               print("object");
                               },
                               icon: Icon(Icons.done_outline_sharp,color: Color.fromARGB(235, 216, 171, 82)),

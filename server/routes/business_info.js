@@ -24,6 +24,8 @@ businessInfoRouter.post("/api/send-info", async (req, res) =>{
       }
 });
 
+
+
 //activate user
 businessInfoRouter.post("/api/activate_user", async (req, res) =>{
   const {name,statu}= req.body;

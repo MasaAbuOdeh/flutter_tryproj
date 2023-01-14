@@ -1,5 +1,4 @@
-
-//import 'package:flutter/widgets.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_try/common/widgets/stars.dart';
 import 'package:flutter_try/models/worker.dart';
@@ -12,19 +11,19 @@ import 'package:flutter_try/services/workerauth.dart';
 import 'package:flutter_try/widget/loader.dart';
 import 'package:flutter_try/widget/single.dart';
 import 'package:provider/provider.dart';
-class hallsPage extends StatefulWidget{
-const hallsPage({Key? key}):super(key:key);
+class decoratePage extends StatefulWidget{
+const decoratePage({Key? key}):super(key:key);
 
   get workers => null;
   get recomend=> null;
  // get temp =>null;
   //get workerdata => null;
 @override
-_hallsPageState createState()=> _hallsPageState();
+_decoratePageState createState()=> _decoratePageState();
 
 
 }
-class _hallsPageState extends State<hallsPage> with TickerProviderStateMixin {
+class _decoratePageState extends State<decoratePage> with TickerProviderStateMixin {
   
    List <Worker> ? workers ;
    List<Worker> ? recomend;
@@ -57,7 +56,7 @@ class _hallsPageState extends State<hallsPage> with TickerProviderStateMixin {
     
   //List <Worker> ? workers ;
 
-  void navegatetosearchscreen(String query){
+   void navegatetosearchscreen(String query){
    // Navigator.of(context).pushNamed("/search",arguments: query );Colors.red[200];
     Navigator.of(context).push(
                             MaterialPageRoute(
@@ -140,7 +139,7 @@ double aj=0;
 
   Future showallhalls() async{
     
-    workers = await hall.showAllhalls(context);
+    workers = await hall.showAlldecorate(context);
     for(int i=0;i<workers!.length;i++){
       if(workers![i].images[0].isNotEmpty){
         length_valid++;
@@ -191,13 +190,13 @@ double aj=0;
         ? const Loader()
         : Scaffold(
           appBar: AppBar(
-        title: Text("halls Page"),
+        title: Text("Decorate Page"),
         backgroundColor: Color.fromARGB(235, 216, 171, 82),
       ),
           
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+               crossAxisAlignment: CrossAxisAlignment.start,
 
         children: [
           Container(
@@ -315,7 +314,7 @@ padding: const EdgeInsets.only(left: 20),
                 
                FutureBuilder(future :showallhalls(),builder: ((context, snapshot) {
                 return ListView.builder(
-                 //physics:NeverScrollableScrollPhysics(),
+
                 
                  itemCount:workers!.length,
                  scrollDirection: Axis.vertical,
@@ -653,7 +652,7 @@ ListView.builder(
 
         ],
         ),
-        
+       
       ),
     );
   }

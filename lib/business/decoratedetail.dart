@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:carousel_slider/carousel_slider.dart';
@@ -14,24 +13,25 @@ import 'package:flutter_try/constants/utils.dart';
 import 'package:flutter_try/fire/ChatRoom.dart';
 import 'package:flutter_try/models/worker.dart';
 import 'package:flutter_try/pages/Wedding_halls.dart';
+import 'package:flutter_try/pages/alldecorate.dart';
 import 'package:flutter_try/providers/user_provider.dart';
 import 'package:flutter_try/providers/worker_provider.dart';
 import 'package:flutter_try/services/businessDetail_services.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
-class DetailPage extends StatefulWidget{
+class decoratedetail extends StatefulWidget{
   static const String routeName ='halls-details';
   //final String worker;
-  const DetailPage({
+  const decoratedetail({
     Key? key,
     }):super(key:key);
 @override
-  _DetailPageState createState()=> _DetailPageState();
+  _decoratedetailState createState()=> _decoratedetailState();
 
 
 }
-class _DetailPageState extends State<DetailPage>with WidgetsBindingObserver{
+class _decoratedetailState extends State<decoratedetail>with WidgetsBindingObserver{
 int gottenStars=4;
  final _buildFormKey = GlobalKey<FormState>();
 final businessDetail_services details = businessDetail_services();
@@ -168,7 +168,7 @@ Future refresh()async{
         backgroundColor: Color.fromARGB(235, 216, 171, 82),
       ),
       body:SingleChildScrollView(
-         
+        
         child: Column(
           
 children: [
@@ -243,7 +243,7 @@ Positioned(
 ///////////////////////////////////////////////
   
   Positioned(
-      top:300,
+      top:340,
       child: Container(
 padding: const EdgeInsets.only(left: 20,right: 20,top: 30) ,
     width: MediaQuery.of(context).size.width,
@@ -314,8 +314,8 @@ child: Column(
 
           ),
         ),
-        SizedBox(width: 140,),
-        Text('phone : ${worker.phone}'),
+        SizedBox(width: 160,),
+        Text('  phone : ${worker.phone}'),
 
       ],
 
@@ -329,7 +329,7 @@ child: Column(
       GestureDetector(onTap: () {
       Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => DetailPage()));
+                              builder: (_) => decoratedetail()));
     },
     child: RatingBar.builder(
               initialRating: myRating,
@@ -360,7 +360,7 @@ child: Column(
       onPressed: () {print( 'rate Pressed');
       Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => hallsPage()));},
+                              builder: (_) => decoratePage()));},
       shape:RoundedRectangleBorder(
           side: const BorderSide(
               color:Colors.black),

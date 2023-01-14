@@ -148,8 +148,8 @@ class _CalendarState extends State<Calendar> {
               ),
             ),
           ),
-          SizedBox(height: 15,),
-          MaterialButton (
+         // SizedBox(height: 15,),
+         /* MaterialButton (
 
                       minWidth:30,
                       height: 25,
@@ -188,7 +188,7 @@ class _CalendarState extends State<Calendar> {
 
                         ]
                     )
-                ),
+                ),*/
         ],
 
         

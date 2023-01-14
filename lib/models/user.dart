@@ -7,6 +7,8 @@ class User {
   final String password;
   final String phone;
   final String statu;
+   String ? Notititle ;
+   String ? Notibody;
   final String token;
   
 
@@ -17,6 +19,8 @@ class User {
    required this.password,
    required this.phone,
    required this.statu,
+    this.Notititle,
+    this.Notibody,
    required this.token, 
    });
 
@@ -28,6 +32,8 @@ class User {
       'password': password,
       'phone': phone,
       'statu':statu,
+      'Notititle':Notititle,
+      'Notibody':Notibody,
       'token' : token,
     };
 
@@ -41,6 +47,8 @@ class User {
       password: map['password']?? '',
       phone: map['phone']?? '',
       statu: map['statu']?? '',
+      Notititle: map['Notititle']?? '',
+      Notibody: map['Notibody']?? '',
       token: map['token']?? '',
 
     );

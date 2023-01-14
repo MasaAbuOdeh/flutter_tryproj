@@ -141,6 +141,25 @@ authRouter.get("/", auth, async (req, res) => {
     }
   }) ;
 
+  /// send noti info 
+  
+
+  authRouter.post("/api/send-Noti", async (req, res) =>{
+    const { name , Notititle , Notibody}= req.body;
+    let user = await User.findOne({name})
+        
+        user.Notititle=Notititle;
+        user.Notibody=Notibody;
+         user = await user.save();
+         res.json(user);
+  
+    try{
+  
+    }catch(e) {
+        res.status(500).json({ error: e.message });
+      }
+  });
+
 
 
 

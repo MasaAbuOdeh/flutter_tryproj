@@ -275,4 +275,52 @@ void deleteuser({
     }
   }
 
+  //send noti info 
+ 
+void sendNoti({
+required BuildContext context,
+required String name,
+required String Notititle,
+required String Notibody,
+
+
+
+
+
+}) async {
+  final userProvider = Provider.of<UserProvider>(context, listen: false);
+  try {
+       
+       http.Response res = await http.post(
+        Uri.parse('$uri/api/send-Noti'),
+        
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'name':name,
+          'Notititle':Notititle,
+          'Notibody':Notibody,
+        }), );
+        httpErrorHandel(
+        response: res,
+        context: context,
+        onSuccess: () {
+          //showSnackBar(context, 'we send notification to user',);
+         // Navigator.pop(context);
+        },
+      ); 
+      
+
+
+       
+
+  }catch(e){
+    showSnackBar(context, e.toString());
+  }
+
+}
+
+
 }

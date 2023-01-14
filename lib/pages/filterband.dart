@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_try/pages/HLprice.dart';
+import 'package:flutter_try/pages/Hlpriceband.dart';
 import 'package:flutter_try/pages/LHprice.dart';
+import 'package:flutter_try/pages/LHpriceband.dart';
 import 'package:flutter_try/pages/Nablushalls.dart';
 import 'package:flutter_try/pages/Ramallahhalls.dart';
 import 'package:flutter_try/pages/Tulkaremhalls.dart';
+import 'package:flutter_try/pages/bandnablus.dart';
+import 'package:flutter_try/pages/bandramallah.dart';
+import 'package:flutter_try/pages/bandrateh.dart';
+import 'package:flutter_try/pages/bandratel.dart';
+import 'package:flutter_try/pages/bandtulkarem.dart';
 import 'package:flutter_try/pages/hallbigrate.dart';
 import 'package:flutter_try/pages/hallsmallrate.dart';
-class NavDrawer extends StatelessWidget {
+class NavDrawerband extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +42,7 @@ class NavDrawer extends StatelessWidget {
             title: Text('High to Low'),
             onTap: () => {Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => HLprice()
+                              builder: (_) => HLpriceband()
                             ),
                           )},
           ),
@@ -44,7 +51,7 @@ class NavDrawer extends StatelessWidget {
             title: Text('Low to High'),
             onTap: () => {Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => LHprice()
+                              builder: (_) => LHpriceband()
                             ),
                           )},
           ),
@@ -60,7 +67,7 @@ class NavDrawer extends StatelessWidget {
             title: Text('High to Low'),
             onTap: () => {Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => hallbigrate()
+                              builder: (_) => bandbigrate()
                             ),
                           )},
           ),
@@ -69,7 +76,7 @@ class NavDrawer extends StatelessWidget {
             title: Text('Low to High'),
             onTap: () => {Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => hallsmallrate()
+                              builder: (_) => bandlowrate()
                             ),
                           )},
           ),
@@ -88,7 +95,7 @@ class NavDrawer extends StatelessWidget {
             onTap: (){
               Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => Nablushalls()
+                              builder: (_) => Nablusband()
                             ),
                           );
 
@@ -101,7 +108,7 @@ class NavDrawer extends StatelessWidget {
             onTap: (){
               Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => Ramallahalls()
+                              builder: (_) => Ramband()
                             ),
                           );
 
@@ -114,7 +121,7 @@ class NavDrawer extends StatelessWidget {
             onTap: (){
               Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => Tulkaremhalls()
+                              builder: (_) => tulband()
                             ),
                           );
 

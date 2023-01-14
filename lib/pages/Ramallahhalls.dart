@@ -6,26 +6,26 @@ import 'package:flutter_try/services/workerauth.dart';
 import 'package:flutter_try/widget/loader.dart';
 import 'package:provider/provider.dart';
 
-class Tulkaremhalls extends StatefulWidget{
-const Tulkaremhalls({Key? key}):super(key:key);
+class Ramallahalls extends StatefulWidget{
+const Ramallahalls({Key? key}):super(key:key);
 
   get workers => null;
   get recomend=> null;
  // get temp =>null;
   //get workerdata => null;
 @override
-_TulkaremhallsState createState()=> _TulkaremhallsState();
+_RamallahallsState createState()=> _RamallahallsState();
 
 
 }
-class _TulkaremhallsState extends State<Tulkaremhalls> with TickerProviderStateMixin {
+class _RamallahallsState extends State<Ramallahalls> with TickerProviderStateMixin {
   List <Worker> ? workers ;
   final WorkerAuthService hall = WorkerAuthService();
   late Worker temp;
 
   showallhalls() async{
     
-    workers = await hall.showhallsTulkarem(context);
+    workers = await hall.showhallsRamallah(context);
     setState(() {
       
     });

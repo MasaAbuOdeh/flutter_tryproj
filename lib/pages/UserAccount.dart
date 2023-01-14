@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_try/models/worker.dart';
+import 'package:flutter_try/providers/worker_provider.dart';
+import 'package:flutter_try/services/workerauth.dart';
+import 'package:provider/provider.dart';
 
 class UserAccount extends StatefulWidget {
   @override
@@ -8,17 +12,40 @@ class UserAccount extends StatefulWidget {
 
 
 class _UserAccountState extends State<UserAccount>{
+Worker ? woupdate  ;
+final WorkerAuthService uppdate =WorkerAuthService();
+final TextEditingController _emailController = TextEditingController();
+ // final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  
+  Future updaterefresh()async{
+    final worker = Provider.of<WorkerProvider>(context).worker;
+return uppdate.updatinfo(context: context,id: worker.id, name: worker.name, email: worker.email, phone: worker.phone);
+
+  }
+
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _nameController.dispose();
+  }
+
 
 
   bool isRememberMe=false;
   Widget buildEmail() {
-    return Column(
+    final worker = Provider.of<WorkerProvider>(context).worker;
+    return FutureBuilder(future :updaterefresh(),builder: ((context, snapshot) {
+       if(snapshot.hasData){
+        print(snapshot.data);
+        return  Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const Text(
           'Email',
           style: TextStyle(
-              color:  Color(0xeeffb7c5),
+              color:  Color.fromARGB(236, 216, 169, 74),
               fontSize: 16,
               fontWeight: FontWeight.bold
           ),
@@ -32,14 +59,15 @@ class _UserAccountState extends State<UserAccount>{
 
               boxShadow: [
                 const BoxShadow(
-                    color: Color(0xeeffb7c5),
+                    color: Color.fromARGB(236, 216, 169, 74),
                     blurRadius:6,
                     offset: Offset(0,2)
                 )
               ]
           ),
           height: 60,
-          child: const TextField(
+          child: TextField(
+            controller: _emailController,
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(
                 color: Colors.black87
@@ -51,11 +79,11 @@ class _UserAccountState extends State<UserAccount>{
                 contentPadding: EdgeInsets.only(top: 14),
                 prefixIcon: Icon(
                     Icons. email,
-                    color:  Color(0xeeffb7c5)
+                    color:  Color.fromARGB(236, 216, 169, 74),
                 ),
-                hintText: 'Email',
+                hintText: worker.email,
                 hintStyle: TextStyle(
-                    color: Color(0xeeffb7c5)
+                    color: Color.fromARGB(236, 216, 169, 74),
                 )
             ),
           ),
@@ -63,6 +91,12 @@ class _UserAccountState extends State<UserAccount>{
         )
       ],
     );
+       }
+       return CircularProgressIndicator();
+    }));
+    
+    
+    
 
   }
 
@@ -119,13 +153,14 @@ class _UserAccountState extends State<UserAccount>{
     );
   }*/
   Widget buildName() {
+     final worker = Provider.of<WorkerProvider>(context).worker;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const Text(
           'Name',
           style: TextStyle(
-              color: Color(0xeeffb7c5),
+              color: Color.fromARGB(236, 216, 169, 74),
               fontSize: 16,
               fontWeight: FontWeight.bold
           ),
@@ -138,17 +173,18 @@ class _UserAccountState extends State<UserAccount>{
               borderRadius: BorderRadius.circular(15),
               boxShadow: [
                 const BoxShadow(
-                    color: Color(0xeeffb7c5),
+                    color: Color.fromARGB(236, 216, 169, 74),
                     blurRadius:6,
                     offset: Offset(0,2)
                 )
               ]
           ),
           height: 60,
-          child: const TextField(
+          child:  TextField(
+            controller: _nameController,
             obscureText: true,
             style: TextStyle(
-                color: Color(0xeeffb7c5)
+                color: Color.fromARGB(236, 216, 169, 74),
             ),
 
 
@@ -157,11 +193,11 @@ class _UserAccountState extends State<UserAccount>{
                 contentPadding: EdgeInsets.only(top: 14),
                 prefixIcon: Icon(
                     Icons.person,
-                    color: Color(0xeeffb7c5)
+                    color: Color.fromARGB(236, 216, 169, 74),
                 ),
-                hintText: 'Name',
+                hintText: worker.name,
                 hintStyle: TextStyle(
-                    color: Color(0xeeffb7c5)
+                    color: Color.fromARGB(236, 216, 169, 74),
                 )
             ),
           ),
@@ -171,13 +207,14 @@ class _UserAccountState extends State<UserAccount>{
     );
   }
   Widget buildPhone() {
+     final worker = Provider.of<WorkerProvider>(context).worker;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const Text(
           'Phone',
           style: TextStyle(
-              color: Color(0xeeffb7c5),
+              color: Color.fromARGB(236, 216, 169, 74),
               fontSize: 16,
               fontWeight: FontWeight.bold
           ),
@@ -190,17 +227,18 @@ class _UserAccountState extends State<UserAccount>{
               borderRadius: BorderRadius.circular(15),
               boxShadow: [
                 const BoxShadow(
-                    color: Color(0xeeffb7c5),
+                    color: Color.fromARGB(236, 216, 169, 74),
                     blurRadius:6,
                     offset: Offset(0,2)
                 )
               ]
           ),
           height: 60,
-          child: const TextField(
+          child:  TextField(
+            controller: _phoneController,
             obscureText: true,
             style: TextStyle(
-                color: Color(0xeeffb7c5)
+                color: Color.fromARGB(236, 216, 169, 74),
             ),
 
 
@@ -209,11 +247,11 @@ class _UserAccountState extends State<UserAccount>{
                 contentPadding: EdgeInsets.only(top: 14),
                 prefixIcon: Icon(
                     Icons.phone,
-                    color: Color(0xeeffb7c5)
+                    color: Color.fromARGB(236, 216, 169, 74),
                 ),
-                hintText: 'Phone',
+                hintText: worker.phone,
                 hintStyle: TextStyle(
-                    color: Color(0xeeffb7c5)
+                    color: Color.fromARGB(236, 216, 169, 74),
                 )
             ),
           ),
@@ -235,14 +273,14 @@ class _UserAccountState extends State<UserAccount>{
           onPressed: () => print( 'LogOut Pressed'),
           shape:RoundedRectangleBorder(
               side: const BorderSide(
-                  color:Color(0xeeffb7c5)),
+                  color:Color.fromARGB(236, 216, 169, 74),),
               borderRadius: BorderRadius.circular(15)
           ),
           color: Colors.white,
           child: const Text(
             'LogOut',
             style: TextStyle(
-              color: Color(0xeeffb7c5),
+              color: Color.fromARGB(236, 216, 169, 74),
               fontSize: 18,
               fontWeight: FontWeight.bold,
 
@@ -255,23 +293,25 @@ class _UserAccountState extends State<UserAccount>{
 
   }
   Widget buildUpdateBtn() {
+    final worker = Provider.of<WorkerProvider>(context).worker;
     return Container(
         child:
         MaterialButton(
           minWidth: double.infinity,
           height: 60 ,
 
-          onPressed: () => print( 'Update Pressed'),
+          onPressed: () =>uppdate.updatinfo(context: context,id:worker.id , name: _nameController.text,
+ email: _emailController.text, phone: _phoneController.text),
           shape:RoundedRectangleBorder(
               side: const BorderSide(
-                  color:Color(0xeeffb7c5)),
+                  color:Color.fromARGB(236, 216, 169, 74),),
               borderRadius: BorderRadius.circular(15)
           ),
           color: Colors.white,
           child: const Text(
             'Update',
             style: TextStyle(
-              color: Color(0xeeffb7c5),
+              color: Color.fromARGB(236, 216, 169, 74),
               fontSize: 18,
               fontWeight: FontWeight.bold,
 
@@ -286,6 +326,10 @@ class _UserAccountState extends State<UserAccount>{
   @override
   Widget build (BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Update personal information"),
+        backgroundColor: Color.fromARGB(236, 216, 169, 74),
+      ),
       body: AnnotatedRegion <SystemUiOverlayStyle> (
         value:SystemUiOverlayStyle.light,
         child:GestureDetector(
@@ -318,7 +362,7 @@ class _UserAccountState extends State<UserAccount>{
                   physics: const AlwaysScrollableScrollPhysics(),
                   padding: const EdgeInsets.symmetric(
                       horizontal: 25,
-                      vertical: 120
+                      vertical: 80
                   ), // EdgeInsets.symmetric
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -326,13 +370,13 @@ class _UserAccountState extends State<UserAccount>{
                         const Text(
                           'Personal Data',
                           style: TextStyle(
-                              color: Color(0xeeffb7c5),
+                              color: Color.fromARGB(236, 216, 169, 74),
                               fontSize: 30,
                               fontWeight: FontWeight.bold
 
                           ),
                         ),
-                        const SizedBox(height: 50),
+                        const SizedBox(height: 30),
                         buildName(),
                         const SizedBox(height: 20),
                         buildPhone(),
@@ -343,7 +387,7 @@ class _UserAccountState extends State<UserAccount>{
                         const SizedBox(height: 80),
                         buildUpdateBtn(),
                         const SizedBox(height: 20),
-                        buildLogOutBtn(),
+                        
 
 
 

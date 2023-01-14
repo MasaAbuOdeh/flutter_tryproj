@@ -216,14 +216,24 @@ double avgRating=0;
               
               //Text(workerdata.name, style: TextStyle(fontSize: 35),),
               //SizedBox(height: 5,),
-              Row(
+               Row(
                 children: [
                   Text(workers![index].name, style: TextStyle(fontSize: 20),),
                   SizedBox(width: 30,),
               Stars(rating: avgRating,),
                       SizedBox(width: 25,),
 
-                      IconButton(onPressed: () {
+                     
+
+                ],
+              ),
+              SizedBox(height: 5,),
+              Row(
+                children: [
+
+                  Text(workers![index].price==null?"":'\$${workers![index].price}', style: TextStyle(fontSize: 20),),
+                  SizedBox(width: 50,),
+                  IconButton(onPressed: () {
 
                        deleteProduct(workersdata, index);
 
@@ -231,13 +241,10 @@ double avgRating=0;
                 icon: Icon(Icons.delete_outlined),
                 color: Colors.black,
                 iconSize: 25,
-                alignment: Alignment.bottomRight,)
-
+                alignment: Alignment.bottomRight,),
+                Text('Delete', style: TextStyle(fontSize: 20),),
                 ],
-              ),
-              SizedBox(height: 5,),
-              Text(workers![index].price==null?"":'\$${workers![index].price}', style: TextStyle(fontSize: 20),),
-              
+              )
               
 
 

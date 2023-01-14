@@ -6,26 +6,37 @@ import 'package:flutter_try/services/workerauth.dart';
 import 'package:flutter_try/widget/loader.dart';
 import 'package:provider/provider.dart';
 
-class Tulkaremhalls extends StatefulWidget{
-const Tulkaremhalls({Key? key}):super(key:key);
+class LHpriceband extends StatefulWidget{
+const LHpriceband({Key? key}):super(key:key);
 
   get workers => null;
   get recomend=> null;
  // get temp =>null;
   //get workerdata => null;
 @override
-_TulkaremhallsState createState()=> _TulkaremhallsState();
+_LHpricebandState createState()=> _LHpricebandState();
 
 
 }
-class _TulkaremhallsState extends State<Tulkaremhalls> with TickerProviderStateMixin {
+class _LHpricebandState extends State<LHpriceband> with TickerProviderStateMixin {
   List <Worker> ? workers ;
   final WorkerAuthService hall = WorkerAuthService();
   late Worker temp;
 
   showallhalls() async{
     
-    workers = await hall.showhallsTulkarem(context);
+    workers = await hall.showAllband(context);
+    for(int i=0; i<workers!.length;i++){
+      for(int j=i+1;j<workers!.length;j++){
+        if(workers![i].price>workers![j].price){
+          temp=workers![i];
+          workers![i]=workers![j];
+          workers![j]=temp;
+
+        }
+      }
+    }
+
     setState(() {
       
     });
@@ -57,7 +68,7 @@ class _TulkaremhallsState extends State<Tulkaremhalls> with TickerProviderStateM
         ? const Loader()
         : Scaffold(
           appBar: AppBar(
-            title: Text("From Tulkarm"),
+            title: Text("Price from low to high"),
             backgroundColor:Color.fromARGB(235, 216, 171, 82) ,
           ),
       body: Column(

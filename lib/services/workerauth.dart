@@ -181,12 +181,116 @@ Future<List<Worker>>showhallsNablus(BuildContext context) async {
 
 }
 
+///show Ramallah halls
+Future<List<Worker>>showhallsRamallah(BuildContext context) async {
+  
+  
+  List <Worker> workerhalls =[];
+  try {
+          http.Response res = await http.get(Uri.parse('$uri/business/get-Ramallah'), headers:{
+          'Content-Type': 'application/json; charset=UTF-8',
+          }
+          ) ;   
+
+          httpErrorHandel(response: res, context: context, onSuccess: () {
+            for (int i =0; i < jsonDecode(res.body).length;i++){
+            workerhalls.add(Worker.fromJson(jsonEncode(jsonDecode(res.body)[i],
+              ),
+              ),
+              );
+            }
+          });
+  } catch (e) {
+              showSnackBar(context, e.toString());
+  }
+  return workerhalls;
+
+}
+
 Future<List<Worker>>showhallsTulkarem(BuildContext context) async {
   
   
   List <Worker> workerhalls =[];
   try {
           http.Response res = await http.get(Uri.parse('$uri/business/get-Tulkarem'), headers:{
+          'Content-Type': 'application/json; charset=UTF-8',
+          }
+          ) ;   
+
+          httpErrorHandel(response: res, context: context, onSuccess: () {
+            for (int i =0; i < jsonDecode(res.body).length;i++){
+            workerhalls.add(Worker.fromJson(jsonEncode(jsonDecode(res.body)[i],
+              ),
+              ),
+              );
+            }
+          });
+  } catch (e) {
+              showSnackBar(context, e.toString());
+  }
+  return workerhalls;
+
+}
+
+//get band Nablud,Ranmallah tulkarem
+
+Future<List<Worker>>showbandNablus(BuildContext context) async {
+  
+  
+  List <Worker> workerhalls =[];
+  try {
+          http.Response res = await http.get(Uri.parse('$uri/business/get-Nablusband'), headers:{
+          'Content-Type': 'application/json; charset=UTF-8',
+          }
+          ) ;   
+
+          httpErrorHandel(response: res, context: context, onSuccess: () {
+            for (int i =0; i < jsonDecode(res.body).length;i++){
+            workerhalls.add(Worker.fromJson(jsonEncode(jsonDecode(res.body)[i],
+              ),
+              ),
+              );
+            }
+          });
+  } catch (e) {
+              showSnackBar(context, e.toString());
+  }
+  return workerhalls;
+
+}
+
+///show Ramallah halls
+Future<List<Worker>>showbandRamallah(BuildContext context) async {
+  
+  
+  List <Worker> workerhalls =[];
+  try {
+          http.Response res = await http.get(Uri.parse('$uri/business/get-Ramallahband'), headers:{
+          'Content-Type': 'application/json; charset=UTF-8',
+          }
+          ) ;   
+
+          httpErrorHandel(response: res, context: context, onSuccess: () {
+            for (int i =0; i < jsonDecode(res.body).length;i++){
+            workerhalls.add(Worker.fromJson(jsonEncode(jsonDecode(res.body)[i],
+              ),
+              ),
+              );
+            }
+          });
+  } catch (e) {
+              showSnackBar(context, e.toString());
+  }
+  return workerhalls;
+
+}
+
+Future<List<Worker>>showbandTulkarem(BuildContext context) async {
+  
+  
+  List <Worker> workerhalls =[];
+  try {
+          http.Response res = await http.get(Uri.parse('$uri/business/get-Tulkaremband'), headers:{
           'Content-Type': 'application/json; charset=UTF-8',
           }
           ) ;   
@@ -283,6 +387,58 @@ Future<List<Worker>>showrecomendedband(BuildContext context) async {
   return workerhalls;
 
 }
+//get all photography
+Future<List<Worker>>showAllphotograpth(BuildContext context) async {
+  
+  
+  List <Worker> workerhalls =[];
+  try {
+          http.Response res = await http.get(Uri.parse('$uri/business/get-photography'), headers:{
+          'Content-Type': 'application/json; charset=UTF-8',
+          }
+          ) ;   
+
+          httpErrorHandel(response: res, context: context, onSuccess: () {
+            for (int i =0; i < jsonDecode(res.body).length;i++){
+            workerhalls.add(Worker.fromJson(jsonEncode(jsonDecode(res.body)[i],
+              ),
+              ),
+              );
+            }
+          });
+  } catch (e) {
+              showSnackBar(context, e.toString());
+  }
+  return workerhalls;
+
+}
+//get all decorate
+
+Future<List<Worker>>showAlldecorate(BuildContext context) async {
+  
+  
+  List <Worker> workerhalls =[];
+  try {
+          http.Response res = await http.get(Uri.parse('$uri/business/get-decorate'), headers:{
+          'Content-Type': 'application/json; charset=UTF-8',
+          }
+          ) ;   
+
+          httpErrorHandel(response: res, context: context, onSuccess: () {
+            for (int i =0; i < jsonDecode(res.body).length;i++){
+            workerhalls.add(Worker.fromJson(jsonEncode(jsonDecode(res.body)[i],
+              ),
+              ),
+              );
+            }
+          });
+  } catch (e) {
+              showSnackBar(context, e.toString());
+  }
+  return workerhalls;
+
+}
+
 
 void deleteProduct({
     required BuildContext context,
@@ -339,6 +495,58 @@ void deleteProduct({
               showSnackBar(context, e.toString());
   }
   return workerhalls;
+
+}
+
+//update business info
+
+Future <Worker>  updatinfo({
+required BuildContext context,
+required String id,
+required String name,
+required String email,
+required String phone,
+
+
+
+
+
+}) async {
+  final workerProvider = Provider.of<WorkerProvider>(context, listen: false);
+   late Worker wo = workerProvider.worker ;
+  try {
+       
+       http.Response res = await http.post(
+        Uri.parse('$uri/api/update-info'),
+        
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': workerProvider.worker.token,
+        },
+        body: jsonEncode({
+          'name':name,
+          'email':email,
+          'phone':phone,
+        }), );
+        httpErrorHandel(
+        response: res,
+        context: context,
+        onSuccess: () {
+          wo=jsonDecode(res.body);
+          showSnackBar(context, 'update succefully',);
+         // Navigator.pop(context);
+        },
+      ); 
+      
+      
+
+
+       
+
+  }catch(e){
+    showSnackBar(context, e.toString());
+  }
+  return wo;
 
 }
 

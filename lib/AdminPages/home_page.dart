@@ -142,19 +142,19 @@ class _home_adminState extends State<home_admin>{
                               Categoryard(
                               title:"Band group",
                               svgSrc: "https://i.pinimg.com/564x/e1/8d/eb/e18deb2b7ceec7de1de1c3adf3e4fcbf.jpg",
-                              printt:'Band',
+                              printt:'Dabkeh',
                             ),
                             
                             Categoryard(
                               title:"photography",
                               svgSrc: "https://www.hockwoldhallnorfolk.com/wp-content/uploads/2017/02/wedding-photographer.jpg",
-                              printt:'photography',
+                              printt:'photograph',
                             ),
                             
                             Categoryard(
                               title:"Decorate",
                               svgSrc: "https://i.pinimg.com/564x/34/ee/53/34ee53b2686e0014b2438e295eb6b05d.jpg",
-                              printt:'Decorate',
+                              printt:'Decor',
                             ),
                             
 
