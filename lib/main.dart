@@ -15,6 +15,7 @@ import 'package:flutter_try/business/business_screen.dart';
 import 'package:flutter_try/business/calendar_nofire/booking_req.dart';
 import 'package:flutter_try/business/calendar_nofire/calendar_client.dart';
 import 'package:flutter_try/business/commentPage.dart';
+import 'package:flutter_try/business/decoratedetail.dart';
 import 'package:flutter_try/business/maps.dart';
 import 'package:flutter_try/business/photodetail.dart';
 import 'package:flutter_try/fire/createaccount.dart';
@@ -117,7 +118,8 @@ class MyApp extends StatelessWidget {
           'Decorate':(context) => decoratePage(),
           'Dabkeh':(context) => dabkeh(),
           'photograph':(context) => photography(),
-          'Decor':(context) => decor()
+          'Decor':(context) => decor(),
+          '/detaildecore':(context) => decoratedetail()
       },
     );
   }

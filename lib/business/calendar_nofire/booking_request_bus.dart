@@ -67,7 +67,7 @@ class _business_bookreqState extends State<business_bookreq> with TickerProvider
 
         return worker.order![index].status=='reject'?Text(''): Container(
           width:double.maxFinite,
-          height: 260,
+          height: 300,
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           margin: const EdgeInsets.only(right: 17, top: 20,left: 17),
           decoration: BoxDecoration(
@@ -94,6 +94,13 @@ class _business_bookreqState extends State<business_bookreq> with TickerProvider
                 children: [
                   Text('Event:${worker.order![index].eventname}', style: TextStyle(fontSize: 20),),
                    SizedBox(width: 15,),
+                 
+
+                ],
+              ),
+              SizedBox(height: 10,),
+              Row(
+                children: [
                   Text('Client:${worker.order![index].username}', style: TextStyle(fontSize: 15),),
                   SizedBox(width: 10,),
                   Text(worker.order![index].userId, style: TextStyle(fontSize: 10),),

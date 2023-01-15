@@ -65,11 +65,13 @@ class _LoginAdminState extends State<LoginAdmin>{
                         CustomTextField(
                           controller: _emailController,
                           hintText: 'Email',
+                          sheef: false,
                         ),
                         const SizedBox(height: 50),
                         CustomTextField(
                           controller: _passwordController,
                           hintText: 'Password',
+                          sheef: true,
                         ),
                         const SizedBox(height: 50),
                         CustomButton(

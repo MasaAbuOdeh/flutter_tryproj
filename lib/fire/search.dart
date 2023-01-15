@@ -127,7 +127,7 @@ await _firestore
                           leading: Icon(Icons.account_box, color: Colors.black),
             title: Text(data!['name']),
             subtitle: Text(data!['email']),
-                        trailing: data!['name']=='hanaa'? Icon(Icons.call_received_outlined, color: Colors.green):Icon(Icons.account_box, color: Colors.black),
+                        trailing: data!['name']=='omar'? Icon(Icons.call_received_outlined, color: Colors.green):Icon(Icons.account_box, color: Colors.black),
           );
         }).toList()
       ))

@@ -7,6 +7,7 @@ import 'package:flutter_try/common/widgets/custom_button.dart';
 import 'package:flutter_try/common/widgets/custom_textfield.dart';
 import 'package:flutter_try/constants/utils.dart';
 import 'package:flutter_try/services/business_info.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/worker_provider.dart';
@@ -131,34 +132,40 @@ class _business_homeState extends State<business_home>{
                  CustomTextField(
                   controller: NameController,
                   hintText: 'Name',
+                  sheef: false,
                 ),
                 const SizedBox(height: 10),
                 CustomTextField(
                   controller: descriptionController,
                   hintText: 'Description',
                   maxLines: 7,
+                  sheef: false,
                 ),
                 const SizedBox(height: 10),
                 CustomTextField(
                   controller: priceController,
                   hintText: 'Price',
+                  sheef: false,
                 ),
                 const SizedBox(height: 10),
                 CustomTextField(
                   controller: locationController,
                   hintText: 'Location',
+                  sheef: false,
                 ),
                 
                 const SizedBox(height: 10),
                 CustomTextField(
                   controller: locationlatController,
                   hintText: 'latitude for locatin on map',
+                  sheef: false,
                 ),
                 
                 const SizedBox(height: 10),
                 CustomTextField(
                   controller: locationlongController,
                   hintText: 'longitude for location on map',
+                  sheef: false,
                 ),
                 const SizedBox(height: 20),
                 CustomButton(text: "Add",

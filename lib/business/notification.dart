@@ -71,11 +71,13 @@ class _notificationState extends State<notification> {
                         CustomTextField(
                           controller: _nameController,
                           hintText: 'title',
+                          sheef: false,
                         ),
                         const SizedBox(height: 20),
                         CustomTextField(
                           controller: _emailController,
                           hintText: 'body',
+                          sheef: false,
                         ),
                         const SizedBox(height: 20),
                         CustomButton(

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_try/business/calendar_nofire/allclientbooking.dart';
 import 'package:flutter_try/pages/UserAccount.dart';
+import 'package:flutter_try/pages/account.dart';
 import 'package:flutter_try/providers/user_provider.dart';
 import 'package:flutter_try/services/auth_service.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +41,11 @@ class _profileState extends State<profile>{
                   child: Container(
                       child: Row(
                         children: [
-                          IconButton(onPressed: () {},
+                          IconButton(onPressed: () {
+                             Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => Account()));
+                          },
                               icon: Icon(Icons.arrow_back),
                               color: Color.fromARGB(235, 216, 171, 82),
 

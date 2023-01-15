@@ -130,21 +130,25 @@ class _AuthScreenState extends State<AuthScreen> {
                         CustomTextField(
                           controller: _nameController,
                           hintText: 'Name',
+                          sheef: false,
                         ),
                         const SizedBox(height: 20),
                         CustomTextField(
                           controller: _emailController,
                           hintText: 'Email',
+                          sheef: false,
                         ),
                         const SizedBox(height: 20),
                         CustomTextField(
                           controller: _passwordController,
                           hintText: 'Password',
+                          sheef: true,
                         ),
                         const SizedBox(height: 20),
                         CustomTextField(
                           controller: _phoneController,
                           hintText: 'phone',
+                          sheef: false,
                         ),
                         const SizedBox(height: 20),
                         CustomButton(
@@ -226,11 +230,13 @@ class _AuthScreenState extends State<AuthScreen> {
                         CustomTextField(
                           controller: _emailController,
                           hintText: 'Email',
+                          sheef: false,
                         ),
                         const SizedBox(height: 20),
                         CustomTextField(
                           controller: _passwordController,
                           hintText: 'Password',
+                          sheef: true,
                         ),
                         const SizedBox(height: 20),
                         CustomButton(
