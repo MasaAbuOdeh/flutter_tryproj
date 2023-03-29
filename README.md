@@ -25,9 +25,9 @@ samples, guidance on mobile development, and a full API reference.
 ## main page
 <img src="https://user-images.githubusercontent.com/93736802/228675348-60b67836-c277-4611-8b64-5236e6b0e8a7.jpg" width="400" height="800" />
 
-##Detail page
+## Detail page
 <img src="https://user-images.githubusercontent.com/93736802/228675955-2cc78a8c-b8d3-4490-97ad-015d59ef322c.jpg" width="400" height="800" />
 
-##Map page
+## Map page
 <img src="https://user-images.githubusercontent.com/93736802/228676005-747d2c3d-a214-4231-ac1a-1a525874b941.jpg" width="400" height="800" />
 
