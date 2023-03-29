@@ -17,4 +17,4 @@ samples, guidance on mobile development, and a full API reference.
 
 
 ## Wedding Planner 
-<img src="https://user-images.githubusercontent.com/93736802/228666365-8c379f9d-bab6-4c57-879c-574d49c1c298.jpg" width="450" height="300" />
+<img src="https://user-images.githubusercontent.com/93736802/228666365-8c379f9d-bab6-4c57-879c-574d49c1c298.jpg" width="900" height="650" />
